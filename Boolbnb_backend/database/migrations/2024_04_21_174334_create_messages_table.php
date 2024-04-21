@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
+            $table->text('content')->nullable();
+            $table->string('email', 255)->nullable();
+            $table->foreignId('accommodation_id')->constrained('accommodations');
             $table->timestamps();
         });
     }
@@ -22,6 +25,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('messages', function (Blueprint $table) {
+            $table->dropForeign(['accomodation_id']);
+        });
         Schema::dropIfExists('messages');
     }
 };
