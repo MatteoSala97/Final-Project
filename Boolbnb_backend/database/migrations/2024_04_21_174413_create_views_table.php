@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('views', function (Blueprint $table) {
             $table->id();
+            $table->binary('ip_address', 16)->unique();
+            $table->foreign('accomodation:id')->references('id')->on('accomodations')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -22,6 +24,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('views', function (Blueprint $table) {
+            $table->dropForeign(['accomodation_id']);
+        });
+
         Schema::dropIfExists('views');
     }
 };

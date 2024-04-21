@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('pictures', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable(true)->max(255);
+            $table->string('url')->max(1024);
+            $table->foreign('accomodation_id')->references('id')->on('accomodations')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -22,6 +25,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('pictures', function (Blueprint $table) {
+            $table->dropForeign(['accommodation_id']);
+        });
+
         Schema::dropIfExists('pictures');
     }
 };
