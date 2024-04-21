@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('views', function (Blueprint $table) {
             $table->id();
-            $table->binary('ip_address', 16)->unique();
-            $table->foreign('accomodation:id')->references('id')->on('accomodations')->onDelete('cascade');
+            $table->string('ip_address', 16)->unique();
+            $table->foreignId('accomodation_id')->constrained('accomodations');
             $table->timestamps();
         });
     }

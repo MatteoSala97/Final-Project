@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable(true)->max(255);
             $table->string('url')->max(1024);
-            $table->foreign('accomodation_id')->references('id')->on('accomodations')->onDelete('cascade');
+            $table->foreignId('accomodation_id')->constrained('accomodations');
             $table->timestamps();
         });
     }
