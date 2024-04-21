@@ -15,22 +15,21 @@ return new class extends Migration
     {
         Schema::create('accomodations', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable(false)->max(255);
-            $table->string('type')->nullable(true)->max(255);
-            $table->tinyInteger('rooms')->nullable(false);
-            $table->tinyInteger('beds')->nullable(false)->default(1);
-            $table->tinyInteger('bathrooms')->nullable(true);
-            $table->decimal('square_m', total: 10, places: 2)->nullable(true);
-            $table->string('address')->nullable(false)->max(255);
-            $table->decimal('latitude', total: 10, places: 6)->nullable(false);
-            $table->decimal('longitude', total: 10, places: 6)->nullable(false);
-            $table->decimal('price_per_night', total: 10, places: 2)->nullable(false);
+            $table->string('title')->max(255);
+            $table->string('type')->nullable()->max(255);
+            $table->tinyInteger('rooms');
+            $table->tinyInteger('beds')->default(1);
+            $table->tinyInteger('bathrooms')->nullable();
+            $table->decimal('square_m', 10, 2)->nullable();
+            $table->string('address')->max(255);
+            $table->decimal('latitude', 10, 6);
+            $table->decimal('longitude', 10, 6);
+            $table->decimal('price_per_night', 10, 2);
             $table->boolean('hidden')->default(false);
-            $table->string('thumb')->max(255)->nullable(true);
-            $table->string('host_thumb')->max(255)->nullable(true);
-            $table->decimal('price_per_night', total: 10, places: 2)->nullable(false);
-            $table->decimal('rating', total: 3, places: 2)->nullable(true);
-            $table->foreignId(User::class)->nullable(true)->default(null);
+            $table->string('thumb')->max(255)->nullable();
+            $table->string('host_thumb')->max(255)->nullable();
+            $table->decimal('rating', 3, 2)->nullable();
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }
@@ -40,6 +39,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('accomodations', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+        });
         Schema::dropIfExists('accomodations');
     }
 };

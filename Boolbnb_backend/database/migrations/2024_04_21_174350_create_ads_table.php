@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('ads', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 255);
+            $table->tinyInteger('duration');
+            $table->decimal('price_per_day', 3, 2);
             $table->timestamps();
         });
     }
