@@ -44,3 +44,4 @@ class AccomodationController extends Controller
         }
     }
 }
+
