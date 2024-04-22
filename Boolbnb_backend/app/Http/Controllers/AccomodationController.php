@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Accomodation;
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 
 class AccomodationController extends Controller
 {
@@ -29,6 +30,25 @@ class AccomodationController extends Controller
      */
     public function store(Request $request)
     {
+
+        $client = new Client([
+            'verify' => false, // Disable SSL verification
+        ]);
+        $response = $client->get('https://api.tomtom.com/search/2/search/' . urlencode($request->address . $request->city) . '.json', [
+            'query' => [
+                //add your tomtom_api_key to the .env else wont work
+                'key' => env('TOMTOM_API_KEY'),
+                'countrySet' => 'IT',
+            ],
+        ]);
+
+        $data = json_decode($response->getBody(), true);
+        $latitude = $data['results'][0]['position']['lat'];
+        $longitude = $data['results'][0]['position']['lon'];
+
+
+
+
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'type' => 'required|string|min:1',
@@ -37,8 +57,6 @@ class AccomodationController extends Controller
             'bathrooms' => 'required|integer|min:1',
             'address' => 'required|string',
             'city' => 'required|string',
-            'latitude' => 'required|string',
-            'longitude' => 'required|string',
             'price_per_night' => 'required|numeric',
             'hidden' => 'required|boolean',
             'thumb' => 'required|string',
@@ -47,9 +65,16 @@ class AccomodationController extends Controller
             'user_id' => 'required|integer',
         ]);
 
-        // dd($request);
 
-        $new_accomodations = Accomodation::create($validatedData);
+
+
+        $validatedData['latitude'] = $latitude;
+        $validatedData['longitude'] = $longitude;
+
+        $new_accommodation = Accomodation::create($validatedData);
+
+
+
         return redirect()->route('dashboard');
     }
 
