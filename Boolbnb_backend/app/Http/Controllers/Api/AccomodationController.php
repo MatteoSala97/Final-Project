@@ -13,17 +13,22 @@ class AccomodationController extends Controller
 
         $min_price = $request->query('min_price');
         $max_price = $request->query('max_price');
+        $type = $request->query('type');
 
-        $query = Accomodation::query()->with('services', 'pictures');
+        $query = Accomodation::query();
 
-        if($min_price!== null){
-            $query->where('price_per_night', '>=', $min_price);
-        } if($max_price!== null){
-            $query->where('price_per_night', '<=', $max_price);
+
+        if ($min_price !== null && $max_price !== null) {
+            $query->whereBetween('price_per_night', [$min_price, $max_price]);
         }
 
-        $accomodations = $query->paginate(15);
+        if ($type !== null) {
+            $query->where('type', $type);
+        }
 
+
+        $accomodations = $query->paginate(15);
+        $accomodations = $query->with(['pictures', 'services'])->paginate(15);
         if ($accomodations->total() > 0) {
             return response()->json([
                 'success' => true,
