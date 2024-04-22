@@ -18,6 +18,7 @@ class AccomodationController extends Controller
         $query = Accomodation::query();
 
 
+
         if ($min_price !== null && $max_price !== null) {
             $query->whereBetween('price_per_night', [$min_price, $max_price]);
         }
