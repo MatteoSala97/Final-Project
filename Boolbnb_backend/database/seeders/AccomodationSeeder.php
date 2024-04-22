@@ -23,8 +23,8 @@ class AccomodationSeeder extends Seeder
             $new_record->title = $record['title'];
             $new_record->type = $record['type'];
             $new_record->rooms = $record['rooms'];
-            $new_record->beds = $record['beds'];
-            $new_record->bathrooms = $record['bathrooms'];
+            $new_record->beds = $record['beds'] ?? 1;
+            $new_record->bathrooms = $record['bathrooms'] ?? 0;
             $new_record->address = $record['address'];
             $new_record->city = $record['city'];
             $new_record->latitude = $record['latitude'];
@@ -32,7 +32,7 @@ class AccomodationSeeder extends Seeder
             $new_record->price_per_night = $record['price_per_night'];
             $new_record->thumb = $record['thumb'];
             $new_record->host_thumb = $record['host_thumb'];
-            $new_record->rating = $record['rating'];
+            $new_record->rating = $record['rating'] ?? 0;
             $new_record->user_id = $userIds[array_rand($userIds)];
             $new_record->save();
 
