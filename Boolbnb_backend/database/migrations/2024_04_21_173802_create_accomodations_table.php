@@ -20,8 +20,8 @@ return new class extends Migration
             $table->tinyInteger('rooms');
             $table->tinyInteger('beds')->default(1);
             $table->tinyInteger('bathrooms')->nullable();
-            $table->decimal('square_m', 10, 2)->nullable();
             $table->string('address')->max(255);
+            $table->string('city')->max(100);
             $table->decimal('latitude', 10, 6);
             $table->decimal('longitude', 10, 6);
             $table->decimal('price_per_night', 10, 2);
