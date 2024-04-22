@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccomodationController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,4 +30,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(function () {
+
+    // localhost:8000/dashboard/accomodations
+    Route::resource('accomodations', AccomodationController::class);
+
+
+});
 require __DIR__.'/auth.php';

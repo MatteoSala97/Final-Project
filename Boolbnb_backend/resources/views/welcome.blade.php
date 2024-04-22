@@ -12,7 +12,12 @@
 </head>
 
 <body>
-    <h1>Backend</h1>
+    <h1>Per recarsi nella dashboard fare /dashboard nell'uri
+    </h1>
+
+    <h2>per il register /register</h2>
+
+    <p></p>
 </body>
 
 </html>

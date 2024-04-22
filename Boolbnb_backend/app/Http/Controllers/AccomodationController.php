@@ -12,7 +12,8 @@ class AccomodationController extends Controller
      */
     public function index()
     {
-        //
+        $accomodations = Accomodation::all();
+        return view('pages.accomodation.index', compact('accomodations'));
     }
 
     /**
@@ -20,7 +21,7 @@ class AccomodationController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.accomodation.create');
     }
 
     /**
@@ -28,15 +29,37 @@ class AccomodationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'type' => 'required|string|min:1',
+            'rooms' => 'required|integer|min:1',
+            'beds' => 'required|integer|min:1',
+            'bathrooms' => 'required|integer|min:1',
+            'address' => 'required|string',
+            'city' => 'required|string',
+            'latitude' => 'required|string',
+            'longitude' => 'required|string',
+            'price_per_night' => 'required|numeric',
+            'hidden' => 'required|boolean',
+            'thumb' => 'required|string',
+            'host_thumb' => 'required|string',
+            'rating' => 'required|numeric',
+            'user_id' => 'required|integer',
+        ]);
+
+        // dd($request);
+
+        $new_accomodations = Accomodation::create($validatedData);
+        return redirect()->route('dashboard');
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(Accomodation $accomodation)
     {
-        //
+        // return view('pages.accomodation.show', compact('accomodations'));
     }
 
     /**
@@ -44,7 +67,7 @@ class AccomodationController extends Controller
      */
     public function edit(Accomodation $accomodation)
     {
-        //
+        // return view('pages.accomodation.edit', compact('accomodations'));
     }
 
     /**
@@ -52,7 +75,10 @@ class AccomodationController extends Controller
      */
     public function update(Request $request, Accomodation $accomodation)
     {
-        //
+        // $val_data = $request->validated();
+
+        // $accomodation->update($val_data);
+        // return redirect()->route('dashboard.accomodation.index');
     }
 
     /**
@@ -60,6 +86,8 @@ class AccomodationController extends Controller
      */
     public function destroy(Accomodation $accomodation)
     {
-        //
+        // $accomodations = Accomodation::all();
+
+        // return redirect()->route('dashboard.accomodation.index');
     }
 }

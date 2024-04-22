@@ -16,6 +16,21 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+
+
+
+
+                {{-- INDEX --}}
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('dashboard.accomodations.index')" :active="request()->routeIs('dashboard/accomodations')">
+                        {{ __('INDEX') }}
+                    </x-nav-link>
+                </div>
+
+
+
+
+
             </div>
 
             <!-- Settings Dropdown -->
