@@ -31,12 +31,25 @@ class AccomodationController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
+            'type' => 'required|string|min:1',
             'rooms' => 'required|integer|min:1',
             'beds' => 'required|integer|min:1',
             'bathrooms' => 'required|integer|min:1',
+            'address' => 'required|string',
+            'city' => 'required|string',
+            'latitude' => 'required|string',
+            'longitude' => 'required|string',
+            'price_per_night' => 'required|numeric',
+            'hidden' => 'required|boolean',
+            'thumb' => 'required|string',
+            'host_thumb' => 'required|string',
+            'rating' => 'required|numeric',
+            'user_id' => 'required|integer',
         ]);
 
-        $new_accomodation = Accomodation::create($validatedData);
+        // dd($request);
+
+        $new_accomodations = Accomodation::create($request);
         return redirect()->route('dashboard.accomodation.index');
     }
 
