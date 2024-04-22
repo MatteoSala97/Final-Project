@@ -11,12 +11,20 @@ class AccomodationController extends Controller
     public function index(Request $request)
     {
 
-
         $min_price = $request->query('min_price');
-        $max_price = $request->query('min_price');
+        $max_price = $request->query('max_price');
 
-        $accomodations = Accomodation::paginate(15);
-        if ($accomodations->count() > 0) {
+        $query = Accomodation::query()->with('services', 'pictures');
+
+        if($min_price!== null){
+            $query->where('price_per_night', '>=', $min_price);
+        } if($max_price!== null){
+            $query->where('price_per_night', '<=', $max_price);
+        }
+
+        $accomodations = $query->paginate(15);
+
+        if ($accomodations->total() > 0) {
             return response()->json([
                 'success' => true,
                 'res' => $accomodations
@@ -30,3 +38,4 @@ class AccomodationController extends Controller
         }
     }
 }
+
