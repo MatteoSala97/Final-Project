@@ -10,6 +10,11 @@ class Accomodation extends Model
 {
     use HasFactory;
 
+    public function pictures()
+    {
+        return $this->hasMany(Picture::class);
+    }
+
     public function services()
     {
         return $this->belongsToMany(Service::class);
