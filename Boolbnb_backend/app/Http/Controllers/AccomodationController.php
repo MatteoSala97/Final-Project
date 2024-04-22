@@ -12,7 +12,8 @@ class AccomodationController extends Controller
      */
     public function index()
     {
-        //
+        $accomodations = Accomodation::all();
+        return view('pages.accomodation.index', compact('accomodations'));
     }
 
     /**
@@ -20,7 +21,7 @@ class AccomodationController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.accomodation.create');
     }
 
     /**
@@ -28,15 +29,24 @@ class AccomodationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'rooms' => 'required|integer|min:1',
+            'beds' => 'required|integer|min:1',
+            'bathrooms' => 'required|integer|min:1',
+        ]);
+
+        $new_accomodation = Accomodation::create($validatedData);
+        return redirect()->route('dashboard.accomodation.index');
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(Accomodation $accomodation)
     {
-        //
+        // return view('pages.accomodation.show', compact('accomodations'));
     }
 
     /**
@@ -44,7 +54,7 @@ class AccomodationController extends Controller
      */
     public function edit(Accomodation $accomodation)
     {
-        //
+        // return view('pages.accomodation.edit', compact('accomodations'));
     }
 
     /**
@@ -52,7 +62,10 @@ class AccomodationController extends Controller
      */
     public function update(Request $request, Accomodation $accomodation)
     {
-        //
+        // $val_data = $request->validated();
+
+        // $accomodation->update($val_data);
+        // return redirect()->route('dashboard.accomodation.index');
     }
 
     /**
@@ -60,6 +73,8 @@ class AccomodationController extends Controller
      */
     public function destroy(Accomodation $accomodation)
     {
-        //
+        // $accomodations = Accomodation::all();
+
+        // return redirect()->route('dashboard.accomodation.index');
     }
 }
