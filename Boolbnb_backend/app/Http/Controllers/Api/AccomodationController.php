@@ -11,6 +11,15 @@ class AccomodationController extends Controller
     public function index(Request $request)
     {
 
+
+        /*QUERY SEARCH EXAMPLE (TESTING PURPOSES)
+
+        http://127.0.0.1:8000/api/accommodations?min_price=100&max_price=200&type=apartment&beds=1&rooms=1&bathrooms=1
+
+        It should give 43 results
+
+        */
+
         //Get query parameters
         $min_price = $request->query('min_price');
         $max_price = $request->query('max_price');
