@@ -19,4 +19,9 @@ class Accomodation extends Model
     {
         return $this->belongsToMany(Service::class);
     }
+
+    // public function beds()
+    // {
+    //     return $this->hasMany();
+    // }
 }
