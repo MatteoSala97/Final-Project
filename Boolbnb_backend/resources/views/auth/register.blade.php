@@ -13,7 +13,8 @@
         <!-- Surname -->
         <div class="mt-4">
             <x-input-label for="surname" :value="__('Surname')" />
-            <x-text-input id="surname" class="block mt-1 w-full" type="text" name="surname" :value="old('surname')" required autocomplete="surname" />
+            <x-text-input id="surname" class="block mt-1 w-full" type="text" name="surname" :value="old('surname')"
+                required autocomplete="surname" />
             <x-input-error :messages="$errors->get('surname')" class="mt-2" />
         </div>
 
@@ -46,20 +47,23 @@
         </div>
 
         <div class="mt-4">
-            <label for="birth_date" class="block font-medium text-sm text-gray-700">Birth Date</label>
+            <x-input-label for="birth_date" :value="__('Birth Date')" />
             <input id="birth_date" type="date" name="birth_date" value="{{ old('birth_date') }}" required autofocus
                 autocomplete="birth_date" class="form-input rounded-md shadow-sm mt-1 block w-full">
+            <x-input-error :messages="$errors->get('birth_date')" class="mt-2" />
         </div>
 
         <div class="mt-4">
-            <label for="phone_number" class="block font-medium text-sm text-gray-700">Phone Number</label>
+            <x-input-label for="phone_number" :value="__('Phone Number')" />
+
             <input id="phone_number" type="text" name="phone_number" value="{{ old('phone_number') }}" required
                 autofocus autocomplete="phone_number" class="form-input rounded-md shadow-sm mt-1 block w-full">
+            <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
         </div>
 
 
         <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            <a class="underline text-sm text-gray-300 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 href="{{ route('login') }}">
                 {{ __('Already registered?') }}
             </a>
