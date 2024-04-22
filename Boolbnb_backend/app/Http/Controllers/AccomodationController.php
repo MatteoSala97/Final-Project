@@ -49,8 +49,8 @@ class AccomodationController extends Controller
 
         // dd($request);
 
-        $new_accomodations = Accomodation::create($request);
-        return redirect()->route('dashboard.accomodation.index');
+        $new_accomodations = Accomodation::create($validatedData);
+        return redirect()->route('dashboard');
     }
 
 
