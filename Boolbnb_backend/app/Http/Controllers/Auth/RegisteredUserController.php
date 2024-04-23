@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -30,18 +31,31 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'surname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        //Dynamically calculating if the registering user is at least 18
+        $minDate = Carbon::now()->subYears(18)->format('Y-m-d');
+        $request->validate(
+            [
+                'name' => ['required', 'string', 'max:255'],
+                'surname' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                'birth_date' => ['nullable', 'date', 'before_or_equal:' . $minDate],
+                //last rule  is to only allow numbers in the phone number
+                'phone_number' => ['nullable', 'string', 'max:20', 'regex:/^[0-9+\s-]+$/'],
+            ],
+            [
+                'birth_date.before_or_equal' => 'You must be at least 18 years old to register.',
+                'phone_number.regex' => 'The phone number format is invalid.',
+            ]
+        );
 
         $user = User::create([
             'name' => $request->name,
             'surname' => $request->surname,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'birth_date' => $request->birth_date,
+            'phone_number' => $request->phone_number
         ]);
 
         event(new Registered($user));

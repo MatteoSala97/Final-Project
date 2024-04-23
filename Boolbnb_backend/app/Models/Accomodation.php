@@ -10,24 +10,12 @@ class Accomodation extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'title',
-        'type','rooms',
-        'beds',
-        'bathrooms',
-        'address',
-        'city',
-        'latitude',
-        'longitude',
-        'price_per_night',
-        'hidden',
-        'thumb',
-        'host_thumb',
-        'rating',
-        'user_id',
-        'created_at',
-        'updated_at'
-    ];
+    protected $guarded = [];
+
+    public function pictures()
+    {
+        return $this->hasMany(Picture::class);
+    }
 
     public function services()
     {
