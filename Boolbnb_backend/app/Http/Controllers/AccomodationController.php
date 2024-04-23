@@ -101,37 +101,42 @@ class AccomodationController extends Controller
         $client = new Client([
             'verify' => false, // Disable SSL verification
         ]);
-        $response = $client->get('https://api.tomtom.com/search/2/search/' . urlencode($request->address . ' ' . $request->cap . ' ' . $request->city) . '.json', [
+
+        $response = $client->get('https://api.tomtom.com/search/2/search/' . urlencode($request->address . $request->city) . '.json', [
             'query' => [
-                // Add your tomtom API key to the .env file else it won't work
+                //add your tomtom_api_key to the .env else wont work
                 'key' => env('TOMTOM_API_KEY'),
                 'countrySet' => 'IT',
             ],
         ]);
 
         $data = json_decode($response->getBody(), true);
+
         $latitude = $data['results'][0]['position']['lat'];
         $longitude = $data['results'][0]['position']['lon'];
 
-        $validatedData = $request->validated();
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'type' => 'required|string|min:1',
+            'rooms' => 'required|integer|min:1',
+            'beds' => 'required|integer|min:1',
+            'bathrooms' => 'required|integer|min:1',
+            'address' => 'required|string',
+            'city' => 'required|string',
+            'price_per_night' => 'required|numeric',
+            'hidden' => 'required',
+            'thumb' => 'required|string',
+            'host_thumb' => 'required|string',
+            'rating' => 'required|numeric',
+            'user_id' => 'required|integer',
+        ]);
 
-        // lat and long are calculated with the api call and attached to the validated data
-        $validatedData['latitude'] = $latitude;
-        $validatedData['longitude'] = $longitude;
-        $validatedData['user_id'] = auth()->id();
-        //doing this to make sure the checkbox returns a boolean
-        $request['hidden'] = $request->has('hidden');
+        $accomodation->update($validatedData);
 
-        $new_accommodation = Accomodation::create($validatedData);
-
-        // Attach services if provided
-        if ($request->has('services') && is_array($request->services) && count($request->services) > 0) {
-            foreach ($request->services as $serviceId) {
-                if (Service::find($serviceId)) {
-                    $new_accommodation->services()->attach($serviceId, ['created_at' => now(), 'updated_at' => now()]);
-                }
-            }
-        }
+        $accomodation->update([
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+        ]);
 
         return redirect()->route('dashboard');
     }
