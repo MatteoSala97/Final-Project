@@ -18,20 +18,22 @@
 </head>
 
 <body>
-    {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
         <x-nav-link :href="route('dashboard')">
             {{ __('torna indietro') }}
         </x-nav-link>
-    </div> --}}
+    </div>
 
-    {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-        <x-nav-link :href="route('dashboard.accomodations.create')">
-            {{ __('create') }}
-        </x-nav-link>
-    </div> --}}
+
+
+
+
 
 
     <div class="container">
+
+
+
 
         <div class="d-flex gap-2 my-4">
             <h2>Your accommodations</h2>

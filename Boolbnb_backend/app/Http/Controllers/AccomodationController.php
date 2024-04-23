@@ -106,7 +106,7 @@ class AccomodationController extends Controller
      */
     public function edit(Accomodation $accomodation)
     {
-        // return view('pages.accomodation.edit', compact('accomodations'));
+        return view('pages.accomodation.edit', compact('accomodation'));
     }
 
     /**

@@ -49,7 +49,9 @@
         <div class="mt-4">
             <x-input-label for="birth_date" :value="__('Birth Date')" />
             <input id="birth_date" type="date" name="birth_date" value="{{ old('birth_date') }}" required autofocus
-                autocomplete="birth_date" class="form-input rounded-md shadow-sm mt-1 block w-full">
+                autocomplete="birth_date" class="form-input rounded-md shadow-sm mt-1 block w-full"
+                max="{{ \Carbon\Carbon::now()->subYears(18)->format('Y-m-d') }}"
+                min="{{ \Carbon\Carbon::now()->subYears(110)->format('Y-m-d') }}">
             <x-input-error :messages="$errors->get('birth_date')" class="mt-2" />
         </div>
 
@@ -57,7 +59,8 @@
             <x-input-label for="phone_number" :value="__('Phone Number')" />
 
             <input id="phone_number" type="text" name="phone_number" value="{{ old('phone_number') }}" required
-                autofocus autocomplete="phone_number" class="form-input rounded-md shadow-sm mt-1 block w-full">
+                autofocus autocomplete="phone_number" class="form-input rounded-md shadow-sm mt-1 block w-full"
+                pattern="[\d\s+]*">
             <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
         </div>
 
