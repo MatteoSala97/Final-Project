@@ -3,6 +3,7 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
         </h2>
+        <img src="{{ asset('storage/uploads/' . $user->user_propic) }}" id="propic">
     </x-slot>
 
     <div class="py-12">
@@ -11,7 +12,19 @@
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
                 </div>
+
+
             </div>
         </div>
     </div>
 </x-app-layout>
+
+<style>
+    #propic {
+        position: absolute;
+        right: 16%;
+        top: 2%;
+        clip-path: circle();
+        width: 55px;
+    }
+</style>

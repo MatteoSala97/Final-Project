@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
         @csrf
 
         <!-- Name -->
@@ -58,8 +58,8 @@
         <div class="mt-4">
             <x-input-label for="phone_number" :value="__('Phone Number')" />
 
-            <input id="phone_number" type="text" name="phone_number" value="{{ old('phone_number') }}" required
-                autofocus autocomplete="phone_number" class="form-input rounded-md shadow-sm mt-1 block w-full"
+            <input id="phone_number" type="text" name="phone_number" value="{{ old('phone_number') }}" autofocus
+                autocomplete="phone_number" class="form-input rounded-md shadow-sm mt-1 block w-full"
                 pattern="[\d\s+]*">
             <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
         </div>

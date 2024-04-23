@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccomodationController;
 use App\Http\Controllers\ProfileController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 
@@ -20,7 +21,8 @@ use Illuminate\Support\Facades\Route;
 // add welcome page
 Route::get('/', function () {
     if (auth()->check()) {
-        return view('dashboard');
+        $user = User::findOrFail(auth()->id());
+        return view('dashboard', compact('user'));
     } else {
         return view('auth.login');
     }
@@ -28,7 +30,8 @@ Route::get('/', function () {
 
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $user = User::findOrFail(auth()->id());
+    return view('dashboard', compact('user'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

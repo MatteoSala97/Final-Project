@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -32,22 +33,30 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         //Dynamically calculating if the registering user is at least 18
+
+
         $minDate = Carbon::now()->subYears(18)->format('Y-m-d');
-        $request->validate(
-            [
-                'name' => ['required', 'string', 'max:255'],
-                'surname' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
-                'password' => ['required', 'confirmed', Rules\Password::defaults()],
-                'birth_date' => ['nullable', 'date', 'before_or_equal:' . $minDate],
-                //last rule  is to only allow numbers in the phone number
-                'phone_number' => ['nullable', 'string', 'max:20', 'regex:/^[0-9+\s-]+$/'],
-            ],
-            [
-                'birth_date.before_or_equal' => 'You must be at least 18 years old to register.',
-                'phone_number.regex' => 'The phone number format is invalid.',
-            ]
-        );
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'surname' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'birth_date' => ['nullable', 'date', 'before_or_equal:' . $minDate],
+            'phone_number' => ['nullable', 'string', 'max:20', 'regex:/^[0-9+\s-]+$/'],
+            'user_propic' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048']
+        ], [
+            'birth_date.before_or_equal' => 'You must be at least 18 years old to register.',
+            'phone_number.regex' => 'The phone number format is invalid.',
+            'user_propic.image' => 'Your picture must be an image.',
+            'user_propic.mimes' => 'Your picture must be a file of type: jpeg, png, jpg, gif.',
+            'user_propic.max' => 'Your picture may not be greater than 2 MB in size.',
+        ]);
+
+        if ($request->hasFile('user_propic')) {
+
+            $img_path = Storage::put('uploads', $request['user_propic']);
+            $user_propic_filename = basename($img_path);
+        }
 
         $user = User::create([
             'name' => $request->name,
@@ -55,7 +64,8 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'birth_date' => $request->birth_date,
-            'phone_number' => $request->phone_number
+            'phone_number' => $request->phone_number,
+            'user_propic' => $user_propic_filename
         ]);
 
         event(new Registered($user));

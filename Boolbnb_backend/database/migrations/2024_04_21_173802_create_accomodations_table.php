@@ -26,8 +26,8 @@ return new class extends Migration
             $table->decimal('longitude', 10, 6);
             $table->decimal('price_per_night', 10, 2);
             $table->boolean('hidden')->default(false);
-            $table->string('thumb')->max(255)->nullable();
-            $table->string('host_thumb')->max(255)->nullable();
+            $table->string('thumb')->max(500)->nullable();
+            $table->string('host_thumb')->max(500)->nullable();
             $table->decimal('rating', 3, 2)->nullable();
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();

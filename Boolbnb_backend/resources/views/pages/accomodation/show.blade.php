@@ -10,7 +10,9 @@
 </head>
 
 <body>
+
     <div class="card" style="width: 18rem;">
+        {{-- possible conflict between  url and local path --}}
         @if ($accomodation->thumb)
             <img src="{{ asset('storage/uploads/' . $accomodation->thumb) }}" class="card-img-top" alt="...">
         @endif

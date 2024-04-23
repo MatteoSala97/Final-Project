@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('surname');
             $table->date('birth_date')->nullable();
             $table->string('phone_number')->nullable()->max(20);
+            $table->string('user_propic')->nullable()->max(500);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
