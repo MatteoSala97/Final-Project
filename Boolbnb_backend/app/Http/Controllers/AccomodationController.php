@@ -47,9 +47,9 @@ class AccomodationController extends Controller
             'user_id' => 'required|integer',
         ]);
 
-        // dd($request);
 
         $new_accomodations = Accomodation::create($validatedData);
+        dd($new_accomodations);
         return redirect()->route('dashboard');
     }
 
