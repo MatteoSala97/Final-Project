@@ -156,11 +156,11 @@
             </div>
 
             <div class="mb-3">
-                <label for="host thumb" class="form-label">host thumb</label>
-                <input type="text" name="host thumb" id="host thumb" placeholder="..."
+                <label for="host_thumb" class="form-label">host thumb</label>
+                <input type="text" name="host_thumb" id="host_thumb" placeholder="..."
                     class="form-control
-                    @error('host thumb') is-invalid @enderror" />
-                @error('host thumb')
+                    @error('host_thumb') is-invalid @enderror" />
+                @error('host_thumb')
                     <div class="alert alert-danger">
                         {{ $message }}
                     </div>
