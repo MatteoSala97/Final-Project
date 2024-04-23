@@ -107,8 +107,10 @@ class AccomodationController extends Controller
      */
     public function destroy(Accomodation $accomodation)
     {
-        // $accomodations = Accomodation::all();
+        $accomodation->services()->detach();
 
-        // return redirect()->route('dashboard.accomodation.index');
+        $accomodation->delete();
+
+        return redirect()->route('dashboard');
     }
 }
