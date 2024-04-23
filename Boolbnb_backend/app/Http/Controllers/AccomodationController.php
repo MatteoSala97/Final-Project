@@ -88,13 +88,9 @@ class AccomodationController extends Controller
      */
     public function edit(Accomodation $accomodation)
     {
-<<<<<<< HEAD
-        return view('pages.accomodation.edit', compact('accomodation'));
-=======
         $services = Service::all();
 
         return view('pages.accomodation.edit', compact('accomodation', 'services'));
->>>>>>> 3aaeda186202e815454b7b3a73cf68cf2186dd50
     }
 
     /**
@@ -119,34 +115,18 @@ class AccomodationController extends Controller
         $latitude = $data['results'][0]['position']['lat'];
         $longitude = $data['results'][0]['position']['lon'];
 
-<<<<<<< HEAD
-=======
         // $request['hidden'] = $request->has('hidden');
 
         //add thumb back
->>>>>>> 3aaeda186202e815454b7b3a73cf68cf2186dd50
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'type' => 'required|string|min:1',
             'rooms' => 'required|integer|min:1',
-<<<<<<< HEAD
-            'beds' => 'required|integer|min:1',
-            'bathrooms' => 'required|integer|min:1',
-            'address' => 'required|string',
-            'city' => 'required|string',
-            'price_per_night' => 'required|numeric',
-            'hidden' => 'required|boolean',
-            'thumb' => 'required|string',
-            'host_thumb' => 'required|string',
-            'rating' => 'required|numeric',
-            'user_id' => 'required|integer',
-=======
             'beds' => 'integer|min:1',
             'bathrooms' => 'integer|min:1',
             'address' => 'required|string',
             'city' => 'required|string',
             'price_per_night' => 'required|numeric',
->>>>>>> 3aaeda186202e815454b7b3a73cf68cf2186dd50
         ]);
 
         $accomodation->update($validatedData);

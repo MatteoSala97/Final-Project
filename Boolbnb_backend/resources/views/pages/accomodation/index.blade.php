@@ -48,13 +48,6 @@
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
-<<<<<<< HEAD
-                        <th scope="col">title</th>
-                        <th scope="col">rooms</th>
-                        <th scope="col">beds</th>
-                        <th scope="col">bathooms</th>
-                        <th scope="col">Azioni</th>
-=======
                         <th scope="col">Title</th>
                         <th scope="col">Rooms</th>
                         <th scope="col">Beds</th>
@@ -63,19 +56,11 @@
                         <th scope="col">City</th>
                         <th scope="col">Price per Night</th>
                         <th scope="col">Actions</th>
->>>>>>> 3aaeda186202e815454b7b3a73cf68cf2186dd50
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($accomodations as $item)
                         <tr>
-<<<<<<< HEAD
-                            <td>{{$item->id}}</td>
-                            <td>{{$item->title}}</td>
-                            <td>{{$item->rooms}}</td>
-                            <td>{{$item->beds}}</td>
-                            <td>{{$item->bathooms}}</td>
-=======
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->title }}</td>
                             <td>{{ $item->rooms }}</td>
@@ -84,7 +69,6 @@
                             <td> {{ $item->address }}</td>
                             <td> {{ $item->city }}</td>
                             <td> {{ $item->price_per_night }} €</td>
->>>>>>> 3aaeda186202e815454b7b3a73cf68cf2186dd50
                             <td>
                                 <div class="d-flex gap-2">
                                     <a href="{{ route('dashboard.accomodations.edit', $item->id) }}"
