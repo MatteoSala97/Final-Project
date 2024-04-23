@@ -116,18 +116,49 @@
 
 
             {{-- //TODO - switch to select --}}
-
-            <div class="mb-3">
-                <label for="price_per_night" class="form-label">Price per Night</label>
-                <input type="text" name="price_per_night" id="price_per_night" placeholder="..."
-                    class="form-control
-                    @error('price_per_night') is-invalid @enderror" />
-                @error('price_per_night')
-                    <div class="alert alert-danger">
-                        {{ $message }}
+            <div class="d-flex gap-2">
+                <div class="mb-3">
+                    <label for="price_per_night" class="form-label">Price per Night</label>
+                    <small id="helpId" class="form-text text-muted">Help text</small>
+                    <div class="input-group">
+                        <input type="text" name="price_per_night" id="price_per_night" placeholder="..." class="form-control @error('price_per_night') is-invalid @enderror" />
+                        @error('price_per_night')
+                            <div class="alert alert-danger">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
-                @enderror
+                </div>
+
+                <div class="mb-3">
+                    <label for="price_per_night_max" class="form-label">Another Field</label>
+
+                    <div class="input-group">
+                        <input type="text" name="price_per_night_max" id="price_per_night_max" placeholder="..." class="form-control @error('price_per_night_max') is-invalid @enderror" />
+                        @error('price_per_night_max')
+                            <div class="alert alert-danger">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
             </div>
+
+            <input type="range" name="" id="">
+            <div class="mb-3">
+                <label for="" class="form-label">Name</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    name=""
+                    id=""
+                    aria-describedby="helpId"
+                    placeholder=""
+                />
+
+            </div>
+
+
 
             {{-- //TODO - switch to checkbox --}}
             <div class="mb-3">
