@@ -16,9 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+// add welcome page
 Route::get('/', function () {
-    return view('welcome');
+    if (auth()->check()) {
+        return view('dashboard');
+    } else {
+        return view('auth.login');
+    }
 });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -34,7 +41,5 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
 
     // localhost:8000/dashboard/accomodations
     Route::resource('accomodations', AccomodationController::class);
-
-
 });
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
