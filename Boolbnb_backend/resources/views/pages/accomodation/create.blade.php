@@ -97,7 +97,7 @@
                 </div>
             </div>
 
-            <div class="d-flex gap-5 mb-3">
+            <div class="d-flex gap-5 mb-3 align-items-center">
                 <div class="w-50">
                     <label for="address" class="form-label">Address</label>
                     <input type="text" name="address" id="address" placeholder="Your address here"
@@ -149,18 +149,18 @@
                 </div>
 
 
-                <div class="mb-3">
+                {{-- <div class="mb-3">
 
                     <input type="checkbox" name="hidden" id="hidden" {{ old('hidden') ? 'checked' : '' }}
                         class="form-check-input
                         @error('hidden') is-invalid @enderror" />
-                    <label for="hidden" class="form-check-label">Show on BoolBnB</label>
+                    <label for="hidden" class="form-check-label">Hide on BoolBnB</label>
                     @error('hidden')
                         <div class="alert alert-danger">
                             {{ $message }}
                         </div>
                     @enderror
-                </div>
+                </div> --}}
             </div>
 
             {{-- //TODO - handle multiple uploads --}}
@@ -180,25 +180,26 @@
                 <h5 class="mb-3">
                     What services does your accommodation offer?
                 </h5>
-                <div class="mb-3 d-flex gap-4 form-check flex-wrap ">
+                <div class="mb-3 d-flex gap-4 form-check flex-wrap">
                     @foreach ($services as $service)
                         <div class="my-3 me-3">
                             <input type="checkbox" name="services[]" id="service_{{ $service->id }}"
-                                value="{{ $service->id }}" class="form-check-input" />
-                            <label
-                                for="service_{{ $service->id }}"class="form-check-label">{{ $service->name }}</label>
+                                value="{{ $service->id }}" class="form-check-input"
+                                {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
+                            <label for="service_{{ $service->id }}"
+                                class="form-check-label">{{ $service->name }}</label>
                         </div>
                     @endforeach
                 </div>
             </div>
 
-            <div class="form-check mb-3 fw-bold">
+            {{-- <div class="form-check mb-3 fw-bold">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
                     @required(true)>
                 <label class="form-check-label" for="flexCheckDefault">
                     Confirm correctness of entered information
                 </label>
-            </div>
+            </div> --}}
 
 
 
