@@ -115,7 +115,7 @@
             </div>
 
 
-            //TODO - switch to select
+            {{-- //TODO - switch to select --}}
 
             <div class="mb-3">
                 <label for="price_per_night" class="form-label">Price per Night</label>
@@ -129,7 +129,7 @@
                 @enderror
             </div>
 
-            //TODO - switch to checkbox
+            {{-- //TODO - switch to checkbox --}}
             <div class="mb-3">
                 <label for="hidden" class="form-label">hidden</label>
                 <input type="text" name="hidden" id="hidden" placeholder="..."
@@ -142,7 +142,7 @@
                 @enderror
             </div>
 
-            //TODO- switch to file upload and do storage
+            {{-- //TODO- switch to file upload and do storage --}}
             <div class="mb-3">
                 <label for="thumb" class="form-label">thumb</label>
                 <input type="text" name="thumb" id="thumb" placeholder="..."
@@ -180,7 +180,7 @@
             </div>
 
 
-            //TODO - add logged user id
+            {{-- //TODO - add logged user id --}}
             <div class="mb-3">
                 <label for="user_id" class="form-label">user_id</label>
                 <input type="text" name="user_id" id="user_id" placeholder="..."
@@ -202,3 +202,4 @@
 </body>
 
 </html>
+
