@@ -88,7 +88,9 @@ class AccomodationController extends Controller
      */
     public function edit(Accomodation $accomodation)
     {
-        return view('pages.accomodation.edit', compact('accomodation'));
+        $services = Service::all();
+
+        return view('pages.accomodation.edit', compact('accomodation', 'services'));
     }
 
     /**
@@ -96,10 +98,42 @@ class AccomodationController extends Controller
      */
     public function update(Request $request, Accomodation $accomodation)
     {
-        // $val_data = $request->validated();
+        $client = new Client([
+            'verify' => false, // Disable SSL verification
+        ]);
+        $response = $client->get('https://api.tomtom.com/search/2/search/' . urlencode($request->address . ' ' . $request->cap . ' ' . $request->city) . '.json', [
+            'query' => [
+                // Add your tomtom API key to the .env file else it won't work
+                'key' => env('TOMTOM_API_KEY'),
+                'countrySet' => 'IT',
+            ],
+        ]);
 
-        // $accomodation->update($val_data);
-        // return redirect()->route('dashboard.accomodation.index');
+        $data = json_decode($response->getBody(), true);
+        $latitude = $data['results'][0]['position']['lat'];
+        $longitude = $data['results'][0]['position']['lon'];
+
+        $validatedData = $request->validated();
+
+        // lat and long are calculated with the api call and attached to the validated data
+        $validatedData['latitude'] = $latitude;
+        $validatedData['longitude'] = $longitude;
+        $validatedData['user_id'] = auth()->id();
+        //doing this to make sure the checkbox returns a boolean
+        $request['hidden'] = $request->has('hidden');
+
+        $new_accommodation = Accomodation::create($validatedData);
+
+        // Attach services if provided
+        if ($request->has('services') && is_array($request->services) && count($request->services) > 0) {
+            foreach ($request->services as $serviceId) {
+                if (Service::find($serviceId)) {
+                    $new_accommodation->services()->attach($serviceId, ['created_at' => now(), 'updated_at' => now()]);
+                }
+            }
+        }
+
+        return redirect()->route('dashboard');
     }
 
     /**
