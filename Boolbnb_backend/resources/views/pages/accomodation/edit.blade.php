@@ -98,27 +98,27 @@
                     <div id="price_display">Price: €{{ old('price_per_night', $accomodation->price_per_night) }}</div>
                 </div>
 
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                     <input type="checkbox" name="hidden" id="hidden" class="form-check-input"
                         value="{{ old('hidden', $accomodation->hidden) }}" />
                     <label for="hidden" class="form-check-label">Show on BoolBnB</label>
-                </div>
+                </div> --}}
             </div>
 
             {{-- host_thumb --}}
+
+
             <div class="mb-3">
-                <label for="host_thumb" class="form-label">Host thumb</label>
-                <input type="text" name="host_thumb" id="host_thumb" placeholder="..." class="form-control"
-                    value="{{ old('host_thumb', $accomodation->host_thumb) }}" />
+                <label for="thumb" class="form-label">
+                    Upload Thumbnail Image
+                </label>
+                <input class="form-control" type="file" id="thumb" name="thumb">
             </div>
 
+
+
             {{-- flexCheckDefault --}}
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault" @required(true)>
-                    Confirm correctness of entered information
-                </label>
-            </div>
+
 
             {{-- services --}}
             <div class="my-5">

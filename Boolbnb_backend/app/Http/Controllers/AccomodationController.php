@@ -58,7 +58,7 @@ class AccomodationController extends Controller
         $validatedData['longitude'] = $longitude;
         $validatedData['user_id'] = auth()->id();
         //doing this to make sure the checkbox returns a boolean
-        $request['hidden'] = $request->has('hidden');
+        // $request['hidden'] = $request->has('hidden');
 
         $new_accommodation = Accomodation::create($validatedData);
 
@@ -115,20 +115,18 @@ class AccomodationController extends Controller
         $latitude = $data['results'][0]['position']['lat'];
         $longitude = $data['results'][0]['position']['lon'];
 
+        // $request['hidden'] = $request->has('hidden');
+
+        //add thumb back
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'type' => 'required|string|min:1',
             'rooms' => 'required|integer|min:1',
-            'beds' => 'required|integer|min:1',
-            'bathrooms' => 'required|integer|min:1',
+            'beds' => 'integer|min:1',
+            'bathrooms' => 'integer|min:1',
             'address' => 'required|string',
             'city' => 'required|string',
             'price_per_night' => 'required|numeric',
-            'hidden' => 'required',
-            'thumb' => 'required|string',
-            'host_thumb' => 'required|string',
-            'rating' => 'required|numeric',
-            'user_id' => 'required|integer',
         ]);
 
         $accomodation->update($validatedData);
