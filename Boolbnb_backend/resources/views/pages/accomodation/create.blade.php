@@ -110,6 +110,12 @@
                     @enderror
                 </div>
 
+
+                <div class="w-25">
+                    <label for="cap" class="form-label">ZIP Code</label>
+                    <input type="text" name="cap" id="cap" class="form-control" pattern="\d*" required />
+                </div>
+
                 <div class="w-25">
                     <label for="city" class="form-label">City</label>
                     <input type="text" name="city" id="city" placeholder="..."
@@ -127,8 +133,8 @@
             <div class="d-flex gap-5 mb-3 align-items-center">
                 <div class="mb-3 w-75">
                     <label for="price_per_night" class="form-label">Price per Night</label>
-                    <input type="range" class="form-range" min="0" max="500" step="10" value="0"
-                        id="price_per_night" name="price_per_night">
+                    <input type="range" class="form-range" min="0" max="500" step="10"
+                        value="0" id="price_per_night" name="price_per_night">
                     <div id="price_display">Price: €0</div>
                     @error('price_per_night')
                         <div class="alert alert-danger">
