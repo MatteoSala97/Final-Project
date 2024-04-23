@@ -56,13 +56,14 @@ class AccomodationController extends Controller
         ]);
 
 
-        $response = $client->get('https://api.tomtom.com/search/2/search/' . urlencode($request->address . $request->city) . '.json', [
+        $response = $client->get('https://api.tomtom.com/search/2/search/' . urlencode($request->address . ' ' . $request->cap . ' ' . $request->city) . '.json', [
             'query' => [
-                //add your tomtom_api_key to the .env else wont work
+                // Add your TomTom API key to the .env file else it won't work
                 'key' => env('TOMTOM_API_KEY'),
                 'countrySet' => 'IT',
             ],
         ]);
+
 
         $data = json_decode($response->getBody(), true);
         $latitude = $data['results'][0]['position']['lat'];
