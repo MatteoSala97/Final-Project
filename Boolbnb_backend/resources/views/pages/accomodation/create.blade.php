@@ -20,7 +20,7 @@
     <div class="container">
 
         <div class="my-4">
-            <h2>Register new accommodaiton</h2>
+            <h2>Register new accommodation</h2>
         </div>
 
         <form action="{{route('dashboard.accomodations.store')}}" method="POST"
@@ -137,7 +137,7 @@
                 </div>
 
 
-                <div class="mb-3">
+                {{-- <div class="mb-3">
 
                     <input type="checkbox" name="hidden" id="hidden"
                         class="form-check-input
@@ -148,22 +148,22 @@
                             {{ $message }}
                         </div>
                     @enderror
-                </div>
+                </div> --}}
             </div>
 
             {{-- //TODO - handle multiple uploads --}}
 
-            <div class="mb-3">
-                <label for="host_thumb" class="form-label">host thumb</label>
-                <input type="text" name="host_thumb" id="host_thumb" placeholder="..."
-                    class="form-control
-                    @error('host_thumb') is-invalid @enderror" />
-                @error('host_thumb')
-                    <div class="alert alert-danger">
-                        {{ $message }}
-                    </div>
+            <div class="mb-3 d-flex gap-1 flex-column">
+
+                <label for="pictures" class="form-label">Accommodation Pictures</label>
+                <small>Hold the "Ctrl" key to add more than one file</small>
+                <input type="file" name="pictures[]" id="pictures" class="form-control-file @error('pictures') is-invalid @enderror" multiple>
+
+                @error('pictures')
+                    <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
+
 
 
 
