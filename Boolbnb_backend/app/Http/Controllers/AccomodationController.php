@@ -14,7 +14,7 @@ class AccomodationController extends Controller
      */
     public function index()
     {
-        $accomodations = Accomodation::all();
+        $accomodations = Accomodation::where('user_id', auth()->id())->get();
         return view('pages.accomodation.index', compact('accomodations'));
     }
 
