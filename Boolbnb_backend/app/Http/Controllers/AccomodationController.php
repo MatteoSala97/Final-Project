@@ -7,6 +7,7 @@ use App\Models\Accomodation;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Storage;
 
 class AccomodationController extends Controller
 {
@@ -36,6 +37,7 @@ class AccomodationController extends Controller
     {
 
 
+
         $client = new Client([
             'verify' => false, // Disable SSL verification
         ]);
@@ -51,7 +53,13 @@ class AccomodationController extends Controller
         $latitude = $data['results'][0]['position']['lat'];
         $longitude = $data['results'][0]['position']['lon'];
 
+
+
+
         $validatedData = $request->validated();
+
+        //image save
+
 
         // lat and long are calculated with the api call and attached to the validated data
         $validatedData['latitude'] = $latitude;
@@ -59,6 +67,11 @@ class AccomodationController extends Controller
         $validatedData['user_id'] = auth()->id();
         //doing this to make sure the checkbox returns a boolean
         // $request['hidden'] = $request->has('hidden');
+
+        if ($request->hasFile('thumb')) {
+            $img_path = Storage::put('uploads', $validatedData['thumb']);
+            $validatedData['thumb'] = basename($img_path);
+        }
 
         $new_accommodation = Accomodation::create($validatedData);
 
@@ -80,7 +93,7 @@ class AccomodationController extends Controller
      */
     public function show(Accomodation $accomodation)
     {
-        // return view('pages.accomodation.show', compact('accomodations'));
+        return view('pages.accomodation.show', compact('accomodation'));
     }
 
     /**

@@ -169,7 +169,13 @@
                 <label for="thumb" class="form-label">
                     Upload Thumbnail Image
                 </label>
-                <input class="form-control" type="file" id="thumb" name="thumb">
+                <input class="form-control  @error('thumb') is-invalid @enderror" type="file" id="thumb"
+                    name="thumb">
+                @error('thumb')
+                    <div class="alert alert-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
 
 

@@ -32,6 +32,7 @@ class AccomodationStoreRequest extends FormRequest
             'address' => ['required', 'string', new  ContainsNumber],
             'city' => 'required|string',
             'price_per_night' => 'required|numeric',
+            'thumb' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
 
         ];
     }
