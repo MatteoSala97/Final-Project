@@ -35,7 +35,7 @@
 
         <div class="d-flex gap-2 my-4">
             <h2>Tabella</h2>
-            {{-- <button class="btn btn-success">Crea</button> --}}
+
             <a href="{{ route('dashboard.accomodations.create')}}"
                 class="btn btn-primary d-flex align-items-center">
                 Crea
