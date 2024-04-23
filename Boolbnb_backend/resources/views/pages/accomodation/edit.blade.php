@@ -92,7 +92,7 @@
                 <div class="mb-3 w-75">
                     <label for="price_per_night" class="form-label">Price per Night</label>
 
-                    <input type="range" class="form-range" min="0" max="500" step="10" value="0"
+                    <input type="range" class="form-range" min="0" max="500" step="10"
                         id="price_per_night" name="price_per_night"
                         value="{{ old('price_per_night', $accomodation->price_per_night) }}">
                     <div id="price_display">Price: €{{ old('price_per_night', $accomodation->price_per_night) }}</div>
@@ -110,23 +110,33 @@
 
             <div class="mb-3">
                 <label for="thumb" class="form-label">
-                    Upload Thumbnail Image
+                    Change Thumbnail Image
                 </label>
-                <input class="form-control" type="file" id="thumb" name="thumb">
-            </div>
+                <input class="form-control  @error('thumb') is-invalid @enderror"" type="file" id="thumb"
+                    name="thumb">
+                @error('thumb')
+                    <div class="alert alert-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
 
-    {{-- type --}}
-            <div class="mb-3">
-                <label for="type" class="form-label">type</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    name="type"
-                    id="type"
-                    placeholder="..."
-                    value="{{old('type', $accomodation->type)}}"
-                />
+
             </div>
+            @if ($accomodation->thumb)
+                <div class="d-flex mb-3 flex-column ">
+                    <label for="old_thumb" class="form-label">
+                        Your current Thumbnail Image
+                    </label>
+                    <img src="{{ asset('storage/uploads/' . $accomodation->thumb) }}" style="width: 250px"
+                        id="old_thumb">
+                </div>
+            @else
+                <label for="old_thumb" class="form-label">
+                    Currently you didn't upload any Thumbnail image for this accommodation
+                </label>
+            @endif
+
+
 
 
             {{-- flexCheckDefault --}}
@@ -141,7 +151,8 @@
                     @foreach ($services as $service)
                         <div class="my-3 me-3">
                             <input type="checkbox" name="services[]" id="service_{{ $service->id }}"
-                                value="{{ $service->id }} services" class="form-check-input" />
+                                value="{{ $service->id }}" class="form-check-input"
+                                {{ $accomodation->services->contains($service->id) ? 'checked' : '' }} />
 
                             <label for="service_{{ $service->id }}"class="form-check-label">{{ $service->name }}
                             </label>
@@ -150,7 +161,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-success">Confirm MODIFICAAAA</button>
+            <button type="submit" class="btn btn-success">Confirm Edit</button>
 
         </form>
     </div>
@@ -166,3 +177,9 @@
         priceDisplay.innerText = 'Price: €' + priceRange.value;
     });
 </script>
+
+<style>
+    label {
+        font-weight: bold;
+    }
+</style>

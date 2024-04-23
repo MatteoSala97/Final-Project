@@ -84,7 +84,7 @@ class AccomodationController extends Controller
             }
         }
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard.accomodations.index');
     }
 
 
@@ -128,6 +128,8 @@ class AccomodationController extends Controller
         $latitude = $data['results'][0]['position']['lat'];
         $longitude = $data['results'][0]['position']['lon'];
 
+
+
         // $request['hidden'] = $request->has('hidden');
 
         //add thumb back
@@ -140,7 +142,13 @@ class AccomodationController extends Controller
             'address' => 'required|string',
             'city' => 'required|string',
             'price_per_night' => 'required|numeric',
+            'thumb' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        if ($request->hasFile('thumb')) {
+            $img_path = Storage::put('uploads', $validatedData['thumb']);
+            $validatedData['thumb'] = basename($img_path);
+        }
 
         $accomodation->update($validatedData);
 
@@ -149,7 +157,15 @@ class AccomodationController extends Controller
             'longitude' => $longitude,
         ]);
 
-        return redirect()->route('dashboard');
+
+        if ($request->has('services')) {
+            $accomodation->services()->sync($request->services);
+        } else {
+
+            $accomodation->services()->detach();
+        }
+
+        return redirect()->route('dashboard.accomodations.index');
     }
     /**
      * Remove the specified resource from storage.
@@ -160,6 +176,6 @@ class AccomodationController extends Controller
 
         $accomodation->delete();
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard.accomodations.index');
     }
 }
