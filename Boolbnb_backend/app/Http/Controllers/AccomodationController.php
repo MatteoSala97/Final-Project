@@ -151,7 +151,6 @@ class AccomodationController extends Controller
 
         return redirect()->route('dashboard');
     }
-
     /**
      * Remove the specified resource from storage.
      */
