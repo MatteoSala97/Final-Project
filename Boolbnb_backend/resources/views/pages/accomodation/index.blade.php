@@ -51,6 +51,7 @@
                         <th scope="col">rooms</th>
                         <th scope="col">beds</th>
                         <th scope="col">bathooms</th>
+                        <th scope="col">Azioni</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,7 +62,7 @@
                             <td>{{$item->rooms}}</td>
                             <td>{{$item->beds}}</td>
                             <td>{{$item->bathooms}}</td>
-                            {{-- <td>
+                            <td>
                                 <div class="d-flex gap-2">
                                     <a href="{{ route('dashboard.accomodations.edit', $item->id)}}"
                                         class="btn btn-warning">
@@ -74,7 +75,7 @@
                                         <button class="btn btn-danger">Elimina</button>
                                     </form>
                                 </div>
-                            </td> --}}
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
