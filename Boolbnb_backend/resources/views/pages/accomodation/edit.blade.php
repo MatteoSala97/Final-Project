@@ -115,6 +115,18 @@
                 <input class="form-control" type="file" id="thumb" name="thumb">
             </div>
 
+    {{-- type --}}
+            <div class="mb-3">
+                <label for="type" class="form-label">type</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    name="type"
+                    id="type"
+                    placeholder="..."
+                    value="{{old('type', $accomodation->type)}}"
+                />
+            </div>
 
 
             {{-- flexCheckDefault --}}

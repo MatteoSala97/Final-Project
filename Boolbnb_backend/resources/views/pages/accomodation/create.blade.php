@@ -166,10 +166,15 @@
             {{-- //TODO - handle multiple uploads --}}
 
             <div class="mb-3">
-                <label for="thumb" class="form-label">
-                    Upload Thumbnail Image
-                </label>
-                <input class="form-control" type="file" id="thumb" name="thumb">
+                <label for="host_thumb" class="form-label">host thumb</label>
+                <input type="text" name="host_thumb" id="host_thumb" placeholder="..."
+                    class="form-control
+                    @error('host_thumb') is-invalid @enderror" />
+                @error('host_thumb')
+                    <div class="alert alert-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
 
 
