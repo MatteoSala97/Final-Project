@@ -97,26 +97,32 @@
                 </div>
             </div>
 
+
+
             <div class="d-flex gap-5 mb-3 align-items-center">
-                <div class="w-50">
+                <div class="w-50 address-input-group">
                     <label for="address" class="form-label">Address</label>
                     <input type="text" name="address" id="address" placeholder="Your address here"
                         class="form-control
                         @error('address') is-invalid @enderror"
-                        @required(true) value="{{ old('address') }}" />
+                        @required(true) value="{{ old('address') }}" autocomplete="off" />
                     @error('address')
                         <div class="alert alert-danger">
                             {{ $message }}
                         </div>
                     @enderror
+                    <ul class="dropdown-menu-dark w-full" id="create-dropdown">
+                    </ul>
+                    {{-- this hidden input will carry the actual value of the position --}}
+                    <input type="hidden" name="selected_address" id="selected_address">
                 </div>
 
 
-                <div class="w-25">
+                {{-- <div class="w-25">
                     <label for="cap" class="form-label">ZIP Code</label>
                     <input type="text" name="cap" value="{{ old('cap') }}" id="cap"
                         class="form-control" pattern="\d*" @required(true) />
-                </div>
+                </div> --}}
 
                 <div class="w-25">
                     <label for="city" class="form-label">City</label>
@@ -221,8 +227,89 @@
 <script>
     const priceRange = document.getElementById('price_per_night');
     const priceDisplay = document.getElementById('price_display');
+    const address_input = document.getElementById('address');
+    const city_input = document.getElementById('city');
+    const selected_address_input = document.getElementById('selected_address');
+    const dropdown_menu = document.getElementById('create-dropdown')
+
+    console.log(address_input)
 
     priceRange.addEventListener('input', function() {
         priceDisplay.innerText = 'Price: €' + priceRange.value;
     });
+
+    function editDropdownMenu(list) {
+        dropdown_menu.innerHTML = ''
+        console.log(dropdown_menu)
+        list.forEach((position) => {
+            const menu_voice = document.createElement('li');
+            const address = position.address.freeformAddress
+            const city = position.address.municipality
+            const latitude = position.position.lat
+            const longitude = position.position.lon
+            menu_voice.classList.add('dropdown-item');
+            menu_voice.innerText = address
+            dropdown_menu.append(menu_voice)
+            menu_voice.addEventListener('click', () => {
+                address_input.value = address
+                city_input.value = city
+                dropdown_menu.innerHTML = ''
+                let selected_address = {
+                    address,
+                    city,
+                    latitude,
+                    longitude
+                }
+                const selectedAddressJSON = JSON.stringify(selected_address);
+                console.log(selectedAddressJSON);
+                selected_address_input.value = selectedAddressJSON
+
+            })
+        })
+    }
+
+    function debounce(func, delay) {
+        let timeoutId;
+        return function(...args) {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                func.apply(this, args);
+            }, delay);
+        };
+    }
+
+
+    address_input.addEventListener('input', debounce((e) => {
+        let address = e.target.value;
+        const api_url = 'http://127.0.0.1:8000/api/get-address-suggestions?address=';
+
+        if (address.length >= 5) {
+            fetch(api_url + encodeURIComponent(address))
+                .then(res => {
+                    if (!res.ok) {
+                        console.log('network error');
+                    } else {
+                        return res.json();
+                    }
+                })
+                .then(data => {
+                    let suggested_addresses = [];
+                    console.log(data.results[0]);
+                    data.results.forEach(position => {
+                        suggested_addresses.push(position);
+                    });
+                    editDropdownMenu(suggested_addresses.slice(0, 5));
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    }, 300))
 </script>
+
+<style>
+    .dropdown-item {
+        padding-left: 30px;
+        cursor: pointer;
+    }
+</style>
