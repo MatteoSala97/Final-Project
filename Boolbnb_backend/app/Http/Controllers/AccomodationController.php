@@ -38,22 +38,23 @@ class AccomodationController extends Controller
 
 
 
-        $client = new Client([
-            'verify' => false, // Disable SSL verification
-        ]);
-        $response = $client->get('https://api.tomtom.com/search/2/search/' . urlencode($request->address . ' ' . $request->cap . ' ' . $request->city) . '.json', [
-            'query' => [
-                // Add your tomtom API key to the .env file else it won't work
-                'key' => env('TOMTOM_API_KEY'),
-                'countrySet' => 'IT',
-            ],
-        ]);
+        // $client = new Client([
+        //     'verify' => false, // Disable SSL verification
+        // ]);
+        // $response = $client->get('https://api.tomtom.com/search/2/search/' . urlencode($request->address . ' ' . $request->cap . ' ' . $request->city) . '.json', [
+        //     'query' => [
+        //         // Add your tomtom API key to the .env file else it won't work
+        //         'key' => env('TOMTOM_API_KEY'),
+        //         'countrySet' => 'IT',
+        //     ],
+        // ]);
 
-        $data = json_decode($response->getBody(), true);
-        $latitude = $data['results'][0]['position']['lat'];
-        $longitude = $data['results'][0]['position']['lon'];
+        // $data = json_decode($response->getBody(), true);
+        // $latitude = $data['results'][0]['position']['lat'];
+        // $longitude = $data['results'][0]['position']['lon'];
 
 
+        $selected_address = json_decode($request['selected_address']);
 
 
         $validatedData = $request->validated();
@@ -62,11 +63,11 @@ class AccomodationController extends Controller
 
 
         // lat and long are calculated with the api call and attached to the validated data
-        $validatedData['latitude'] = $latitude;
-        $validatedData['longitude'] = $longitude;
+        $validatedData['latitude'] = $selected_address->latitude;
+        $validatedData['longitude'] = $selected_address->longitude;
         $validatedData['user_id'] = auth()->id();
         //doing this to make sure the checkbox returns a boolean
-        // $request['hidden'] = $request->has('hidden');
+        $request['hidden'] = $request->has('hidden');
 
         if ($request->hasFile('thumb')) {
             $img_path = Storage::put('uploads', $validatedData['thumb']);

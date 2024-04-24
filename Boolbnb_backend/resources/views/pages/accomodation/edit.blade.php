@@ -98,11 +98,11 @@
                     <div id="price_display">Price: €{{ old('price_per_night', $accomodation->price_per_night) }}</div>
                 </div>
 
-                {{-- <div class="mb-3">
+                <div class="mb-3">
                     <input type="checkbox" name="hidden" id="hidden" class="form-check-input"
                         value="{{ old('hidden', $accomodation->hidden) }}" />
                     <label for="hidden" class="form-check-label">Show on BoolBnB</label>
-                </div> --}}
+                </div>
             </div>
 
             {{-- host_thumb --}}
