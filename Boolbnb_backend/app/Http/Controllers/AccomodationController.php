@@ -169,10 +169,26 @@ class AccomodationController extends Controller
 
         return redirect()->route('dashboard.accomodations.index');
     }
+
     /**
      * Remove the specified resource from storage.
      */
+    // public function destroy(Accomodation $accomodation)
+    // {
+    //     $accomodation->services()->detach();
+
+    //     $accomodation->delete();
+
+    //     return redirect()->route('dashboard.accomodations.index');
+    // }
+
+
     public function destroy(Accomodation $accomodation)
+    {
+        return view('pages.accomodation.delete_confirmation', compact('accomodation'));
+    }
+
+    public function deleteConfirmed(Accomodation $accomodation)
     {
         $accomodation->services()->detach();
 
