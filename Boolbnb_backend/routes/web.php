@@ -44,5 +44,12 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
 
     // localhost:8000/dashboard/accomodations
     Route::resource('accomodations', AccomodationController::class);
+
+    // routes per confermare la cancellazione del cosino
+    Route::get('/accomodations/{accomodation}/delete-confirmation', [AccomodationController::class, 'destroyConfirmation'])->name('accomodations.destroyConfirmation');
+    Route::delete('/accomodations/{accomodation}/delete-confirmed', [AccomodationController::class, 'deleteConfirmed'])->name('accomodations.deleteConfirmed');
+
 });
+
+
 require __DIR__ . '/auth.php';

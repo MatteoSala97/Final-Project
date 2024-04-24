@@ -4,7 +4,7 @@
 
         <!-- Name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
+            <x-input-label for="name" :value="__('Name *')" />
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
                 autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -12,7 +12,7 @@
 
         <!-- Surname -->
         <div class="mt-4">
-            <x-input-label for="surname" :value="__('Surname')" />
+            <x-input-label for="surname" :value="__('Surname *')" />
             <x-text-input id="surname" class="block mt-1 w-full" type="text" name="surname" :value="old('surname')"
                 required autocomplete="surname" />
             <x-input-error :messages="$errors->get('surname')" class="mt-2" />
@@ -20,7 +20,7 @@
 
         <!-- Email Address -->
         <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
+            <x-input-label for="email" :value="__('Email *')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
                 required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
@@ -28,7 +28,7 @@
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <x-input-label for="password" :value="__('Password *')" />
 
             <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
                 autocomplete="new-password" />
@@ -38,7 +38,7 @@
 
         <!-- Confirm Password -->
         <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <x-input-label for="password_confirmation" :value="__('Confirm Password *')" />
 
             <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
                 name="password_confirmation" required autocomplete="new-password" />
@@ -47,7 +47,7 @@
         </div>
 
         <div class="mt-4">
-            <x-input-label for="birth_date" :value="__('Birth Date')" />
+            <x-input-label for="birth_date" :value="__('Birth Date *')" />
             <input id="birth_date" type="date" name="birth_date" value="{{ old('birth_date') }}" required autofocus
                 autocomplete="birth_date" class="form-input rounded-md shadow-sm mt-1 block w-full"
                 max="{{ \Carbon\Carbon::now()->subYears(18)->format('Y-m-d') }}"
@@ -65,7 +65,7 @@
         </div>
 
         <div class="mt-4">
-            <x-input-label for="user_propic" :value="__('Your Porfile Picture')" />
+            <x-input-label for="user_propic" :value="__('Your Porfile Picture *')" />
             <input type="file" name="user_propic" id="user_propic" class="my-2">
             <x-input-error :messages="$errors->get('user_propic')" class="mt-2" />
         </div>
