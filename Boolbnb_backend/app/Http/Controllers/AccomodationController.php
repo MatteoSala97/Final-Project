@@ -159,6 +159,7 @@ class AccomodationController extends Controller
 
 
         if ($request->has('services')) {
+            //sync does not support  updated and created at
             $accomodation->services()->sync($request->services);
         } else {
 

@@ -52,6 +52,7 @@ class RegisteredUserController extends Controller
             'user_propic.max' => 'Your picture may not be greater than 2 MB in size.',
         ]);
 
+
         if ($request->hasFile('user_propic')) {
 
             $img_path = Storage::put('uploads', $request['user_propic']);
@@ -65,7 +66,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'birth_date' => $request->birth_date,
             'phone_number' => $request->phone_number,
-            'user_propic' => $user_propic_filename
+            'user_propic' => $user_propic_filename ?? null
         ]);
 
         event(new Registered($user));
