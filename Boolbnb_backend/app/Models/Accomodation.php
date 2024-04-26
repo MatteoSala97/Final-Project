@@ -21,4 +21,17 @@ class Accomodation extends Model
     {
         return $this->belongsToMany(Service::class);
     }
+
+    public function distanceToPoint($lng, $lat)
+    {
+        // Calculate the distance between two points using longitude and latitude
+        $earth_radius = 6371; // Radius of the earth in kilometers
+        $dLat = deg2rad($lat - $this->latitude);
+        $dLon = deg2rad($lng - $this->longitude);
+        $a = sin($dLat / 2) * sin($dLat / 2) + cos(deg2rad($this->latitude)) * cos(deg2rad($lat)) * sin($dLon / 2) * sin($dLon / 2);
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        $distance = $earth_radius * $c; // Distance in kilometers
+
+        return $distance;
+    }
 }
