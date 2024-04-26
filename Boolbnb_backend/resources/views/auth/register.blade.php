@@ -1,7 +1,7 @@
 <x-guest-layout>
+
     <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
         @csrf
-
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name *')" />
@@ -46,6 +46,7 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
+        {{-- DATA DI COMPLEANNO --}}
         <div class="mt-4">
             <x-input-label for="birth_date" :value="__('Birth Date *')" />
             <input id="birth_date" type="date" name="birth_date" value="{{ old('birth_date') }}" required autofocus
@@ -55,15 +56,16 @@
             <x-input-error :messages="$errors->get('birth_date')" class="mt-2" />
         </div>
 
+        {{-- NUMERINO --}}
         <div class="mt-4">
             <x-input-label for="phone_number" :value="__('Phone Number')" />
-
             <input id="phone_number" type="text" name="phone_number" value="{{ old('phone_number') }}" autofocus
                 autocomplete="phone_number" class="form-input rounded-md shadow-sm mt-1 block w-full"
                 pattern="[\d\s+]*">
             <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
         </div>
 
+        {{-- foto --}}
         <div class="mt-4">
             <x-input-label for="user_propic" :value="__('Your Porfile Picture *')" />
             <input type="file" name="user_propic" id="user_propic" class="my-2">
@@ -71,15 +73,19 @@
         </div>
 
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-300 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
+        {{-- bottoni per fare cose --}}
+        <div>
+            <div class="flex items-center justify-end mt-4">
+                <a class="underline text-sm text-gray-300 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    href="{{ route('login') }}">
+                    {{ __('Already registered?') }}
+                </a>
 
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
+                <x-primary-button class="ms-4">
+                    {{ __('Register') }}
+                </x-primary-button>
+            </div>
         </div>
+
     </form>
 </x-guest-layout>

@@ -1,6 +1,9 @@
 <?php
 
+
+
 use App\Http\Controllers\Api\AccomodationController;
+use App\Http\Controllers\Api\UserAddressController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +25,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/accommodations', [AccomodationController::class, 'index']);
+Route::get('/get-address-suggestions', [UserAddressController::class, 'suggestAddressList']);
