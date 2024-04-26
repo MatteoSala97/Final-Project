@@ -19,7 +19,7 @@
     <div class="gradient-background min-h-screen flex sm:justify-center items-center pt-6 sm:pt-0">
 
         <div>
-            {{-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> --}}
+            <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
 
             <div>img</div>
             <p>Whether you have a spare room or an entire home, hosting with us opens up a world of opportunities</p>
