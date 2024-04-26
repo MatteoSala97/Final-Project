@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
 
+
+
 class AccomodationController extends Controller
 {
     /**
@@ -17,6 +19,11 @@ class AccomodationController extends Controller
     public function index()
     {
         $accomodations = Accomodation::where('user_id', auth()->id())->get();
+
+        if ($accomodations === null) {
+            $accomodations = [];
+        }
+
         return view('pages.accomodation.index', compact('accomodations'));
     }
 

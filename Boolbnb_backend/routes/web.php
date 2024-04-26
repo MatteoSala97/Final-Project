@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccomodationController;
 use App\Http\Controllers\ProfileController;
 use App\Models\User;
+use App\Models\Accomodation;
 use Illuminate\Support\Facades\Route;
 
 
@@ -22,7 +23,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     if (auth()->check()) {
         $user = User::findOrFail(auth()->id());
-        return view('dashboard', compact('user'));
+        $accomodations = Accomodation::where('user_id', auth()->id())->get();
+        return view('pages.accomodation.index', compact('user', 'accomodations'));
     } else {
         return view('auth.login');
     }
@@ -31,7 +33,8 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     $user = User::findOrFail(auth()->id());
-    return view('dashboard', compact('user'));
+    $accomodations = Accomodation::where('user_id', auth()->id())->get();
+    return view('dashboard', compact('user', 'accomodations'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
