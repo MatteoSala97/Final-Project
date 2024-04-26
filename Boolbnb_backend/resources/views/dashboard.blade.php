@@ -44,8 +44,11 @@
 
         <div class="w-[85%] bg-white border">
             @if($accomodations !== null && count($accomodations) > 0)
-                <div class="title">
-                    <h2>Your Accommodations</h2>
+                <div class="subtitle flex justify-between mx-5 mt-5">
+                    <h2 class="title">Your Accommodations</h2>
+                    <a href="{{ route('dashboard.accomodations.create') }}" class="gradient-button flex justify-center items-center text-grey ">
+                        Create a new accommodation
+                    </a>
                 </div>
 
                 <!-- Table responsive wrapper -->
@@ -209,7 +212,6 @@
     .title {
         font-size: 1.5rem;
         font-weight: bold;
-        padding: 10px 15px;
     }
 
     .gradient-button {
