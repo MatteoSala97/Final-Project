@@ -247,8 +247,12 @@
             const city = position.address.municipality
             const latitude = position.position.lat
             const longitude = position.position.lon
+            const icon = document.createElement('div')
+            icon.innerHTML =
+                '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>'
             menu_voice.classList.add('dropdown-item');
             menu_voice.innerText = address
+            menu_voice.prepend(icon)
             dropdown_menu.append(menu_voice)
             menu_voice.addEventListener('click', () => {
                 address_input.value = address
@@ -311,5 +315,13 @@
     .dropdown-item {
         padding-left: 30px;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .dropdown-item svg {
+        width: 10px;
+        fill: white;
     }
 </style>
