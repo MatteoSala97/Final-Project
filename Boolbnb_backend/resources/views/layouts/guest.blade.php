@@ -19,12 +19,10 @@
     <div class="gradient-background min-h-screen flex sm:justify-center items-center pt-6 sm:pt-0">
 
         <div>
-            <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-
-            <div>img</div>
+            {{-- comp logoM --}}
+            <x-logoM/>
             <p>Whether you have a spare room or an entire home, hosting with us opens up a world of opportunities</p>
         </div>
-
 
 
         <div class="guest w-full sm:max-w-md mt-6 bg-white overflow-hidden sm:rounded-lg" style="padding: 45px">
@@ -45,13 +43,14 @@
     }
     .guest{
         position: relative;
+        right: 6%;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
     p{
         font-size: 40px;
         width: 350px;
         margin-top: 150px;
-        margin-right: 100px;
+        margin-right: 450px;
         color: white;
         font-family: "Open Sans", sans-serif;
         font-weight: 700;

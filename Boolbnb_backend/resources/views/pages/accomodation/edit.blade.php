@@ -1,27 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
-
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Change the accommodation</title>
 
     <!-- Fonts -->
-    {{-- <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
     <!-- Scripts -->
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-
 <body>
-    <div class="container my-3">
+    <div class="container m-5 w-9/12">
 
-        <div class="my-4">
-            <h2>Change accommodation</h2>
+        <div class="my-5">
+            <a href="{{ route('dashboard') }}" class="btn btn-primary d-flex align-items-center">
+                <p class="font-bold text-xl">< Change accommodation</p>
+            </a>
         </div>
 
         <form action="{{ route('dashboard.accomodations.update', $accomodation->id) }}" method="POST"
@@ -31,137 +29,125 @@
 
             {{-- title --}}
             <div class="mb-3">
-                <label for="title" class="form-label">Accommodation Title</label>
-                <input type="text" name="title" id="title" placeholder="Your title here" class="form-control"
+                <x-input-label for="title" :value="__('Title')" class="text-black"/>
+                <input type="text" name="title" id="title" placeholder="Your title here"
+                class="block mt-1 w-full rounded-md border-gray-300"
                     value="{{ old('title', $accomodation->title) }}" />
             </div>
 
-            {{-- type --}}
-            <div class="mb-3">
-                <label for="type" class="form-label">Accommodation Type</label>
-                <select name="type" id="type" class="form-control">
-                    <option value="House" {{ old('type', $accomodation->type) == 'House' ? 'selected' : '' }}>House
-                    </option>
-                    <option value="Apartment" {{ old('type', $accomodation->type) == 'Apartment' ? 'selected' : '' }}>
-                        Apartment</option>
-                    <option value="Hotel" {{ old('type', $accomodation->type) == 'Hotel' ? 'selected' : '' }}>Hotel
-                    </option>
-                    <option value="GuestHouse" {{ old('type', $accomodation->type) == 'GuestHouse' ? 'selected' : '' }}>
-                        GuestHouse</option>
-                </select>
-            </div>
-
-            {{-- rooms beds bathrooms --}}
-            <div class="mb-3 d-flex gap-5">
-                <div>
-                    <label for="rooms" class="form-label">Number of Bedrooms</label>
-                    <input type="number" name="rooms" id="rooms" class="form-control"
-                        value="{{ old('rooms', $accomodation->rooms) }}" min="1" />
-                </div>
-
-                <div>
-                    <label for="beds" class="form-label">Number of Beds</label>
-                    <input type="number" name="beds" id="beds" class="form-control"
-                        value="{{ old('beds', $accomodation->beds) }}" min="1" />
-                </div>
-
-                <div>
-                    <label for="bathrooms" class="form-label">Number of Bathrooms</label>
-                    <input type="number" name="bathrooms" id="bathrooms" class="form-control"
-                        value="{{ old('bathrooms', $accomodation->bathrooms) }}" min="1" />
-                </div>
-            </div>
-
-            {{-- address city --}}
-            <div class="d-flex gap-5 mb-3">
-                <div class="w-50">
-                    <label for="address" class="form-label">Address</label>
+            {{-- address city--}}
+            <div class="flex justify-between gap-5">
+                {{-- address --}}
+                <div class="w-1/2 address-input-group mb-3">
+                    <x-input-label for="address" :value="__('Full address')" class="text-black"/>
                     <input type="text" name="address" id="address" placeholder="Your address here"
-                        class="form-control" value="{{ old('address', $accomodation->address) }}" />
+                        class="block mt-1 w-full rounded-md border-gray-300"
+                        value="{{ old('address', $accomodation->address) }}" />
                 </div>
 
-                <div class="w-25">
-                    <label for="city" class="form-label">City</label>
-                    <input type="text" name="city" id="city" placeholder="..." class="form-control"
+                {{-- city --}}
+                <div class="w-1/2 address-input-group mb-3">
+                    <x-input-label for="city" :value="__('City')" class="text-black"/>
+                    <input type="text" name="city" id="city" placeholder="..."
+                    class="block mt-1 w-full rounded-md border-gray-300"
                         value="{{ old('city', $accomodation->city) }}" />
                 </div>
             </div>
 
-            {{-- price_per_night hidden --}}
-            <div class="d-flex gap-5 mb-3 align-items-center">
-                <div class="mb-3 w-75">
-                    <label for="price_per_night" class="form-label">Price per Night</label>
-
-                    <input type="range" class="form-range" min="0" max="500" step="10"
-                        id="price_per_night" name="price_per_night"
-                        value="{{ old('price_per_night', $accomodation->price_per_night) }}">
-                    <div id="price_display">Price: €{{ old('price_per_night', $accomodation->price_per_night) }}</div>
+            {{-- type rooms beds bathrooms --}}
+            <div class="flex justify-between gap-5">
+                <!-- type -->
+                <div class="mb-3 w-full">
+                    <x-input-label for="type" :value="__('Type')" class="text-black"/>
+                    <select name="type" id="type" class="block mt-1 rounded-md w-full border-gray-300">
+                        <option value="House" {{ old('type', $accomodation->type) == 'House' ? 'selected' : '' }}>House
+                        </option>
+                        <option value="Apartment" {{ old('type', $accomodation->type) == 'Apartment' ? 'selected' : '' }}>
+                            Apartment</option>
+                        <option value="Hotel" {{ old('type', $accomodation->type) == 'Hotel' ? 'selected' : '' }}>Hotel
+                        </option>
+                        <option value="GuestHouse" {{ old('type', $accomodation->type) == 'GuestHouse' ? 'selected' : '' }}>
+                            GuestHouse</option>
+                    </select>
                 </div>
 
-                <div class="mb-3">
-                    <input type="checkbox" name="hidden" id="hidden" class="form-check-input"
-                        value="{{ old('hidden', $accomodation->hidden) }}" />
-                    <label for="hidden" class="form-check-label">Show on BoolBnB</label>
+                {{-- rooms --}}
+                <div class="mb-3 w-full">
+                    <x-input-label for="rooms" :value="__('Bedrooms')" class="text-black"/>
+                    <input type="number" name="rooms" id="rooms" class="block mt-1 rounded-md w-full border-gray-300"
+                        value="{{ old('rooms', $accomodation->rooms) }}" min="1" />
+
+                </div>
+
+                {{-- beds --}}
+                <div class="mb-3 w-full">
+                    <x-input-label for="beds" :value="__('Beds')" class="text-black"/>
+                    <input type="number" name="beds" id="beds" class="block mt-1 rounded-md w-full border-gray-300"
+                        value="{{ old('beds', $accomodation->beds) }}" min="1" />
+
+                </div>
+
+                {{-- bathrooms --}}
+                <div class="mb-3 w-full">
+                    <x-input-label for="bathrooms" :value="__('Bathrooms')" class="text-black"/>
+                    <input type="number" name="bathrooms" id="bathrooms" value="{{ old('bathrooms') ?? 1 }}"
+                        class="block mt-1 rounded-md w-full border-gray-300
+                        @error('bathrooms') is-invalid @enderror"
+                        min="1" />
+
                 </div>
             </div>
 
-            {{-- host_thumb --}}
-
-
+            {{-- thumb --}}
             <div class="mb-3">
-                <label for="thumb" class="form-label">
-                    Change Thumbnail Image
+                <x-input-label for="user_propic" :value="__('Thumbnail')" class="text-black"/>
+
+                <label id="file-name-container" for="user_propic" class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('thumb') is-invalid @enderror">
+                    Seleziona un file
                 </label>
-                <input class="form-control  @error('thumb') is-invalid @enderror"" type="file" id="thumb"
-                    name="thumb">
-                @error('thumb')
-                    <div class="alert alert-danger">
-                        {{ $message }}
-                    </div>
-                @enderror
-
-
+                <input type="file" name="user_propic" id="user_propic">
             </div>
-            @if ($accomodation->thumb)
-                <div class="d-flex mb-3 flex-column ">
-                    <label for="old_thumb" class="form-label">
-                        Your current Thumbnail Image
-                    </label>
-                    <img src="{{ asset('storage/uploads/' . $accomodation->thumb) }}" style="width: 250px"
-                        id="old_thumb">
+
+            {{-- prezzo notte --}}
+            <div class="flex justify-between items-center gap-5">
+                <div>
+                    <x-input-label for="range" :value="__('Price per night')" class="text-black"/>
+                    <div id="price_display" class="block mt-1 w-full rounded-md bg-white p-2 border border-gray-300">
+                        € {{ old('price_per_night', $accomodation->price_per_night) }}
+                    </div>
                 </div>
-            @else
-                <label for="old_thumb" class="form-label">
-                    Currently you didn't upload any Thumbnail image for this accommodation
-                </label>
-            @endif
 
+                <div class="flex-grow mr-5 mt-5">
+                    <x-input-label for="price_per_night" :value="__('')" />
 
+                    <input type="range" class="custom-range form-range w-full mt-2" min="0" max="500" step="10"
+                        value="{{ old('price_per_night', $accomodation->price_per_night) }}" id="price_per_night"
+                        name="price_per_night">
+                </div>
+            </div>
 
-
-            {{-- flexCheckDefault --}}
-
-
-            {{-- services --}}
+            {{-- service --}}
             <div class="my-5">
-                <h5 class="mb-3">
-                    Selected services
-                </h5>
-                <div class="mb-3 d-flex gap-4 form-check flex-wrap">
+                <x-input-label for="range" :value="__('Price per night')" class="text-black"/>
+                <div id="price_display" class="mt-1 w-full rounded-md">
+                    Choose one or more services
+                </div>
+
+                <div class="mb-3 flex flex-wrap">
                     @foreach ($services as $service)
                         <div class="my-3 me-3">
                             <input type="checkbox" name="services[]" id="service_{{ $service->id }}"
-                                value="{{ $service->id }}" class="form-check-input"
-                                {{ $accomodation->services->contains($service->id) ? 'checked' : '' }} />
-
-                            <label for="service_{{ $service->id }}"class="form-check-label">{{ $service->name }}
+                                value="{{ $service->id }}" class="form-checkbox h-5 w-5 text-blue-500"
+                                {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
+                            <label for="service_{{ $service->id }}"
+                                class="ml-2 text-sm text-gray-700">{{ $service->name }}
                             </label>
                         </div>
                     @endforeach
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-success">Confirm Edit</button>
+            <x-primary-button type="submit" class="btn btn-success">Confirm Edit</x-primary-button>
 
         </form>
     </div>
@@ -172,14 +158,126 @@
 <script>
     const priceRange = document.getElementById('price_per_night');
     const priceDisplay = document.getElementById('price_display');
+    const address_input = document.getElementById('address');
+    const city_input = document.getElementById('city');
+    const selected_address_input = document.getElementById('selected_address');
+    const dropdown_menu = document.getElementById('create-dropdown')
+
+    console.log(address_input)
 
     priceRange.addEventListener('input', function() {
-        priceDisplay.innerText = 'Price: €' + priceRange.value;
+        priceDisplay.innerText = '€ ' + priceRange.value;
     });
+
+    function editDropdownMenu(list) {
+        dropdown_menu.innerHTML = ''
+        console.log(dropdown_menu)
+        list.forEach((position) => {
+            const menu_voice = document.createElement('li');
+            const address = position.address.freeformAddress
+            const city = position.address.municipality
+            const latitude = position.position.lat
+            const longitude = position.position.lon
+            const icon = document.createElement('div')
+            icon.innerHTML =
+                '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>'
+            menu_voice.classList.add('dropdown-item');
+            menu_voice.innerText = address
+            menu_voice.prepend(icon)
+            dropdown_menu.append(menu_voice)
+            menu_voice.addEventListener('click', () => {
+                address_input.value = address
+                city_input.value = city
+                dropdown_menu.innerHTML = ''
+                let selected_address = {
+                    address,
+                    city,
+                    latitude,
+                    longitude
+                }
+                const selectedAddressJSON = JSON.stringify(selected_address);
+                console.log(selectedAddressJSON);
+                selected_address_input.value = selectedAddressJSON
+
+            })
+        })
+    }
+
+    function debounce(func, delay) {
+        let timeoutId;
+        return function(...args) {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                func.apply(this, args);
+            }, delay);
+        };
+    }
+
+    address_input.addEventListener('input', debounce((e) => {
+        let address = e.target.value;
+        const api_url = 'http://127.0.0.1:8000/api/get-address-suggestions?address=';
+
+        if (address.length >= 5) {
+            fetch(api_url + encodeURIComponent(address))
+                .then(res => {
+                    if (!res.ok) {
+                        console.log('network error');
+                    } else {
+                        return res.json();
+                    }
+                })
+                .then(data => {
+                    let suggested_addresses = [];
+                    console.log(data.results[0]);
+                    data.results.forEach(position => {
+                        suggested_addresses.push(position);
+                    });
+                    editDropdownMenu(suggested_addresses.slice(0, 5));
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    }, 300))
+
+
+    // img
+    var inputFile = document.getElementById('user_propic');
+
+    inputFile.addEventListener('change', function(){
+        var fileName = inputFile.files[0].name;
+        var fileNameContainer = document.getElementById('file-name-container');
+        fileNameContainer.textContent = 'Selected file: ' + fileName;
+    });
+
 </script>
 
 <style>
-    label {
-        font-weight: bold;
+    .dropdown-item {
+        padding-left: 30px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 15px;
     }
+
+    .dropdown-item svg {
+        width: 10px;
+        fill: white;
+    }
+
+    input[type="file"]{
+        display: none;
+    }
+
+
+
+    /* input rage */
+    .custom-range::-webkit-slider-runnable-track {
+        background-color: #000000; /* Cambia il colore della barra di avanzamento */
+        height: 5px;
+        border-radius: 10px;
+    }
+
+
 </style>

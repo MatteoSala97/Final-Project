@@ -1,227 +1,205 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
-
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Create new Accommodation</title>
 
     <!-- Fonts -->
-    {{-- <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- Scripts -->
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
-</head>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
 <body>
 
-    <div class="container">
+    <div class="container m-5 w-9/12">
 
-        <div class="my-4">
-            <h2>Register new accommodaiton</h2>
+        <div class="my-5">
+            <a href="{{ route('dashboard') }}" class="btn btn-primary d-flex align-items-center">
+                <p class="font-bold text-xl">< Register new accommodaiton</p>
+            </a>
         </div>
 
         <form action="{{ route('dashboard.accomodations.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <div class="mb-3">
-                <label for="title" class="form-label">Accommodation Title</label>
+            {{-- title --}}
+            <div class="mb-3 w-full">
+                <x-input-label for="title" :value="__('Title')" class="text-black"/>
                 <input type="text" name="title" id="title" value="{{ old('title') }}"
-                    placeholder="Your title here"
-                    class="form-control
+                    placeholder="Accommodation title"
+                    class="block mt-1 w-full rounded-md border-gray-300
                     @error('title') is-invalid @enderror" @required(true) />
                 @error('title')
-                    <div class="alert alert-danger">
+                    <div class="bg-red-200">
                         {{ $message }}
                     </div>
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="type" class="form-label">Accommodation Type</label>
-                <select name="type" id="type" class="form-control">
-                    <option value="House" {{ old('type') == 'House' ? 'selected' : '' }}>House</option>
-                    <option value="Apartment" {{ old('type') == 'Apartment' ? 'selected' : '' }}>Apartment</option>
-                    <option value="Hotel" {{ old('type') == 'Hotel' ? 'selected' : '' }}>Hotel</option>
-                    <option value="GuestHouse" {{ old('type') == 'GuestHouse' ? 'selected' : '' }}>GuestHouse</option>
-                </select>
-                @error('type')
-                    <div class="alert alert-danger">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-
-            <div class="mb-3 d-flex gap-5">
-                <div>
-                    <label for="rooms" class="form-label">Number of Bedrooms</label>
-                    <input type="number" name="rooms" id="rooms" value="{{ old('rooms') ?? 1 }}"
-                        class="form-control
-                        @error('rooms') is-invalid @enderror" min="1"
-                        @required(true) />
-                    @error('rooms')
-                        <div class="alert alert-danger">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="beds" class="form-label">Number of Beds</label>
-                    <input type="number" name="beds" id="beds"
-                        class="form-control
-                        @error('beds') is-invalid @enderror"
-                        value="{{ old('beds') ?? 1 }}" min="1" />
-                    @error('beds')
-                        <div class="alert alert-danger">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="bathrooms" class="form-label">Number of Bathrooms</label>
-                    <input type="number" name="bathrooms" id="bathrooms" value="{{ old('bathrooms') ?? 1 }}"
-                        class="form-control
-                        @error('bathrooms') is-invalid @enderror"
-                        min="1" />
-                    @error('bathrooms')
-                        <div class="alert alert-danger">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-            </div>
-
-
-
-            <div class="d-flex gap-5 mb-3 align-items-center">
-                <div class="w-50 address-input-group">
-                    <label for="address" class="form-label">Address</label>
-                    <input type="text" name="address" id="address" placeholder="Your address here"
-                        class="form-control
+            {{-- address city--}}
+            <div class="flex justify-between gap-5">
+                {{-- address --}}
+                <div class="w-1/2 address-input-group mb-3">
+                    <x-input-label for="address" :value="__('Full address')" class="text-black"/>
+                    <input type="text" name="address" id="address" placeholder="Via Roma 50"
+                        class="block mt-1 w-full rounded-md border-gray-300
                         @error('address') is-invalid @enderror"
                         @required(true) value="{{ old('address') }}" autocomplete="off" />
                     @error('address')
-                        <div class="alert alert-danger">
+                        <div class="bg-red-200">
                             {{ $message }}
                         </div>
                     @enderror
-                    <ul class="dropdown-menu-dark w-full" id="create-dropdown">
-                    </ul>
+                    <ul class="dropdown-menu-dark w-full" id="create-dropdown"></ul>
                     {{-- this hidden input will carry the actual value of the position --}}
                     <input type="hidden" name="selected_address" id="selected_address">
                 </div>
 
-
-                {{-- <div class="w-25">
-                    <label for="cap" class="form-label">ZIP Code</label>
-                    <input type="text" name="cap" value="{{ old('cap') }}" id="cap"
-                        class="form-control" pattern="\d*" @required(true) />
-                </div> --}}
-
-                <div class="w-25">
-                    <label for="city" class="form-label">City</label>
-                    <input type="text" name="city" id="city" placeholder="Your city here" @required(true)
+                {{-- city --}}
+                <div class="w-1/2 address-input-group mb-3">
+                    <x-input-label for="city" :value="__('City')" class="text-black"/>
+                    <input type="text" name="city" id="city" placeholder="Roma" @required(true)
                         value="{{ old('city') }}"
-                        class="form-control
+                        class="block mt-1 w-full rounded-md border-gray-300
                         @error('city') is-invalid @enderror" />
                     @error('city')
-                        <div class="alert alert-danger">
+                        <div class="bg-red-200">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
             </div>
 
-
-            <div class="d-flex gap-5 mb-3 align-items-center">
-                <div class="mb-3 w-75">
-                    <label for="price_per_night" class="form-label">Price per Night</label>
-                    <input type="range" class="form-range" min="0" max="500" step="10"
-                        value="{{ old('price_per_night') ? old('price_per_night') : '0' }}" id="price_per_night"
-                        name="price_per_night">
-                    <div id="price_display">Price: {{ old('price_per_night') ? '€' . old('price_per_night') : '0' }}
-                    </div>
-                    @error('price_per_night')
-                        <div class="alert alert-danger">
+            {{-- type rooms beds bathrooms --}}
+            <div class="flex justify-between gap-5">
+                <!-- type -->
+                <div class="mb-3 w-full">
+                    <x-input-label for="type" :value="__('Type')" class="text-black"/>
+                    <select name="type" id="type" class="block mt-1 rounded-md w-full border-gray-300">
+                        <option value="House" {{ old('type') == 'House' ? 'selected' : '' }}>House</option>
+                        <option value="Apartment" {{ old('type') == 'Apartment' ? 'selected' : '' }}>Apartment</option>
+                        <option value="Hotel" {{ old('type') == 'Hotel' ? 'selected' : '' }}>Hotel</option>
+                        <option value="GuestHouse" {{ old('type') == 'GuestHouse' ? 'selected' : '' }}>GuestHouse</option>
+                    </select>
+                    @error('type')
+                        <div class="bg-red-200">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
 
-
-                {{-- <div class="mb-3">
-
-                    <input type="checkbox" name="hidden" id="hidden" {{ old('hidden') ? 'checked' : '' }}
-                        class="form-check-input
-                        @error('hidden') is-invalid @enderror" />
-                    <label for="hidden" class="form-check-label">Hide on BoolBnB</label>
-                    @error('hidden')
-                        <div class="alert alert-danger">
+                {{-- rooms --}}
+                <div class="mb-3 w-full">
+                    <x-input-label for="rooms" :value="__('Bedrooms')" class="text-black"/>
+                    <input type="number" name="rooms" id="rooms" value="{{ old('rooms') ?? 1 }}"
+                        class="block mt-1 rounded-md w-full border-gray-300
+                        @error('rooms') is-invalid @enderror" min="1"
+                        @required(true) />
+                    @error('rooms')
+                        <div class="bg-red-200">
                             {{ $message }}
                         </div>
                     @enderror
-                </div> --}}
+                </div>
+
+                {{-- beds --}}
+                <div class="mb-3 w-full">
+                    <x-input-label for="beds" :value="__('Beds')" class="text-black"/>
+                    <input type="number" name="beds" id="beds"
+                        class="block mt-1 rounded-md w-full border-gray-300
+                        @error('beds') is-invalid @enderror"
+                        value="{{ old('beds') ?? 1 }}" min="1" />
+                    @error('beds')
+                        <div class="bg-red-200">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+                {{-- bathrooms --}}
+                <div class="mb-3 w-full">
+                    <x-input-label for="bathrooms" :value="__('Bathrooms')" class="text-black"/>
+                    <input type="number" name="bathrooms" id="bathrooms" value="{{ old('bathrooms') ?? 1 }}"
+                        class="block mt-1 rounded-md w-full border-gray-300
+                        @error('bathrooms') is-invalid @enderror"
+                        min="1" />
+                    @error('bathrooms')
+                        <div class="bg-red-200">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
             </div>
 
-            {{-- //TODO - handle multiple uploads --}}
-
+            {{-- thumb --}}
             <div class="mb-3">
-                <label for="thumb" class="form-label">
-                    Upload Thumbnail Image
+                <x-input-label for="user_propic" :value="__('Thumbnail')" class="text-black"/>
+
+                <label id="file-name-container" for="user_propic" class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('thumb') is-invalid @enderror">
+                    Seleziona un file
                 </label>
-                <input class="form-control @error('thumb') is-invalid @enderror" type="file" id="thumb"
-                    name="thumb">
+                <input type="file" name="user_propic" id="user_propic">
                 @error('thumb')
-                    <div class="alert alert-danger">
+                    <div class="bg-red-200">
                         {{ $message }}
                     </div>
                 @enderror
             </div>
 
+            {{-- prezzo notte --}}
+            <div class="flex justify-between items-center gap-5">
+                <div>
+                    <x-input-label for="range" :value="__('Price per night')" class="text-black"/>
+                    <div id="price_display" class="block mt-1 w-full rounded-md bg-white p-2 border border-gray-300">
+                        € {{ old('price_per_night') ? '€' . old('price_per_night') : '0' }}
+                    </div>
+                </div>
 
+                <div class="flex-grow mr-5 mt-5">
+                    <x-input-label for="price_per_night" :value="__('')" />
 
+                    <input type="range" class="custom-range form-range w-full mt-2" min="0" max="500" step="10"
+                        value="{{ old('price_per_night') ? old('price_per_night') : '0' }}" id="price_per_night"
+                        name="price_per_night">
+                    @error('price_per_night')
+                        <div class="bg-red-200">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
 
+            {{-- service --}}
             <div class="my-5">
-                <h5 class="mb-3">
-                    What services does your accommodation offer?
-                </h5>
-                <div class="mb-3 d-flex gap-4 form-check flex-wrap">
+                <x-input-label for="range" :value="__('Price per night')" class="text-black"/>
+                <div id="price_display" class="mt-1 w-full rounded-md">
+                    Choose one or more services
+                </div>
+
+                <div class="mb-3 flex flex-wrap">
                     @foreach ($services as $service)
                         <div class="my-3 me-3">
                             <input type="checkbox" name="services[]" id="service_{{ $service->id }}"
-                                value="{{ $service->id }}" class="form-check-input"
+                                value="{{ $service->id }}" class="form-checkbox h-5 w-5 text-blue-500"
                                 {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
                             <label for="service_{{ $service->id }}"
-                                class="form-check-label">{{ $service->name }}</label>
+                                class="ml-2 text-sm text-gray-700">{{ $service->name }}
+                            </label>
                         </div>
                     @endforeach
                 </div>
             </div>
 
-            {{-- <div class="form-check mb-3 fw-bold">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
-                    @required(true)>
-                <label class="form-check-label" for="flexCheckDefault">
-                    Confirm correctness of entered information
-                </label>
-            </div> --}}
-
-
-
-
-            <button type="submit" class="btn btn-success">Confirm</button>
+            <x-primary-button type="submit">Confirm</x-primary-button>
 
         </form>
     </div>
 
 </body>
-
 </html>
 
 <script>
@@ -235,7 +213,7 @@
     console.log(address_input)
 
     priceRange.addEventListener('input', function() {
-        priceDisplay.innerText = 'Price: €' + priceRange.value;
+        priceDisplay.innerText = '€ ' + priceRange.value;
     });
 
     function editDropdownMenu(list) {
@@ -282,7 +260,6 @@
         };
     }
 
-
     address_input.addEventListener('input', debounce((e) => {
         let address = e.target.value;
         const api_url = 'http://127.0.0.1:8000/api/get-address-suggestions?address=';
@@ -309,6 +286,17 @@
                 });
         }
     }, 300))
+
+
+    // img
+    var inputFile = document.getElementById('user_propic');
+
+    inputFile.addEventListener('change', function(){
+        var fileName = inputFile.files[0].name;
+        var fileNameContainer = document.getElementById('file-name-container');
+        fileNameContainer.textContent = 'Selected file: ' + fileName;
+    });
+
 </script>
 
 <style>
@@ -324,4 +312,161 @@
         width: 10px;
         fill: white;
     }
+
+    input[type="file"]{
+        display: none;
+    }
+
+
+
+    /* input rage */
+    .custom-range::-webkit-slider-runnable-track {
+        background-color: #000000; /* Cambia il colore della barra di avanzamento */
+        height: 5px;
+        border-radius: 10px;
+    }
+
+
 </style>
+
+
+            {{-- <div class="mb-3 bg-blue-500">
+                <x-input-label for="title" :value="__('title')" />
+                <input type="text" name="title" id="title" value="{{ old('title') }}"
+                    placeholder="Accommodation title"
+                    class="block mt-1 w-full
+                    @error('title') is-invalid @enderror" @required(true) />
+                @error('title')
+                    <div class="bg-red-200">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="mb-3 bg-blue-500">
+                <x-input-label for="type" :value="__('type')" />
+                <select name="type" id="type" class="block mt-1 w-full">
+                    <option value="House" {{ old('type') == 'House' ? 'selected' : '' }}>House</option>
+                    <option value="Apartment" {{ old('type') == 'Apartment' ? 'selected' : '' }}>Apartment</option>
+                    <option value="Hotel" {{ old('type') == 'Hotel' ? 'selected' : '' }}>Hotel</option>
+                    <option value="GuestHouse" {{ old('type') == 'GuestHouse' ? 'selected' : '' }}>GuestHouse</option>
+                </select>
+                @error('type')
+                    <div class="bg-red-200">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="mb-3 bg-blue-500">
+                <x-input-label for="rooms" :value="__('rooms')" />
+                <input type="number" name="rooms" id="rooms" value="{{ old('rooms') ?? 1 }}"
+                    class="form-control
+                    @error('rooms') is-invalid @enderror" min="1"
+                    @required(true) />
+                @error('rooms')
+                    <div class="bg-red-200">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+
+            <div class="mb-3 bg-blue-500">
+                <x-input-label for="beds" :value="__('beds')" />
+                <input type="number" name="beds" id="beds"
+                    class="form-control
+                    @error('beds') is-invalid @enderror"
+                    value="{{ old('beds') ?? 1 }}" min="1" />
+                @error('beds')
+                    <div class="bg-red-200">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+
+            <div class="mb-3 bg-blue-500">
+                <x-input-label for="bathrooms" :value="__('bathrooms')" />
+                <input type="number" name="bathrooms" id="bathrooms" value="{{ old('bathrooms') ?? 1 }}"
+                    class="form-control
+                    @error('bathrooms') is-invalid @enderror"
+                    min="1" />
+                @error('bathrooms')
+                    <div class="bg-red-200">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="w-50 address-input-group mb-3 bg-blue-500">
+                <x-input-label for="address" :value="__('address')" />
+                <input type="text" name="address" id="address" placeholder="Your address here"
+                    class="form-control
+                    @error('address') is-invalid @enderror"
+                    @required(true) value="{{ old('address') }}" autocomplete="off" />
+                @error('address')
+                    <div class="bg-red-200">
+                        {{ $message }}
+                    </div>
+                @enderror
+                <ul class="dropdown-menu-dark w-full" id="create-dropdown">
+                </ul>
+                <input type="hidden" name="selected_address" id="selected_address">
+            </div>
+
+            <div class="mb-3 bg-blue-500">
+                <x-input-label for="city" :value="__('city')" />
+                <input type="text" name="city" id="city" placeholder="Your city here" @required(true)
+                    value="{{ old('city') }}"
+                    class="form-control
+                    @error('city') is-invalid @enderror" />
+                @error('city')
+                    <div class="bg-red-200">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="mb-3 bg-blue-500">
+                <x-input-label for="price_per_night" :value="__('price_per_night')" />
+                <input type="range" class="form-range" min="0" max="500" step="10"
+                    value="{{ old('price_per_night') ? old('price_per_night') : '0' }}" id="price_per_night"
+                    name="price_per_night">
+                <div id="price_display">Price: {{ old('price_per_night') ? '€' . old('price_per_night') : '0' }}
+                </div>
+                @error('price_per_night')
+                    <div class="bg-red-200">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <x-input-label for="thumb" :value="__('thumb')" />
+
+                <input class="form-control @error('thumb') is-invalid @enderror" type="file" id="thumb"
+                    name="thumb">
+                @error('thumb')
+                    <div class="bg-red-200">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="my-5">
+                <h5 class="mb-3">
+                    What services does your accommodation offer?
+                </h5>
+                <div class="mb-3 flex flex-wrap">
+                    @foreach ($services as $service)
+                        <div class="my-3 me-3">
+                            <input type="checkbox" name="services[]" id="service_{{ $service->id }}"
+                                value="{{ $service->id }}" class="form-checkbox h-5 w-5 text-blue-500"
+                                {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
+                            <label for="service_{{ $service->id }}"
+                                class="ml-2 text-sm text-gray-700">{{ $service->name }}</label>
+                        </div>
+                    @endforeach
+                </div>
+            </div> --}}
