@@ -23,7 +23,7 @@ class AccomodationController extends Controller
         // Max_distance filter
         if ($max_distance !== null && $point_lat !== null && $point_lng !== null) {
             $accomodations_query->selectRaw("*")
-                ->selectRaw("ST_Distance(point, POINT(?, ?)) AS distance", [$point_lng, $point_lat])
+                ->selectRaw("ST_Distance_Sphere(POINT(longitude, latitude), POINT(?, ?)) AS distance", [$point_lng, $point_lat])
                 ->having('distance', '<=', $max_distance * 1000);
         }
 
