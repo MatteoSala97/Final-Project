@@ -81,7 +81,10 @@ class AccomodationController extends Controller
             $validatedData['thumb'] = basename($img_path);
         }
 
+        unset($validatedData['services']);
+        
         $new_accommodation = Accomodation::create($validatedData);
+
 
         // Attach services if provided
         if ($request->has('services') && is_array($request->services) && count($request->services) > 0) {

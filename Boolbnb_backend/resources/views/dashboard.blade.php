@@ -34,18 +34,18 @@
                     </a>
                 </div>
             </div>
-            <div class="sidebar-item mt-auto">
+            {{-- <div class="sidebar-item mt-auto">
                 <a href="#" class="flex items-center text-left">
                     <img src="/icons/user.svg" class="mr-2" alt="">
                     <span>Logout</span>
                 </a>
-            </div>
+            </div> --}}
         </div>
 
         <div class="w-[85%] bg-white border">
             @if($accomodations !== null && count($accomodations) > 0)
                 <div class="subtitle flex justify-between mx-5 mt-5">
-                    <h2 class="title">Your Accommodations</h2>
+                    <h2 class="title">Your Accommodations ({{ $accomodations->count() }})</h2>
                     <a href="{{ route('dashboard.accomodations.create') }}" class="gradient-button flex justify-center items-center text-grey ">
                         Create a new accommodation
                     </a>
