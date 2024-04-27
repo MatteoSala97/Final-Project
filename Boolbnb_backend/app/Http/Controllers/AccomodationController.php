@@ -95,7 +95,7 @@ class AccomodationController extends Controller
             }
         }
 
-        return redirect()->route('dashboard.accomodations.index');
+        return redirect()->route('dashboard');
     }
 
 
@@ -177,7 +177,7 @@ class AccomodationController extends Controller
             $accomodation->services()->detach();
         }
 
-        return redirect()->route('dashboard.accomodations.index');
+        return redirect()->route('dashboard');
     }
 
     /**

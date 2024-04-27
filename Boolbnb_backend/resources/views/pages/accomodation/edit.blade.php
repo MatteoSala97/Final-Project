@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Change the accommodation</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body>
+<x-app-layout>
     <div class="container m-5 w-9/12">
 
         <div class="my-5">
@@ -22,10 +7,9 @@
             </a>
         </div>
 
-        <form action="{{ route('dashboard.accomodations.update', $accomodation->id) }}" method="POST"
+        <form class="ms-4" action="{{ route('dashboard.accomodations.update', $accomodation->id) }}" method="POST"
             enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
+            @csrf @method('PUT')
 
             {{-- title --}}
             <div class="mb-3">
@@ -120,7 +104,7 @@
                 <div class="flex-grow mr-5 mt-5">
                     <x-input-label for="price_per_night" :value="__('')" />
 
-                    <input type="range" class="custom-range form-range w-full mt-2" min="0" max="500" step="10"
+                    <input type="range" class="form-range w-full mt-2" min="0" max="500" step="10"
                         value="{{ old('price_per_night', $accomodation->price_per_night) }}" id="price_per_night"
                         name="price_per_night">
                 </div>
@@ -135,7 +119,7 @@
 
                 <div class="mb-3 flex flex-wrap">
                     @foreach ($services as $service)
-                        <div class="my-3 me-3">
+                        <div class="my-3 me-3 w-2/12">
                             <input type="checkbox" name="services[]" id="service_{{ $service->id }}"
                                 value="{{ $service->id }}" class="form-checkbox h-5 w-5 text-blue-500"
                                 {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
@@ -147,13 +131,14 @@
                 </div>
             </div>
 
-            <x-primary-button type="submit" class="btn btn-success">Confirm Edit</x-primary-button>
+            {{-- <x-primary-button type="submit">Confirm Edit</x-primary-button> --}}
+            <x-button-gradient type="submit">
+                <button class="uppercase">Confirm Edit</button>
+            </x-button-gradient>
 
         </form>
     </div>
-</body>
-
-</html>
+</x-app-layout>
 
 <script>
     const priceRange = document.getElementById('price_per_night');
@@ -270,14 +255,30 @@
         display: none;
     }
 
-
-
-    /* input rage */
-    .custom-range::-webkit-slider-runnable-track {
-        background-color: #000000; /* Cambia il colore della barra di avanzamento */
+    input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 10px;
+        background-color: transparent;
+        border-radius: 5px;
+    }
+    input[type="range"]::-webkit-slider-runnable-track {
+        width: 100%;
         height: 5px;
+        background-color: black;
         border-radius: 10px;
     }
-
-
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        background-color: rgb(255, 255, 255);
+        border: 1px solid rgb(135, 135, 135);
+        border-radius: 50%;
+        cursor: pointer;
+        margin-top: -10px;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    }
 </style>

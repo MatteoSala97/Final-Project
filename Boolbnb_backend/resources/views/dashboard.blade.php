@@ -7,8 +7,11 @@
     </x-slot>
 
     <div class="flex h-screen border">
-        <div class="w-[15%] sidebar flex flex-col px-10 py-5">
+
+        {{-- Accommodations / Stats / Advertisement / Messages / Logout --}}
+        <div class="sidebar flex flex-col pt-4 px-5">
             <div class="flex flex-col gap-4">
+
                 <div class="sidebar-item">
                     <a href="#" class="flex items-center text-left hover:text-white">
                         <img src="/icons/home-alt.svg" class="mr-1" alt="Home">
@@ -33,22 +36,28 @@
                         <span>Messages</span>
                     </a>
                 </div>
+
             </div>
-            {{-- <div class="sidebar-item mt-auto">
+            {{-- Logout --}}
+            <div class="sidebar-item mt-auto mb-4">
                 <a href="#" class="flex items-center text-left">
                     <img src="/icons/user.svg" class="mr-2" alt="">
                     <span>Logout</span>
                 </a>
-            </div> --}}
+            </div>
         </div>
 
-        <div class="w-[85%] bg-white border">
+        <div class="w-full border">
             @if($accomodations !== null && count($accomodations) > 0)
-                <div class="subtitle flex justify-between mx-5 mt-5">
+                <div class="subtitle flex justify-between m-5">
                     <h2 class="title">Your Accommodations ({{ $accomodations->count() }})</h2>
-                    <a href="{{ route('dashboard.accomodations.create') }}" class="gradient-button flex justify-center items-center text-grey ">
-                        Create a new accommodation
-                    </a>
+
+                    <x-button-gradient>
+                        <a href="{{ route('dashboard.accomodations.create') }}">
+                            {{ __('Create a new accommodation') }}
+                        </a>
+                    </x-button-gradient>
+
                 </div>
 
                 <!-- Table responsive wrapper -->
@@ -96,7 +105,7 @@
                                 <td class="px-6 py-5">{{ $item->type }}</td>
                                 <td class="px-6 py-5">{{ $item->address }}</td>
                                 <td class="px-6 py-5">{{ $item->city }}</td>
-                                <td class="px-6 py-5">{{ $item->price_per_night }}</td>
+                                <td class="px-6 py-5">{{ $item->price_per_night }} €</td>
                                 <td class="border px-4 py-2">
                                     <div class="flex gap-2 justify-around">
                                         <a href="{{ route('dashboard.accomodations.show', $item->id) }}"
@@ -165,9 +174,13 @@
                     <p>
                         There are no accommodations, please start by adding a new one.
                     </p>
-                    <a href="{{ route('dashboard.accomodations.create') }}" class="gradient-button">
-                        Add accommodation
-                    </a>
+
+                    <x-button-gradient>
+                        <a href="{{ route('dashboard.accomodations.create') }}">
+                            Add accommodation
+                        </a>
+                    </x-button-gradient>
+
                 </div>
             @endif
         </div>
@@ -182,39 +195,49 @@
         clip-path: circle();
         width: 55px;
     }
-
     .sidebar {
-        background-color: #F3F4F6;
+        height: calc(90vh - 0vh);
     }
-
     .sidebar-item {
-        padding: 10px 15px;
-        text-decoration: none;
+        padding: 10px 30px 10px 10px;
         font-size: 18px;
         font-weight: bold;
     }
-
     .sidebar-item:hover {
         color: white;
         background-color: #000000;
         border-radius: 20px;
     }
-
     .sidebar-item:hover img {
         filter: invert(1);
     }
-
     .sidebar-item img {
         width: 20px;
         height: 20px;
     }
-
     .title {
         font-size: 1.5rem;
         font-weight: bold;
     }
 
-    .gradient-button {
+
+
+
+    /* .ciaoooo{
+        height: calc(100vh - 0);
+        background-color: green;
+    }
+
+    .ciaoooooo2{
+        height: calc(100vh - 0);
+        background-color: blue;
+    } */
+
+
+
+
+
+    /* .gradient-button {
         background-image: linear-gradient(135deg, #00CBD8, #B844FF);
         border: none;
         color: white;
@@ -227,5 +250,5 @@
 
     .gradient-button:hover {
         background-image: linear-gradient(135deg, #00A9BF, #A336DF);
-    }
+    } */
 </style>
