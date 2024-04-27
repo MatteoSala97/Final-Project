@@ -28,13 +28,13 @@
 
             {{-- title --}}
             <div class="mb-3 w-full">
-                <x-input-label for="title" :value="__('Title')" class="text-black"/>
+                <x-input-label for="title" :value="__('Title *')" class="text-black"/>
                 <input type="text" name="title" id="title" value="{{ old('title') }}"
                     placeholder="Accommodation title"
                     class="block mt-1 w-full rounded-md border-gray-300
                     @error('title') is-invalid @enderror" @required(true) />
                 @error('title')
-                    <div class="bg-red-200">
+                    <div class="bg-red-200 p-5 rounded-md">
                         {{ $message }}
                     </div>
                 @enderror
@@ -42,43 +42,45 @@
 
             {{-- address city--}}
             <div class="flex justify-between gap-5">
+
                 {{-- address --}}
                 <div class="w-1/2 address-input-group mb-3">
-                    <x-input-label for="address" :value="__('Full address')" class="text-black"/>
+                    <x-input-label for="address" :value="__('Full address *')" class="text-black"/>
                     <input type="text" name="address" id="address" placeholder="Via Roma 50"
                         class="block mt-1 w-full rounded-md border-gray-300
                         @error('address') is-invalid @enderror"
                         @required(true) value="{{ old('address') }}" autocomplete="off" />
                     @error('address')
-                        <div class="bg-red-200">
+                        <div class="bg-red-200 p-5 rounded-md">
                             {{ $message }}
                         </div>
                     @enderror
                     <ul class="dropdown-menu-dark w-full" id="create-dropdown"></ul>
                     {{-- this hidden input will carry the actual value of the position --}}
-                    <input type="hidden" name="selected_address" id="selected_address">
+                    <input type="hidden"  value="{{ old('selected_address') ?? '' }}" name="selected_address" id="selected_address">
                 </div>
 
                 {{-- city --}}
                 <div class="w-1/2 address-input-group mb-3">
-                    <x-input-label for="city" :value="__('City')" class="text-black"/>
+                    <x-input-label for="city" :value="__('City *')" class="text-black"/>
                     <input type="text" name="city" id="city" placeholder="Roma" @required(true)
                         value="{{ old('city') }}"
                         class="block mt-1 w-full rounded-md border-gray-300
                         @error('city') is-invalid @enderror" />
                     @error('city')
-                        <div class="bg-red-200">
+                        <div class="bg-red-200 p-5 rounded-md">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
             </div>
 
-            {{-- type rooms beds bathrooms --}}
+            {{-- type / rooms / beds / bathrooms --}}
             <div class="flex justify-between gap-5">
+
                 <!-- type -->
                 <div class="mb-3 w-full">
-                    <x-input-label for="type" :value="__('Type')" class="text-black"/>
+                    <x-input-label for="type" :value="__('Type *')" class="text-black"/>
                     <select name="type" id="type" class="block mt-1 rounded-md w-full border-gray-300">
                         <option value="House" {{ old('type') == 'House' ? 'selected' : '' }}>House</option>
                         <option value="Apartment" {{ old('type') == 'Apartment' ? 'selected' : '' }}>Apartment</option>
@@ -86,7 +88,7 @@
                         <option value="GuestHouse" {{ old('type') == 'GuestHouse' ? 'selected' : '' }}>GuestHouse</option>
                     </select>
                     @error('type')
-                        <div class="bg-red-200">
+                        <div class="bg-red-200 p-5 rounded-md">
                             {{ $message }}
                         </div>
                     @enderror
@@ -94,13 +96,13 @@
 
                 {{-- rooms --}}
                 <div class="mb-3 w-full">
-                    <x-input-label for="rooms" :value="__('Bedrooms')" class="text-black"/>
+                    <x-input-label for="rooms" :value="__('Bedrooms *')" class="text-black"/>
                     <input type="number" name="rooms" id="rooms" value="{{ old('rooms') ?? 1 }}"
                         class="block mt-1 rounded-md w-full border-gray-300
                         @error('rooms') is-invalid @enderror" min="1"
                         @required(true) />
                     @error('rooms')
-                        <div class="bg-red-200">
+                        <div class="bg-red-200 p-5 rounded-md">
                             {{ $message }}
                         </div>
                     @enderror
@@ -108,13 +110,13 @@
 
                 {{-- beds --}}
                 <div class="mb-3 w-full">
-                    <x-input-label for="beds" :value="__('Beds')" class="text-black"/>
+                    <x-input-label for="beds" :value="__('Beds *')" class="text-black"/>
                     <input type="number" name="beds" id="beds"
                         class="block mt-1 rounded-md w-full border-gray-300
                         @error('beds') is-invalid @enderror"
                         value="{{ old('beds') ?? 1 }}" min="1" />
                     @error('beds')
-                        <div class="bg-red-200">
+                        <div class="bg-red-200 p-5 rounded-md">
                             {{ $message }}
                         </div>
                     @enderror
@@ -122,13 +124,13 @@
 
                 {{-- bathrooms --}}
                 <div class="mb-3 w-full">
-                    <x-input-label for="bathrooms" :value="__('Bathrooms')" class="text-black"/>
+                    <x-input-label for="bathrooms" :value="__('Bathrooms *')" class="text-black"/>
                     <input type="number" name="bathrooms" id="bathrooms" value="{{ old('bathrooms') ?? 1 }}"
                         class="block mt-1 rounded-md w-full border-gray-300
                         @error('bathrooms') is-invalid @enderror"
                         min="1" />
                     @error('bathrooms')
-                        <div class="bg-red-200">
+                        <div class="bg-red-200 p-5 rounded-md">
                             {{ $message }}
                         </div>
                     @enderror
@@ -137,14 +139,16 @@
 
             {{-- thumb --}}
             <div class="mb-3">
-                <x-input-label for="user_propic" :value="__('Thumbnail')" class="text-black"/>
+                <x-input-label for="thumb" :value="__('Thumbnail')" class="text-black"/>
 
-                <label id="file-name-container" for="user_propic" class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('thumb') is-invalid @enderror">
-                    Seleziona un file
+                <label id="file-name-container" for="thumb" class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('thumb') is-invalid @enderror">
+                    Select file
                 </label>
-                <input type="file" name="user_propic" id="user_propic">
+
+                <input class="form-control @error('thumb') is-invalid @enderror" type="file" id="thumb" accept=".jpeg, .png, .jpg" name="thumb">
+
                 @error('thumb')
-                    <div class="bg-red-200">
+                    <div class="bg-red-200 p-5 rounded-md">
                         {{ $message }}
                     </div>
                 @enderror
@@ -153,7 +157,7 @@
             {{-- prezzo notte --}}
             <div class="flex justify-between items-center gap-5">
                 <div>
-                    <x-input-label for="range" :value="__('Price per night')" class="text-black"/>
+                    <x-input-label for="range" :value="__('Price per night *')" class="text-black"/>
                     <div id="price_display" class="block mt-1 w-full rounded-md bg-white p-2 border border-gray-300">
                         € {{ old('price_per_night') ? '€' . old('price_per_night') : '0' }}
                     </div>
@@ -166,7 +170,7 @@
                         value="{{ old('price_per_night') ? old('price_per_night') : '0' }}" id="price_per_night"
                         name="price_per_night">
                     @error('price_per_night')
-                        <div class="bg-red-200">
+                        <div class="bg-red-200 p-5 rounded-md">
                             {{ $message }}
                         </div>
                     @enderror
@@ -175,7 +179,7 @@
 
             {{-- service --}}
             <div class="my-5">
-                <x-input-label for="range" :value="__('Price per night')" class="text-black"/>
+                <x-input-label for="range" :value="__('Services *')" class="text-black"/>
                 <div id="price_display" class="mt-1 w-full rounded-md">
                     Choose one or more services
                 </div>
@@ -289,7 +293,7 @@
 
 
     // img
-    var inputFile = document.getElementById('user_propic');
+    var inputFile = document.getElementById('thumb');
 
     inputFile.addEventListener('change', function(){
         var fileName = inputFile.files[0].name;
@@ -328,7 +332,6 @@
 
 
 </style>
-
 
             {{-- <div class="mb-3 bg-blue-500">
                 <x-input-label for="title" :value="__('title')" />
@@ -371,7 +374,6 @@
                 @enderror
             </div>
 
-
             <div class="mb-3 bg-blue-500">
                 <x-input-label for="beds" :value="__('beds')" />
                 <input type="number" name="beds" id="beds"
@@ -384,7 +386,6 @@
                     </div>
                 @enderror
             </div>
-
 
             <div class="mb-3 bg-blue-500">
                 <x-input-label for="bathrooms" :value="__('bathrooms')" />
