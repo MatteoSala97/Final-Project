@@ -207,4 +207,10 @@ class AccomodationController extends Controller
         return redirect()->route('dashboard');
         // return redirect()->route('dashboard.accomodations.index');
     }
+
+    public function changeVisibility(Accomodation $accomodation)
+    {
+        $accomodation->update(['hidden' => !$accomodation->hidden]);
+        return redirect()->route('dashboard');
+    }
 }
