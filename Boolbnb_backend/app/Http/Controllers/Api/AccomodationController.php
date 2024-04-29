@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Accomodation;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -86,6 +87,15 @@ class AccomodationController extends Controller
             }
         }
 
+        //attach host info
+
+        $user = User::find($accommodation->user_id);
+
+        if (!$user) {
+            $accommodation->host_fullname = $user->name . ' ' . $user->surname;
+            $accommodation->registered_at = $user->created_at;
+        }
+
 
 
         if ($accomodations->total() > 0) {
@@ -105,6 +115,15 @@ class AccomodationController extends Controller
     public function show($id)
     {
         $accommodation = Accomodation::with(['pictures', 'services'])->find($id);
+
+        $user = User::find($accommodation->user_id);
+
+        if (!$user) {
+            $accommodation->host_fullname = $user->name . ' ' . $user->surname;
+            $accommodation->registered_at = $user->created_at;
+        }
+
+
 
         if (!$accommodation) {
             return response()->json([
