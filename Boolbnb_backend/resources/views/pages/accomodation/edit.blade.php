@@ -8,6 +8,7 @@
             <p class="font-bold text-xl">Edit an existing accommodation</p>
         </div>
 
+
         <form class="ms-4" action="{{ route('dashboard.accomodations.update', $accomodation->id) }}" method="POST"
             enctype="multipart/form-data">
             @csrf @method('PUT')

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Accomodation;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -63,6 +64,15 @@ class AccomodationController extends Controller
             $accomodations_query->orderBy('rating', 'desc');
         }
 
+        //could be fix for markers
+        // $accomodations = [];
+
+        // if ($point_lat && $point_lng) {
+        //     $accomodations = $accomodations_query->take(1000)->get();
+        // } else {
+        //     $accomodations = $accomodations_query->take(15)->get();
+        // }
+
         // Eager loading relationships
         $accomodations_query->with(['pictures', 'services']);
 
@@ -75,6 +85,15 @@ class AccomodationController extends Controller
                 $distance = $accommodation->distanceToPoint($point_lng, $point_lat);
                 $accommodation->distance_from_point = $distance;
             }
+        }
+
+        //attach host info
+
+        $user = User::find($accommodation->user_id);
+
+        if (!$user) {
+            $accommodation->host_fullname = $user->name . ' ' . $user->surname;
+            $accommodation->registered_at = $user->created_at;
         }
 
 
@@ -91,5 +110,31 @@ class AccomodationController extends Controller
                 'error' => 'No accommodations found.'
             ]);
         }
+    }
+
+    public function show($id)
+    {
+        $accommodation = Accomodation::with(['pictures', 'services'])->find($id);
+
+        $user = User::find($accommodation->user_id);
+
+        if (!$user) {
+            $accommodation->host_fullname = $user->name . ' ' . $user->surname;
+            $accommodation->registered_at = $user->created_at;
+        }
+
+
+
+        if (!$accommodation) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Accommodation not found.'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'res' => $accommodation
+        ]);
     }
 }

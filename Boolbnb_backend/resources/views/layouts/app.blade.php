@@ -36,13 +36,13 @@
             <div class="flex flex-col gap-4">
 
                 <div class="sidebar-item">
-                    <a href="#" class="flex items-center text-left hover:text-white">
+                    <a href="{{ route('dashboard') }}" class="flex items-center text-left hover:text-white">
                         <img src="/icons/home-alt.svg" class="mr-1" alt="Home">
                         <span>Accommodations</span>
                     </a>
                 </div>
                 <div class="sidebar-item">
-                    <a href="#" class="flex text-left hover:text-white">
+                    <a href="{{ route('dashboard.accomodations.index') }}" class="flex text-left hover:text-white">
                         <img src="/icons/graph-bar.svg" class="mr-1" alt="">
                         <span>Stats</span>
                     </a>
