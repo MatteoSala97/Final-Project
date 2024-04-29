@@ -24,7 +24,7 @@ Route::get('/', function () {
     if (auth()->check()) {
         $user = User::findOrFail(auth()->id());
         $accomodations = Accomodation::where('user_id', auth()->id())->get();
-        return view('pages.accomodation.index', compact('user', 'accomodations'));
+        return view('dashboard', compact('user', 'accomodations'));
     } else {
         return view('auth.login');
     }
