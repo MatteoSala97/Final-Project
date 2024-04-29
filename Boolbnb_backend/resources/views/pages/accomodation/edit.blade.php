@@ -112,7 +112,7 @@
                 <label for="thumb" class="form-label">
                     Change Thumbnail Image
                 </label>
-                <input class="form-control  @error('thumb') is-invalid @enderror"" type="file" id="thumb"
+                <input class="form-control  @error('thumb') is-invalid @enderror" type="file" id="thumb"
                     name="thumb">
                 @error('thumb')
                     <div class="alert alert-danger">

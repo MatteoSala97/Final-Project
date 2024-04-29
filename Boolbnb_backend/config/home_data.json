@@ -1,0 +1,49 @@
+[
+    {
+        "title": "Apartment P2.",
+        "type": "Apartment",
+        "rooms": 1,
+        "beds": 0,
+        "bathrooms": 1,
+        "city": "Torino",
+        "address": "Torino, Piemonte, Italy",
+        "latitude": 45.05002942499759,
+        "longitude": 7.677150181448262,
+        "rating": 4.93,
+        "pictures": [
+            "https://a0.muscache.com/im/pictures/miso/Hosting-986554425642257209/original/22b5a138-72fd-4b9c-9484-a8d4b3fa7070.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-986554425642257209/original/749ebbbc-60be-4f55-aa78-fc328cc616c2.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-986554425642257209/original/6c51217e-b841-4a90-94c0-000aa01bef91.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-986554425642257209/original/0902e93c-6510-41d9-8c34-db718c73a18b.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-986554425642257209/original/fb698833-9331-43c0-9b6d-75e1260a54d1.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-986554425642257209/original/905083ce-3172-4a12-8c83-1a33a4bb2527.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-986554425642257209/original/5adfbf0f-20f4-46a7-91fc-7501daedd17f.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-986554425642257209/original/d5e7398b-144c-49df-bf40-a58ad2291ae4.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-986554425642257209/original/0e7695d0-e53a-4df3-b993-b42ff9a99d67.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-986554425642257209/original/af4c3196-1995-4353-b878-e0c915a9d31d.jpeg?im_w=720"
+        ],
+        "host_thumb": "https://a0.muscache.com/im/pictures/user/801dd214-37aa-4b1e-873f-4b6bd1e6adf5.jpg?aki_policy=profile_x_medium",
+        "thumb": "https://a0.muscache.com/im/pictures/miso/Hosting-986554425642257209/original/22b5a138-72fd-4b9c-9484-a8d4b3fa7070.jpeg?im_w=720",
+        "services": [
+            1,
+            4,
+            5,
+            8,
+            9,
+            12,
+            89,
+            91,
+            30,
+            95,
+            415,
+            33,
+            100,
+            40,
+            41,
+            44,
+            45,
+            46
+        ],
+        "price_per_night": 45
+    }
+]
