@@ -2,8 +2,8 @@
     <div class="container m-5 w-9/12">
 
         <div class="my-5">
-            <a href="{{ route('dashboard') }}" class="btn btn-primary d-flex align-items-center">
-                <p class="font-bold text-xl">< Register new accommodation</p>
+            <a href="{{ route('dashboard') }}" class="flex items-center">
+                <x-arrowleft/> <p class="font-bold text-xl">Register new accommodaiton</p>
             </a>
         </div>
 
@@ -39,8 +39,9 @@
                             {{ $message }}
                         </div>
                     @enderror
-                    <ul class="dropdown-menu-dark w-full" id="create-dropdown"></ul>
-                    {{-- this hidden input will carry the actual value of the position --}}
+                    <ul class="w-full" id="create-dropdown"></ul>
+                    {{-- <ul class="mt-1 rounded-md bg-white border border-gray-300 w-full" id="create-dropdown"></ul> --}}
+
                     <input type="hidden"  value="{{ old('selected_address') ?? '' }}" name="selected_address" id="selected_address">
                 </div>
 
