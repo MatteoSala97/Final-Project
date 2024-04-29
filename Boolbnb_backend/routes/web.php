@@ -43,6 +43,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware('auth')->get('/stats', function () {
+    $accomodations = Accomodation::where('user_id', auth()->id())->get();
+    return view('pages.accomodation.stats', compact('accomodations'));
+})->name('stats');
+
+
 Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(function () {
 
     // localhost:8000/dashboard/accomodations
