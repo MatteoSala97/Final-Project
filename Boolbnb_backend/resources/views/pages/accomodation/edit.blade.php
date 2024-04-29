@@ -2,8 +2,8 @@
     <div class="container m-5 w-9/12">
 
         <div class="my-5">
-            <a href="{{ route('dashboard') }}" class="btn btn-primary d-flex align-items-center">
-                <p class="font-bold text-xl">< Change accommodation</p>
+            <a href="{{ route('dashboard') }}" class="flex items-center">
+                <x-arrowleft/> <p class="font-bold text-xl">Change accommodation</p>
             </a>
         </div>
 
