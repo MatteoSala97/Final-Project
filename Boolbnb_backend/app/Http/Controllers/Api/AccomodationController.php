@@ -63,6 +63,15 @@ class AccomodationController extends Controller
             $accomodations_query->orderBy('rating', 'desc');
         }
 
+        //could be fix for markers
+        // $accomodations = [];
+
+        // if ($point_lat && $point_lng) {
+        //     $accomodations = $accomodations_query->take(1000)->get();
+        // } else {
+        //     $accomodations = $accomodations_query->take(15)->get();
+        // }
+
         // Eager loading relationships
         $accomodations_query->with(['pictures', 'services']);
 
@@ -91,5 +100,22 @@ class AccomodationController extends Controller
                 'error' => 'No accommodations found.'
             ]);
         }
+    }
+
+    public function show($id)
+    {
+        $accommodation = Accomodation::with(['pictures', 'services'])->find($id);
+
+        if (!$accommodation) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Accommodation not found.'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'res' => $accommodation
+        ]);
     }
 }
