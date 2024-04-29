@@ -33,12 +33,14 @@ class AccomodationStoreRequest extends FormRequest
             'city' => 'required|string',
             'price_per_night' => 'required|numeric',
             'thumb' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-
+            'services' => 'required|array|min:1',
         ];
     }
 
     public function messages()
     {
-        return [];
+        return [
+            'services.min' => 'At least one service must be selected.'
+        ];
     }
 }

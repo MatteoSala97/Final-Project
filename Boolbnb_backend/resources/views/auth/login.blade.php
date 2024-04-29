@@ -5,19 +5,19 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        <!-- Email Address -->
+        <!-- Email -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
+            <x-input-label for="email" :value="__('')" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" placeholder="Email *" :value="old('email')" required
                 autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <x-input-label for="password" :value="__('')" />
 
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
+            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" placeholder="Password *" required
                 autocomplete="current-password" />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
@@ -32,21 +32,27 @@
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
+        {{-- Btn link --}}
+        <div>
+            <div class="flex justify-between items-center">
+                @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+                {{ __('Forgot your password?') }}
                 </a>
-            @endif
+                @endif
 
+                <x-primary-button class="my-3">
+                    {{ __('Enter') }}
+                </x-primary-button>
+            </div>
 
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+            <div class="flex flex-col items-end">
+                <x-primary-button class="Btn-sign-up ms-4">
+                    <a href="/register">New Account</a>
+                </x-primary-button>
+            </div>
         </div>
 
     </form>
-    <a href="/register" class="bg-green-600 font-semibold px-2 py-1 rounded-md">New Account</a>
 </x-guest-layout>
