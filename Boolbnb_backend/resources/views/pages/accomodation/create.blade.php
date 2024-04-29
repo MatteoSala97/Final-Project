@@ -143,7 +143,8 @@
             <div class="flex justify-between items-center gap-5">
                 <div>
                     <x-input-label for="range" :value="__('Price per night *')" class="text-black"/>
-                    <div id="price_display" class="block mt-1 w-full rounded-md bg-white p-2 border border-gray-300">
+                    <div id="price_display" class="block mt-1 w-full rounded-md bg-white p-2 border border-gray-300
+                    @error('title') is-invalid @enderror" @required(true)>
                         € {{ old('price_per_night') ? '€' . old('price_per_night') : '0' }}
                     </div>
                 </div>
@@ -165,6 +166,12 @@
             {{-- service --}}
             <div class="my-5">
                 <x-input-label for="range" :value="__('Services *')" class="text-black"/>
+                @error('services')
+                    <div class="bg-red-200 p-5 rounded-md">
+                        {{ $message }}
+                    </div>
+                @enderror
+
                 <div id="price_display" class="mt-1 w-full rounded-md">
                     Choose one or more services
                 </div>
