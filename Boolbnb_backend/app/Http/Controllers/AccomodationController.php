@@ -114,7 +114,9 @@ class AccomodationController extends Controller
     {
         $services = Service::all();
 
-        return view('pages.accomodation.edit', compact('accomodation', 'services'));
+        $associatedServices = $accomodation->services->pluck('id')->toArray();
+
+        return view('pages.accomodation.edit', compact('accomodation', 'services', 'associatedServices'));
     }
 
     /**
