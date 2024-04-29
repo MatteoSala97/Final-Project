@@ -52,6 +52,10 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
     Route::get('/accomodations/{accomodation}/delete-confirmation', [AccomodationController::class, 'destroyConfirmation'])->name('accomodations.destroyConfirmation');
     Route::delete('/accomodations/{accomodation}/delete-confirmed', [AccomodationController::class, 'deleteConfirmed'])->name('accomodations.deleteConfirmed');
     Route::post('/accomodations/{accomodation}/change-visibility', [AccomodationController::class, 'changeVisibility'])->name('accomodations.changeVisibility');
+
+    // http://127.0.0.1:8000/dashboard/dashboard/accomodations/advertisement
+    Route::get('/dashboard/accomodations/advertisement', [AccomodationController::class, 'advertisement'])->name('accomodations.advertisement');
+
 });
 
 
