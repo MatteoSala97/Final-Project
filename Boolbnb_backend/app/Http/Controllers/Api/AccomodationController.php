@@ -11,7 +11,7 @@ class AccomodationController extends Controller
 {
     public function index(Request $request)
     {
-        $min_price = $request->query('min_price');
+        $min_price = $request->query('min_price') ?? 0;
         $max_price = $request->query('max_price');
         $type = $request->query('type');
         $max_distance = $request->query('max_distance');
@@ -28,7 +28,7 @@ class AccomodationController extends Controller
         }
 
         // Additional filters
-        if ($min_price !== null && $max_price !== null) {
+        if ($max_price !== null) {
             $accomodations_query->whereBetween('price_per_night', [$min_price, $max_price]);
         }
 
@@ -36,11 +36,26 @@ class AccomodationController extends Controller
             $accomodations_query->where('type', $type);
         }
 
+        // Order by distance if latitude and longitude are provided
+        if ($point_lat !== null && $point_lng !== null) {
+            $accomodations_query->orderByRaw('ST_Distance_Sphere(POINT(longitude, latitude), POINT(?, ?))', [$point_lng, $point_lat]);
+        }
+
         // Eager loading relationships
         $accomodations_query->with(['pictures', 'services']);
 
 
         $accomodations = $accomodations_query->paginate(15);
+        //if max_distance was among the filters, attach a "distance_from_point" additional info
+        if ($max_distance !== null) {
+            foreach ($accomodations as $accommodation) {
+                // Calculate the distance for each accommodation
+                $distance = $accommodation->distanceToPoint($point_lng, $point_lat);
+                $accommodation->distance_from_point = $distance;
+            }
+        }
+
+
 
         if ($accomodations->total() > 0) {
             return response()->json([
@@ -50,7 +65,7 @@ class AccomodationController extends Controller
         } else {
             return response()->json([
                 'success' => false,
-                'res' => null,
+                'res' => [],
                 'error' => 'No accommodations found.'
             ]);
         }
