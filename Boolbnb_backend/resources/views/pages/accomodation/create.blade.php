@@ -1,10 +1,11 @@
 <x-app-layout>
     <div class="container m-5 w-9/12">
 
-        <div class="my-5">
+        <div class="my-5 flex gap-5 items-center ml-4">
             <a href="{{ route('dashboard') }}" class="flex items-center">
-                <x-arrowleft/> <p class="font-bold text-xl">Register new accommodaiton</p>
+                <x-arrowleft/>
             </a>
+            <p class="font-bold text-xl">Register new accommodation</p>
         </div>
 
         <form class="ms-4" action="{{ route('dashboard.accomodations.store') }}" method="POST" enctype="multipart/form-data">
