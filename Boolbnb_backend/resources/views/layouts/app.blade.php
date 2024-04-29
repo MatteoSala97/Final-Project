@@ -42,7 +42,7 @@
                     </a>
                 </div>
                 <div class="sidebar-item">
-                    <a href="{{ route('dashboard.accomodations.index') }}" class="flex text-left hover:text-white">
+                    <a href="{{ route('stats') }}" class="flex text-left hover:text-white">
                         <img src="/icons/graph-bar.svg" class="mr-1" alt="">
                         <span>Stats</span>
                     </a>

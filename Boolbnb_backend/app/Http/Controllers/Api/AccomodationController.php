@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Accomodation;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,6 +22,7 @@ class AccomodationController extends Controller
         $rooms = $request->query('rooms');
         $beds = $request->query('beds');
         $bathrooms = $request->query('bathrooms');
+        $services = $request->query('services');
 
 
         $accomodations_query = Accomodation::query();
@@ -52,6 +54,11 @@ class AccomodationController extends Controller
         if ($bathrooms !== null) {
             $accomodations_query->where('bathrooms', $bathrooms);
         }
+        if ($services !== null) {
+            $accomodations_query->whereHas('services', function ($query) use ($services) {
+                $query->whereIn('service_id', $services);
+            });
+        }
 
         // Order by distance if latitude and longitude are provided
         if ($point_lat !== null && $point_lng !== null) {
@@ -64,14 +71,6 @@ class AccomodationController extends Controller
             $accomodations_query->orderBy('rating', 'desc');
         }
 
-        //could be fix for markers
-        // $accomodations = [];
-
-        // if ($point_lat && $point_lng) {
-        //     $accomodations = $accomodations_query->take(1000)->get();
-        // } else {
-        //     $accomodations = $accomodations_query->take(15)->get();
-        // }
 
         // Eager loading relationships
         $accomodations_query->with(['pictures', 'services']);
@@ -88,14 +87,6 @@ class AccomodationController extends Controller
         }
 
         //attach host info
-
-        $user = User::find($accommodation->user_id);
-
-        if (!$user) {
-            $accommodation->host_fullname = $user->name . ' ' . $user->surname;
-            $accommodation->registered_at = $user->created_at;
-        }
-
 
 
         if ($accomodations->total() > 0) {
@@ -118,9 +109,11 @@ class AccomodationController extends Controller
 
         $user = User::find($accommodation->user_id);
 
-        if (!$user) {
+
+        if ($user) {
+            $registeredDate = Carbon::parse($user->created_at)->format('d-m-Y');
             $accommodation->host_fullname = $user->name . ' ' . $user->surname;
-            $accommodation->registered_at = $user->created_at;
+            $accommodation->host_registration_date = $registeredDate;
         }
 
 
@@ -135,6 +128,58 @@ class AccomodationController extends Controller
         return response()->json([
             'success' => true,
             'res' => $accommodation
+        ]);
+    }
+
+    public function filteredAccommodations(Request $request)
+    {
+        $min_price = $request->query('min_price') ?? 0;
+        $max_price = $request->query('max_price');
+        $type = $request->query('type');
+        $max_distance = $request->query('max_distance');
+        $point_lat = $request->query('lat');
+        $point_lng = $request->query('lng');
+        $rooms = $request->query('rooms');
+        $beds = $request->query('beds');
+        $bathrooms = $request->query('bathrooms');
+        $services = $request->query('services');
+
+        $accommodations_query = Accomodation::query();
+
+        // Apply filters
+        if ($max_price !== null) {
+            $accommodations_query->whereBetween('price_per_night', [$min_price, $max_price]);
+        }
+
+        if ($type !== null) {
+            $accommodations_query->where('type', $type);
+        }
+
+        if ($rooms !== null) {
+            $accommodations_query->where('rooms', $rooms);
+        }
+
+        if ($beds !== null) {
+            $accommodations_query->where('beds', $beds);
+        }
+
+        if ($bathrooms !== null) {
+            $accommodations_query->where('bathrooms', $bathrooms);
+        }
+
+        if ($services !== null) {
+            $accommodations_query->whereHas('services', function ($query) use ($services) {
+                $query->whereIn('service_id', $services);
+            });
+        }
+
+        // Execute the query
+        $accommodations = $accommodations_query->get();
+
+        // Return the result
+        return response()->json([
+            'success' => true,
+            'res' => $accommodations
         ]);
     }
 }
