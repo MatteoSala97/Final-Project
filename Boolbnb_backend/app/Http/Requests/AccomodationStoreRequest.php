@@ -40,7 +40,8 @@ class AccomodationStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'services.min' => 'At least one service must be selected.'
+            'services.min' => 'At least one service must be selected.',
+            'services.required' => 'At least one service must be selected.'
         ];
     }
 }
