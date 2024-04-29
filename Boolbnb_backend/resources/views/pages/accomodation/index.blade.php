@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Not found</title>
+    <title>BoolBnb</title>
 </head>
 <body>
-    <h1>404 Not Found</h1>
-    <p>Oops! The page you're looking for could not be found.</p>
-    <p>Go back to the <a href="{{ route('dashboard') }}">home page</a>.</p>
+
+    <h1>Welcome to BoolBnb</h1>
+
+    <p>Go to the <a class="gradient-button" href="{{ route('dashboard') }}">home page</a>.</p>
 </body>
 </html>
+
+<style>
+    
+</style>
