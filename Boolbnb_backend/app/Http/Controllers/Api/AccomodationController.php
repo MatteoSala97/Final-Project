@@ -17,6 +17,10 @@ class AccomodationController extends Controller
         $max_distance = $request->query('max_distance');
         $point_lat = $request->query('lat');
         $point_lng = $request->query('lng');
+        $rooms = $request->query('rooms');
+        $beds = $request->query('beds');
+        $bathrooms = $request->query('bathrooms');
+
 
         $accomodations_query = Accomodation::query();
 
@@ -36,9 +40,27 @@ class AccomodationController extends Controller
             $accomodations_query->where('type', $type);
         }
 
+        if ($rooms !== null) {
+            $accomodations_query->where('rooms', $rooms);
+        }
+
+        if ($beds !== null) {
+            $accomodations_query->where('beds', $beds);
+        }
+
+        if ($bathrooms !== null) {
+            $accomodations_query->where('bathrooms', $bathrooms);
+        }
+
         // Order by distance if latitude and longitude are provided
         if ($point_lat !== null && $point_lng !== null) {
             $accomodations_query->orderByRaw('ST_Distance_Sphere(POINT(longitude, latitude), POINT(?, ?))', [$point_lng, $point_lat]);
+        } else {
+            // Filter by service ID 258
+            // $accomodations_query->whereHas('services', function ($query) {
+            //     $query->where('service_id', 25);
+            // });
+            $accomodations_query->orderBy('rating', 'desc');
         }
 
         // Eager loading relationships
@@ -47,7 +69,7 @@ class AccomodationController extends Controller
 
         $accomodations = $accomodations_query->paginate(15);
         //if max_distance was among the filters, attach a "distance_from_point" additional info
-        if ($max_distance !== null) {
+        if ($max_distance !== null && $point_lat  !== null  && $point_lng  !== null) {
             foreach ($accomodations as $accommodation) {
                 // Calculate the distance for each accommodation
                 $distance = $accommodation->distanceToPoint($point_lng, $point_lat);
