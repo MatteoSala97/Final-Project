@@ -29,7 +29,7 @@
             @csrf
 
             <div class="mb-3">
-                <label for="title" class="form-label">Accommodation Title</label>
+                <label for="title" class="form-label">Accommodation Title *</label>
                 <input type="text" name="title" id="title" value="{{ old('title') }}"
                     placeholder="Your title here"
                     class="form-control
@@ -42,7 +42,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="type" class="form-label">Accommodation Type</label>
+                <label for="type" class="form-label">Accommodation Type *</label>
                 <select name="type" id="type" class="form-control">
                     <option value="House" {{ old('type') == 'House' ? 'selected' : '' }}>House</option>
                     <option value="Apartment" {{ old('type') == 'Apartment' ? 'selected' : '' }}>Apartment</option>
@@ -101,7 +101,7 @@
 
             <div class="d-flex gap-5 mb-3 align-items-center">
                 <div class="w-50 address-input-group">
-                    <label for="address" class="form-label">Address</label>
+                    <label for="address" class="form-label">Address *</label>
                     <input type="text" name="address" id="address" placeholder="Your address here"
                         class="form-control
                         @error('address') is-invalid @enderror"
@@ -114,7 +114,7 @@
                     <ul class="dropdown-menu-dark w-full" id="create-dropdown">
                     </ul>
                     {{-- this hidden input will carry the actual value of the position --}}
-                    <input type="hidden" name="selected_address" id="selected_address">
+                    <input type="hidden"  value="{{ old('selected_address') ?? '' }}" name="selected_address" id="selected_address">
                 </div>
 
 
@@ -125,7 +125,7 @@
                 </div> --}}
 
                 <div class="w-25">
-                    <label for="city" class="form-label">City</label>
+                    <label for="city" class="form-label">City *</label>
                     <input type="text" name="city" id="city" placeholder="Your city here" @required(true)
                         value="{{ old('city') }}"
                         class="form-control
@@ -141,7 +141,7 @@
 
             <div class="d-flex gap-5 mb-3 align-items-center">
                 <div class="mb-3 w-75">
-                    <label for="price_per_night" class="form-label">Price per Night</label>
+                    <label for="price_per_night" class="form-label">Price per Night *</label>
                     <input type="range" class="form-range" min="0" max="500" step="10"
                         value="{{ old('price_per_night') ? old('price_per_night') : '0' }}" id="price_per_night"
                         name="price_per_night">
@@ -175,7 +175,7 @@
                 <label for="thumb" class="form-label">
                     Upload Thumbnail Image
                 </label>
-                <input class="form-control @error('thumb') is-invalid @enderror" type="file" id="thumb"
+                <input class="form-control @error('thumb') is-invalid @enderror" type="file" id="thumb" accept=".jpeg, .png, .jpg"
                     name="thumb">
                 @error('thumb')
                     <div class="alert alert-danger">
@@ -189,8 +189,17 @@
 
             <div class="my-5">
                 <h5 class="mb-3">
-                    What services does your accommodation offer?
+                    What services does your accommodation offer? *
                 </h5>
+                @if ($errors->has('services'))
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->get('services') as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="mb-3 d-flex gap-4 form-check flex-wrap">
                     @foreach ($services as $service)
                         <div class="my-3 me-3">
@@ -203,17 +212,6 @@
                     @endforeach
                 </div>
             </div>
-
-            {{-- <div class="form-check mb-3 fw-bold">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
-                    @required(true)>
-                <label class="form-check-label" for="flexCheckDefault">
-                    Confirm correctness of entered information
-                </label>
-            </div> --}}
-
-
-
 
             <button type="submit" class="btn btn-success">Confirm</button>
 

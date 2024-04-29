@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
 
+
+
 class AccomodationController extends Controller
 {
     /**
@@ -17,6 +19,11 @@ class AccomodationController extends Controller
     public function index()
     {
         $accomodations = Accomodation::where('user_id', auth()->id())->get();
+
+        if ($accomodations === null) {
+            $accomodations = [];
+        }
+
         return view('pages.accomodation.index', compact('accomodations'));
     }
 
@@ -74,7 +81,10 @@ class AccomodationController extends Controller
             $validatedData['thumb'] = basename($img_path);
         }
 
+        unset($validatedData['services']);
+        
         $new_accommodation = Accomodation::create($validatedData);
+
 
         // Attach services if provided
         if ($request->has('services') && is_array($request->services) && count($request->services) > 0) {
@@ -169,10 +179,26 @@ class AccomodationController extends Controller
 
         return redirect()->route('dashboard.accomodations.index');
     }
+
     /**
      * Remove the specified resource from storage.
      */
+    // public function destroy(Accomodation $accomodation)
+    // {
+    //     $accomodation->services()->detach();
+
+    //     $accomodation->delete();
+
+    //     return redirect()->route('dashboard.accomodations.index');
+    // }
+
+
     public function destroy(Accomodation $accomodation)
+    {
+        return view('pages.accomodation.delete_confirmation', compact('accomodation'));
+    }
+
+    public function deleteConfirmed(Accomodation $accomodation)
     {
         $accomodation->services()->detach();
 
