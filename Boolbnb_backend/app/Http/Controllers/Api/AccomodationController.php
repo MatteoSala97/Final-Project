@@ -85,6 +85,8 @@ class AccomodationController extends Controller
                 // Calculate the distance for each accommodation
                 $distance = $accommodation->distanceToPoint($point_lng, $point_lat);
                 $accommodation->distance_from_point = $distance;
+            }
+        }
 
         //attach host info
 
