@@ -1,11 +1,13 @@
 <x-app-layout>
     <div class="container m-5 w-9/12">
 
-        <div class="my-5">
+        <div class="my-5 flex gap-5 items-center ml-4">
             <a href="{{ route('dashboard') }}" class="flex items-center">
-                <x-arrowleft/> <p class="font-bold text-xl">Change accommodation</p>
+                <x-arrowleft/>
             </a>
+            <p class="font-bold text-xl">Edit an existing accommodation</p>
         </div>
+
 
         <form class="ms-4" action="{{ route('dashboard.accomodations.update', $accomodation->id) }}" method="POST"
             enctype="multipart/form-data">
@@ -13,7 +15,7 @@
 
             {{-- title --}}
             <div class="mb-3">
-                <x-input-label for="title" :value="__('Title')" class="text-black" />
+                <x-input-label for="title" :value="__('Title *')" class="text-black"  />
                 <input type="text" name="title" id="title" placeholder="Your title here"
                     class="block mt-1 w-full rounded-md border-gray-300"
                     value="{{ old('title', $accomodation->title) }}" />
@@ -23,14 +25,14 @@
             <div class="flex justify-between gap-5">
                 {{-- address --}}
                 <div class="w-1/2 address-input-group mb-3">
-                    <x-input-label for="address" :value="__('Full address')" class="text-black" />
+                    <x-input-label for="address" :value="__('Full address *')" class="text-black" />
                     <input type="text" name="address" id="address" placeholder="Your address here"
                         class="block mt-1 w-full rounded-md border-gray-300"
                         value="{{ old('address', $accomodation->address) }}" />
                 </div>
 
                 {{-- city --}}
-                <div class="w-1/2 address-input-group mb-3">
+                <div class="w-1/2 address-input-group mb-3 hidden">
                     <x-input-label for="city" :value="__('City')" class="text-black" />
                     <input type="text" name="city" id="city" placeholder="..."
                         class="block mt-1 w-full rounded-md border-gray-300"
@@ -42,7 +44,7 @@
             <div class="flex justify-between gap-5">
                 <!-- type -->
                 <div class="mb-3 w-full">
-                    <x-input-label for="type" :value="__('Type')" class="text-black" />
+                    <x-input-label for="type" :value="__('Type *')" class="text-black" />
                     <select name="type" id="type" class="block mt-1 rounded-md w-full border-gray-300">
                         <option value="House" {{ old('type', $accomodation->type) == 'House' ? 'selected' : '' }}>House
                         </option>
@@ -59,7 +61,7 @@
 
                 {{-- rooms --}}
                 <div class="mb-3 w-full">
-                    <x-input-label for="rooms" :value="__('Bedrooms')" class="text-black" />
+                    <x-input-label for="rooms" :value="__('Bedrooms *')" class="text-black" />
                     <input type="number" name="rooms" id="rooms"
                         class="block mt-1 rounded-md w-full border-gray-300"
                         value="{{ old('rooms', $accomodation->rooms) }}" min="1" />
@@ -68,7 +70,7 @@
 
                 {{-- beds --}}
                 <div class="mb-3 w-full">
-                    <x-input-label for="beds" :value="__('Beds')" class="text-black" />
+                    <x-input-label for="beds" :value="__('Beds *')" class="text-black" />
                     <input type="number" name="beds" id="beds"
                         class="block mt-1 rounded-md w-full border-gray-300"
                         value="{{ old('beds', $accomodation->beds) }}" min="1" />
@@ -77,7 +79,7 @@
 
                 {{-- bathrooms --}}
                 <div class="mb-3 w-full">
-                    <x-input-label for="bathrooms" :value="__('Bathrooms')" class="text-black" />
+                    <x-input-label for="bathrooms" :value="__('Bathrooms *')" class="text-black" />
                     <input type="number" name="bathrooms" id="bathrooms" value="{{ old('bathrooms') ?? 1 }}"
                         class="block mt-1 rounded-md w-full border-gray-300
                         @error('bathrooms') is-invalid @enderror"
@@ -88,11 +90,25 @@
 
             {{-- thumb --}}
             <div class="mb-3">
-                <x-input-label for="user_propic" :value="__('Thumbnail')" class="text-black" />
+                <x-input-label for="thumb" :value="__('Thumbnail')" class="text-black" />
 
-                <label id="file-name-container" for="user_propic"
+                @if ($accomodation->thumb)
+                <div class="d-flex mb-3 flex-column ">
+                    <label for="old_thumb" class="form-label">
+                        Your current Thumbnail Image
+                    </label>
+                    <img src="{{ asset('storage/uploads/' . $accomodation->thumb) }}" style="width: 250px"
+                        id="old_thumb">
+                </div>
+            @else
+                <label for="old_thumb" class="form-label">
+                    Currently you didn't upload any Thumbnail image for this accommodation
+                </label>
+            @endif
+
+                <label id="file-name-container" for="thumb"
                     class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('thumb') is-invalid @enderror">
-                    Seleziona un file
+                    Select a file
                 </label>
                 <input class="form-control  @error('thumb') is-invalid @enderror" type="file" id="thumb"
                     name="thumb">
@@ -108,7 +124,7 @@
             {{-- prezzo notte --}}
             <div class="flex justify-between items-center gap-5">
                 <div>
-                    <x-input-label for="range" :value="__('Price per night')" class="text-black" />
+                    <x-input-label for="range" :value="__('Price per night *')" class="text-black" />
                     <div id="price_display" class="block mt-1 w-full rounded-md bg-white p-2 border border-gray-300">
                         € {{ old('price_per_night', $accomodation->price_per_night) }}
                     </div>
@@ -125,7 +141,7 @@
 
             {{-- service --}}
             <div class="my-5">
-                <x-input-label for="range" :value="__('Price per night')" class="text-black" />
+                <x-input-label for="range" :value="__('Services *')" class="text-black" />
                 <div id="price_display" class="mt-1 w-full rounded-md">
                     Choose one or more services
                 </div>
@@ -135,7 +151,7 @@
                         <div class="my-3 me-3 w-2/12">
                             <input type="checkbox" name="services[]" id="service_{{ $service->id }}"
                                 value="{{ $service->id }}" class="form-checkbox h-5 w-5 text-blue-500"
-                                {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
+                                {{ in_array($service->id, $associatedServices) ? 'checked' : '' }}>
                             <label for="service_{{ $service->id }}"
                                 class="ml-2 text-sm text-gray-700">{{ $service->name }}
                             </label>
@@ -145,7 +161,7 @@
             </div>
 
             {{-- <x-primary-button type="submit">Confirm Edit</x-primary-button> --}}
-            <x-button-gradient type="submit">
+            <x-button-gradient type="submit" class="gradient-button">
                 <button class="uppercase">Confirm Edit</button>
             </x-button-gradient>
 
@@ -157,7 +173,7 @@
     const priceRange = document.getElementById('price_per_night');
     const priceDisplay = document.getElementById('price_display');
     const address_input = document.getElementById('address');
-    const city_input = document.getElementById('city');
+    // const city_input = document.getElementById('city');
     const selected_address_input = document.getElementById('selected_address');
     const dropdown_menu = document.getElementById('create-dropdown')
 
@@ -240,7 +256,7 @@
 
 
     // img
-    var inputFile = document.getElementById('user_propic');
+    var inputFile = document.getElementById('thumb');
 
     inputFile.addEventListener('change', function() {
         var fileName = inputFile.files[0].name;
