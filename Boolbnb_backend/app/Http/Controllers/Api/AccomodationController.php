@@ -84,19 +84,19 @@ class AccomodationController extends Controller
                 // Calculate the distance for each accommodation
                 $distance = $accommodation->distanceToPoint($point_lng, $point_lat);
                 $accommodation->distance_from_point = $distance;
+
+                $user = User::find($accommodation->user_id);
+
+                if ($user) {
+                    $accommodation->host_fullname = $user->name . ' ' . $user->surname;
+                    $accommodation->registered_at = $user->created_at;
+                }
             }
         }
 
         //attach host info
 
-        $user = User::find($accommodation->user_id);
-
-        if (!$user) {
-            $accommodation->host_fullname = $user->name . ' ' . $user->surname;
-            $accommodation->registered_at = $user->created_at;
-        }
-
-
+    
 
         if ($accomodations->total() > 0) {
             return response()->json([
@@ -118,7 +118,7 @@ class AccomodationController extends Controller
 
         $user = User::find($accommodation->user_id);
 
-        if (!$user) {
+        if ($user) {
             $accommodation->host_fullname = $user->name . ' ' . $user->surname;
             $accommodation->registered_at = $user->created_at;
         }
