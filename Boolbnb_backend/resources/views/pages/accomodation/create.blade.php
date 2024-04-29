@@ -45,7 +45,7 @@
                 </div>
 
                 {{-- city --}}
-                <div class="w-1/2 address-input-group mb-3">
+                <div class="w-1/2 address-input-group mb-3 hidden">
                     <x-input-label for="city" :value="__('City *')" class="text-black"/>
                     <input type="text" name="city" id="city" placeholder="Roma" @required(true)
                         value="{{ old('city') }}"

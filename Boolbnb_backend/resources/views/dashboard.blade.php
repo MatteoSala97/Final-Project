@@ -9,7 +9,7 @@
     <div class="flex h-screen border">
 
         {{-- Accommodations / Stats / Advertisement / Messages / Logout --}}
-        <div class="sidebar flex flex-col pt-4 px-5">
+        {{-- <div class="sidebar flex flex-col pt-4 px-5">
             <div class="flex flex-col gap-4">
 
                 <div class="sidebar-item">
@@ -38,16 +38,16 @@
                 </div>
 
             </div>
-            {{-- Logout --}}
+
             <div class="sidebar-item mt-auto mb-4">
                 <a href="#" class="flex items-center text-left">
                     <img src="/icons/user.svg" class="mr-2" alt="">
                     <span>Logout</span>
                 </a>
             </div>
-        </div>
+        </div> --}}
 
-        <div class="w-full border">
+        <div class="w-full border ">
             @if($accomodations !== null && count($accomodations) > 0)
                 <div class="subtitle flex justify-between m-5">
                     <h2 class="title">Your Accommodations ({{ $accomodations->count() }})</h2>
@@ -68,7 +68,7 @@
                         <thead class="uppercase tracking-wider border-b-2">
                             <tr>
                                 <th scope="col" class="px-6 py-5">
-                                    Host Thumb or id
+                                    Thumbnail Image or id
                                 </th>
                                 <th scope="col" class="px-6 py-5">
                                     Title
@@ -79,9 +79,9 @@
                                 <th scope="col" class="px-6 py-5">
                                     Address
                                 </th>
-                                <th scope="col" class="px-6 py-5">
+                                {{-- <th scope="col" class="px-6 py-5">
                                     City
-                                </th>
+                                </th> --}}
                                 <th scope="col" class="px-6 py-5">
                                     Price per night
                                 </th>
@@ -94,17 +94,20 @@
                         <tbody>
                             @foreach ($accomodations as $item)
                             <tr class="border-b hover:bg-neutral-100">
-                                <th scope="row" class="px-6 py-5">
-                                    @if ( $item->host_thumb )
-                                        {{ $item->host_thumb }}
+                                <th scope="row" class="px-6 py-5" style="height: 80px">
+                                    @if ( $item->thumb )
+                                        <img src="{{ asset('storage/uploads/' . $item->thumb) }}" style="height: 80px "
+                                        id="old_thumb">
                                     @else
-                                        {{ $item->id }}
+                                        <span >
+                                            {{ $item->id }}
+                                        </span>
                                     @endif
                                 </th>
                                 <td class="px-6 py-5">{{ $item->title }}</td>
                                 <td class="px-6 py-5">{{ $item->type }}</td>
                                 <td class="px-6 py-5">{{ $item->address }}</td>
-                                <td class="px-6 py-5">{{ $item->city }}</td>
+                                {{-- <td class="px-6 py-5">{{ $item->city }}</td> --}}
                                 <td class="px-6 py-5">{{ $item->price_per_night }} €</td>
                                 <td class="border px-4 py-2">
                                     <div class="flex gap-2 justify-around">
