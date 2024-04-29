@@ -130,4 +130,56 @@ class AccomodationController extends Controller
             'res' => $accommodation
         ]);
     }
+
+    public function filteredAccommodations(Request $request)
+    {
+        $min_price = $request->query('min_price') ?? 0;
+        $max_price = $request->query('max_price');
+        $type = $request->query('type');
+        $max_distance = $request->query('max_distance');
+        $point_lat = $request->query('lat');
+        $point_lng = $request->query('lng');
+        $rooms = $request->query('rooms');
+        $beds = $request->query('beds');
+        $bathrooms = $request->query('bathrooms');
+        $services = $request->query('services');
+
+        $accommodations_query = Accomodation::query();
+
+        // Apply filters
+        if ($max_price !== null) {
+            $accommodations_query->whereBetween('price_per_night', [$min_price, $max_price]);
+        }
+
+        if ($type !== null) {
+            $accommodations_query->where('type', $type);
+        }
+
+        if ($rooms !== null) {
+            $accommodations_query->where('rooms', $rooms);
+        }
+
+        if ($beds !== null) {
+            $accommodations_query->where('beds', $beds);
+        }
+
+        if ($bathrooms !== null) {
+            $accommodations_query->where('bathrooms', $bathrooms);
+        }
+
+        if ($services !== null) {
+            $accommodations_query->whereHas('services', function ($query) use ($services) {
+                $query->whereIn('service_id', $services);
+            });
+        }
+
+        // Execute the query
+        $accommodations = $accommodations_query->get();
+
+        // Return the result
+        return response()->json([
+            'success' => true,
+            'res' => $accommodations
+        ]);
+    }
 }
