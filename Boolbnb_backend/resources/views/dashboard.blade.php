@@ -48,7 +48,7 @@
         </div> --}}
 
         <div class="w-full border ">
-            @if($accomodations !== null && count($accomodations) > 0)
+            @if ($accomodations !== null && count($accomodations) > 0)
                 <div class="subtitle flex justify-between m-5">
                     <h2 class="title">Your Accommodations ({{ $accomodations->count() }})</h2>
 
@@ -93,15 +93,16 @@
                         <!-- Table body -->
                         <tbody>
                             @foreach ($accomodations as $item)
-                                <tr class="border-b hover:bg-neutral-100">
+                                <tr class="border-b hover:bg-neutral-100 {{ $item->hidden ? 'text-gray-600' : '' }}">
                                     <th scope="row" class="px-6 py-5" style="height: 80px">
                                         @if ($item->thumb)
-                                            <img src="{{ asset('storage/uploads/' . $item->thumb) }}" style="height: 80px "
-                                        id="old_thumb">
+                                            <img src="{{ asset('storage/uploads/' . $item->thumb) }}"
+                                                style="height: 80px" class="{{ $item->hidden ? 'grayscale' : '' }}"
+                                                id="old_thumb">
                                         @else
-                                        <span >
+                                            <span>
                                                 {{ $item->id }}
-                                        </span>
+                                            </span>
                                         @endif
                                     </th>
                                     <td class="px-6 py-5">{{ $item->title }}</td>
@@ -210,9 +211,9 @@
 </x-app-layout>
 
 <style>
-
     /* Rules to fix the sidebar and right side dimensions */
-    html, body {
+    html,
+    body {
         height: 100%;
     }
 
@@ -228,8 +229,7 @@
         flex: 1;
     }
 
-    main > * {
+    main>* {
         width: 100%;
     }
-
 </style>
