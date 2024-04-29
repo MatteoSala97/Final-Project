@@ -2,11 +2,8 @@
     <div class="container m-5 w-9/12">
 
         <div class="my-5 flex gap-5 items-center ml-4">
-        <div class="my-5">
-<<<<<<< HEAD
             <a href="{{ route('dashboard') }}" class="flex items-center">
                 <x-arrowleft/>
-
             </a>
             <p class="font-bold text-xl">Edit an existing accommodation</p>
         </div>
