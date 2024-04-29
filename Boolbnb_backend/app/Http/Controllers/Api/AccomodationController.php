@@ -22,6 +22,7 @@ class AccomodationController extends Controller
         $rooms = $request->query('rooms');
         $beds = $request->query('beds');
         $bathrooms = $request->query('bathrooms');
+        $services = $request->query('services');
 
 
         $accomodations_query = Accomodation::query();
@@ -53,6 +54,11 @@ class AccomodationController extends Controller
         if ($bathrooms !== null) {
             $accomodations_query->where('bathrooms', $bathrooms);
         }
+        if ($services !== null) {
+            $accomodations_query->whereHas('services', function ($query) use ($services) {
+                $query->whereIn('service_id', $services);
+            });
+        }
 
         // Order by distance if latitude and longitude are provided
         if ($point_lat !== null && $point_lng !== null) {
@@ -65,14 +71,6 @@ class AccomodationController extends Controller
             $accomodations_query->orderBy('rating', 'desc');
         }
 
-        //could be fix for markers
-        // $accomodations = [];
-
-        // if ($point_lat && $point_lng) {
-        //     $accomodations = $accomodations_query->take(1000)->get();
-        // } else {
-        //     $accomodations = $accomodations_query->take(15)->get();
-        // }
 
         // Eager loading relationships
         $accomodations_query->with(['pictures', 'services']);
