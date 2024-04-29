@@ -1,18 +1,13 @@
 <x-app-layout>
     <div class="container m-5 w-9/12">
 
-        <div class="my-5">
-<<<<<<< HEAD
+        <div class="my-5 flex gap-5 items-center ml-4">
             <a href="{{ route('dashboard') }}" class="flex items-center">
-                <x-arrowleft/> <p class="font-bold text-xl">Change accommodation</p>
-=======
-            <a href="{{ route('dashboard') }}" class="btn btn-primary d-flex align-items-center">
-                <p class="font-bold text-xl">
-                    < Change accommodation</p>
->>>>>>> f452c71eb72a607715adf8da29a6dcf7ec768ed5
+                <x-arrowleft/>
             </a>
             <p class="font-bold text-xl">Edit an existing accommodation</p>
         </div>
+
 
         <form class="ms-4" action="{{ route('dashboard.accomodations.update', $accomodation->id) }}" method="POST"
             enctype="multipart/form-data">
