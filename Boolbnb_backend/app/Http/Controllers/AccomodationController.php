@@ -82,7 +82,7 @@ class AccomodationController extends Controller
         }
 
         unset($validatedData['services']);
-        
+
         $new_accommodation = Accomodation::create($validatedData);
 
 
@@ -95,7 +95,7 @@ class AccomodationController extends Controller
             }
         }
 
-        return redirect()->route('dashboard.accomodations.index');
+        return redirect()->route('dashboard');
     }
 
 
@@ -177,7 +177,7 @@ class AccomodationController extends Controller
             $accomodation->services()->detach();
         }
 
-        return redirect()->route('dashboard.accomodations.index');
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -204,6 +204,7 @@ class AccomodationController extends Controller
 
         $accomodation->delete();
 
-        return redirect()->route('dashboard.accomodations.index');
+        return redirect()->route('dashboard');
+        // return redirect()->route('dashboard.accomodations.index');
     }
 }

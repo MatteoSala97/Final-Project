@@ -35,7 +35,13 @@
                     <button class="btn btn-danger" type="submit">Delete</button>
                 </form>
 
-                <button class="btn btn-warning" onclick="window.history.back()">No please, I have a family ಥ_ಥ</button>
+
+                    <a href="{{ route('dashboard') }}" class="btn btn-warning">
+                        <p>No please, I have a family ಥ_ಥ</p>
+                    </a>
+
+
+
             </div>
 
         </div>
