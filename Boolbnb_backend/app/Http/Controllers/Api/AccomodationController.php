@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Accomodation;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -85,18 +86,8 @@ class AccomodationController extends Controller
                 $distance = $accommodation->distanceToPoint($point_lng, $point_lat);
                 $accommodation->distance_from_point = $distance;
 
-                $user = User::find($accommodation->user_id);
-
-                if ($user) {
-                    $accommodation->host_fullname = $user->name . ' ' . $user->surname;
-                    $accommodation->registered_at = $user->created_at;
-                }
-            }
-        }
-
         //attach host info
 
-    
 
         if ($accomodations->total() > 0) {
             return response()->json([
@@ -118,9 +109,11 @@ class AccomodationController extends Controller
 
         $user = User::find($accommodation->user_id);
 
+
         if ($user) {
+            $registeredDate = Carbon::parse($user->created_at)->format('d-m-Y');
             $accommodation->host_fullname = $user->name . ' ' . $user->surname;
-            $accommodation->registered_at = $user->created_at;
+            $accommodation->host_registration_date = $registeredDate;
         }
 
 
