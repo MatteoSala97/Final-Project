@@ -30,7 +30,45 @@
         @endif --}}
 
         <!-- Page Content -->
-        <main>
+        <main class="flex">
+            {{-- Accommodations / Stats / Advertisement / Messages / Logout --}}
+        <div class="sidebar flex flex-col pt-4 px-5">
+            <div class="flex flex-col gap-4">
+
+                <div class="sidebar-item">
+                    <a href="#" class="flex items-center text-left hover:text-white">
+                        <img src="/icons/home-alt.svg" class="mr-1" alt="Home">
+                        <span>Accommodations</span>
+                    </a>
+                </div>
+                <div class="sidebar-item">
+                    <a href="#" class="flex text-left hover:text-white">
+                        <img src="/icons/graph-bar.svg" class="mr-1" alt="">
+                        <span>Stats</span>
+                    </a>
+                </div>
+                <div class="sidebar-item">
+                    <a href="#" class="flex items-center text-left hover:text-white">
+                        <img src="/icons/rocket.svg" class="mr-1" alt="">
+                        <span>Advertisement</span>
+                    </a>
+                </div>
+                <div class="sidebar-item">
+                    <a href="#" class="flex items-center text-left hover:text-white">
+                        <img src="/icons/message-square.svg" class="mr-1" alt="">
+                        <span>Messages</span>
+                    </a>
+                </div>
+
+            </div>
+            {{-- Logout --}}
+            <div class="sidebar-item mt-auto mb-4">
+                <a href="#" class="flex items-center text-left">
+                    <img src="/icons/user.svg" class="mr-2" alt="">
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
             {{ $slot }}
         </main>
 

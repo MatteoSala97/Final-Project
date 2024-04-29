@@ -19,19 +19,17 @@
     <div class="gradient-background min-h-screen flex sm:justify-center items-center pt-6 sm:pt-0">
 
         <div>
-            {{-- comp logoM --}}
             <x-logoM/>
             <p>Whether you have a spare room or an entire home, hosting with us opens up a world of opportunities</p>
         </div>
 
 
-        <div class="guest w-full sm:max-w-md mt-6 bg-white overflow-hidden sm:rounded-lg" style="padding: 45px">
+        <div class="guest w-full sm:max-w-md mt-6 p-8 bg-white overflow-hidden sm:rounded-lg" >
             {{ $slot }}
         </div>
 
     </div>
 </body>
-
 </html>
 
 <style>

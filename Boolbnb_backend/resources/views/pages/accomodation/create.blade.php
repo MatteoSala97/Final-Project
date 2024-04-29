@@ -1,10 +1,11 @@
 <x-app-layout>
     <div class="container m-5 w-9/12">
 
-        <div class="my-5">
-            <a href="{{ route('dashboard') }}" class="btn btn-primary d-flex align-items-center">
-                <p class="font-bold text-xl">< Register new accommodaiton</p>
+        <div class="my-5 flex gap-5 items-center ml-4">
+            <a href="{{ route('dashboard') }}" class="flex items-center">
+                <x-arrowleft/>
             </a>
+            <p class="font-bold text-xl">Register new accommodation</p>
         </div>
 
         <form class="ms-4" action="{{ route('dashboard.accomodations.store') }}" method="POST" enctype="multipart/form-data">
@@ -39,13 +40,14 @@
                             {{ $message }}
                         </div>
                     @enderror
-                    <ul class="dropdown-menu-dark w-full" id="create-dropdown"></ul>
-                    {{-- this hidden input will carry the actual value of the position --}}
+                    <ul class="w-full" id="create-dropdown"></ul>
+                    {{-- <ul class="mt-1 rounded-md bg-white border border-gray-300 w-full" id="create-dropdown"></ul> --}}
+
                     <input type="hidden"  value="{{ old('selected_address') ?? '' }}" name="selected_address" id="selected_address">
                 </div>
 
                 {{-- city --}}
-                <div class="w-1/2 address-input-group mb-3">
+                <div class="w-1/2 address-input-group mb-3 hidden">
                     <x-input-label for="city" :value="__('City *')" class="text-black"/>
                     <input type="text" name="city" id="city" placeholder="Roma" @required(true)
                         value="{{ old('city') }}"
@@ -183,7 +185,7 @@
             </div>
 
             {{-- <x-primary-button type="submit">Confirm</x-primary-button> --}}
-            <x-button-gradient type="submit">
+            <x-button-gradient type="submit" class="gradient-button">
                 <button class="uppercase">Confirm</button>
             </x-button-gradient>
 
