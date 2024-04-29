@@ -25,3 +25,39 @@
     background: linear-gradient(135deg, #00CBD8, #B844FF);
     /* Linear gradient */
 }
+
+
+#propic {
+    position: absolute;
+    right: 16%;
+    top: 2%;
+    clip-path: circle();
+    width: 55px;
+}
+.sidebar {
+    height: calc(90vh - 0vh);
+    flex: 0 0 auto;
+    width: 250px;
+}
+.sidebar-item {
+    padding: 10px 30px 10px 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.sidebar-item:hover {
+    color: white;
+    background-color: #000000;
+    border-radius: 20px;
+}
+.sidebar-item:hover img {
+    filter: invert(1);
+}
+.sidebar-item img {
+    width: 20px;
+    height: 20px;
+}
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
