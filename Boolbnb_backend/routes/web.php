@@ -51,7 +51,7 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
     // routes per confermare la cancellazione del cosino
     Route::get('/accomodations/{accomodation}/delete-confirmation', [AccomodationController::class, 'destroyConfirmation'])->name('accomodations.destroyConfirmation');
     Route::delete('/accomodations/{accomodation}/delete-confirmed', [AccomodationController::class, 'deleteConfirmed'])->name('accomodations.deleteConfirmed');
-
+    Route::post('/accomodations/{accomodation}/change-visibility', [AccomodationController::class, 'changeVisibility'])->name('accomodations.changeVisibility');
 });
 
 
