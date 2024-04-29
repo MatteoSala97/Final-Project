@@ -52,7 +52,7 @@
                 <div class="subtitle flex justify-between m-5">
                     <h2 class="title">Your Accommodations ({{ $accomodations->count() }})</h2>
 
-                    <x-button-gradient>
+                    <x-button-gradient class="gradient-button">
                         <a href="{{ route('dashboard.accomodations.create') }}">
                             {{ __('Create a new accommodation') }}
                         </a>
@@ -178,7 +178,7 @@
                         There are no accommodations, please start by adding a new one.
                     </p>
 
-                    <x-button-gradient>
+                    <x-button-gradient class="gradient-button">
                         <a href="{{ route('dashboard.accomodations.create') }}">
                             Add accommodation
                         </a>
@@ -191,67 +191,26 @@
 </x-app-layout>
 
 <style>
-    #propic {
-        position: absolute;
-        right: 16%;
-        top: 2%;
-        clip-path: circle();
-        width: 55px;
-    }
-    .sidebar {
-        height: calc(90vh - 0vh);
-    }
-    .sidebar-item {
-        padding: 10px 30px 10px 10px;
-        font-size: 18px;
-        font-weight: bold;
-    }
-    .sidebar-item:hover {
-        color: white;
-        background-color: #000000;
-        border-radius: 20px;
-    }
-    .sidebar-item:hover img {
-        filter: invert(1);
-    }
-    .sidebar-item img {
-        width: 20px;
-        height: 20px;
-    }
-    .title {
-        font-size: 1.5rem;
-        font-weight: bold;
+
+    /* Rules to fix the sidebar and right side dimensions */
+    html, body {
+        height: 100%;
     }
 
 
-
-
-    /* .ciaoooo{
-        height: calc(100vh - 0);
-        background-color: green;
+    .min-h-screen {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
     }
 
-    .ciaoooooo2{
-        height: calc(100vh - 0);
-        background-color: blue;
-    } */
 
-
-
-
-
-    /* .gradient-button {
-        background-image: linear-gradient(135deg, #00CBD8, #B844FF);
-        border: none;
-        color: white;
-        padding: 10px 20px;
-        font-size: 16px;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
+    main {
+        flex: 1;
     }
 
-    .gradient-button:hover {
-        background-image: linear-gradient(135deg, #00A9BF, #A336DF);
-    } */
+    main > * {
+        width: 100%;
+    }
+
 </style>

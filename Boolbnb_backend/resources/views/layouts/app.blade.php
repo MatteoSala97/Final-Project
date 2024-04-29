@@ -69,7 +69,6 @@
                 </a>
             </div>
         </div>
-
             {{ $slot }}
         </main>
 

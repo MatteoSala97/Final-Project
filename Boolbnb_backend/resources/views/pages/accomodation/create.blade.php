@@ -3,7 +3,7 @@
 
         <div class="my-5">
             <a href="{{ route('dashboard') }}" class="btn btn-primary d-flex align-items-center">
-                <p class="font-bold text-xl">< Register new accommodaiton</p>
+                <p class="font-bold text-xl">< Register new accommodation</p>
             </a>
         </div>
 
@@ -183,7 +183,7 @@
             </div>
 
             {{-- <x-primary-button type="submit">Confirm</x-primary-button> --}}
-            <x-button-gradient type="submit">
+            <x-button-gradient type="submit" class="gradient-button">
                 <button class="uppercase">Confirm</button>
             </x-button-gradient>
 

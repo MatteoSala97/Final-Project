@@ -3,7 +3,16 @@
 </div>
 
 <style>
-    .btn-gradient{
+    .gradient-button {
+        background-image: linear-gradient(135deg, #00CBD8, #B844FF);
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .btn-gradient:hover{
         background-image: linear-gradient(135deg, #00A9BF, #A336DF);
     }
 </style>
