@@ -13,17 +13,17 @@
 
             {{-- title --}}
             <div class="mb-3">
-                <x-input-label for="title" :value="__('Title')" class="text-black"/>
+                <x-input-label for="title" :value="__('Title')" class="text-black" />
                 <input type="text" name="title" id="title" placeholder="Your title here"
-                class="block mt-1 w-full rounded-md border-gray-300"
+                    class="block mt-1 w-full rounded-md border-gray-300"
                     value="{{ old('title', $accomodation->title) }}" />
             </div>
 
-            {{-- address city--}}
+            {{-- address city --}}
             <div class="flex justify-between gap-5">
                 {{-- address --}}
                 <div class="w-1/2 address-input-group mb-3">
-                    <x-input-label for="address" :value="__('Full address')" class="text-black"/>
+                    <x-input-label for="address" :value="__('Full address')" class="text-black" />
                     <input type="text" name="address" id="address" placeholder="Your address here"
                         class="block mt-1 w-full rounded-md border-gray-300"
                         value="{{ old('address', $accomodation->address) }}" />
@@ -31,9 +31,9 @@
 
                 {{-- city --}}
                 <div class="w-1/2 address-input-group mb-3">
-                    <x-input-label for="city" :value="__('City')" class="text-black"/>
+                    <x-input-label for="city" :value="__('City')" class="text-black" />
                     <input type="text" name="city" id="city" placeholder="..."
-                    class="block mt-1 w-full rounded-md border-gray-300"
+                        class="block mt-1 w-full rounded-md border-gray-300"
                         value="{{ old('city', $accomodation->city) }}" />
                 </div>
             </div>
@@ -42,38 +42,42 @@
             <div class="flex justify-between gap-5">
                 <!-- type -->
                 <div class="mb-3 w-full">
-                    <x-input-label for="type" :value="__('Type')" class="text-black"/>
+                    <x-input-label for="type" :value="__('Type')" class="text-black" />
                     <select name="type" id="type" class="block mt-1 rounded-md w-full border-gray-300">
                         <option value="House" {{ old('type', $accomodation->type) == 'House' ? 'selected' : '' }}>House
                         </option>
-                        <option value="Apartment" {{ old('type', $accomodation->type) == 'Apartment' ? 'selected' : '' }}>
+                        <option value="Apartment"
+                            {{ old('type', $accomodation->type) == 'Apartment' ? 'selected' : '' }}>
                             Apartment</option>
                         <option value="Hotel" {{ old('type', $accomodation->type) == 'Hotel' ? 'selected' : '' }}>Hotel
                         </option>
-                        <option value="GuestHouse" {{ old('type', $accomodation->type) == 'GuestHouse' ? 'selected' : '' }}>
+                        <option value="GuestHouse"
+                            {{ old('type', $accomodation->type) == 'GuestHouse' ? 'selected' : '' }}>
                             GuestHouse</option>
                     </select>
                 </div>
 
                 {{-- rooms --}}
                 <div class="mb-3 w-full">
-                    <x-input-label for="rooms" :value="__('Bedrooms')" class="text-black"/>
-                    <input type="number" name="rooms" id="rooms" class="block mt-1 rounded-md w-full border-gray-300"
+                    <x-input-label for="rooms" :value="__('Bedrooms')" class="text-black" />
+                    <input type="number" name="rooms" id="rooms"
+                        class="block mt-1 rounded-md w-full border-gray-300"
                         value="{{ old('rooms', $accomodation->rooms) }}" min="1" />
 
                 </div>
 
                 {{-- beds --}}
                 <div class="mb-3 w-full">
-                    <x-input-label for="beds" :value="__('Beds')" class="text-black"/>
-                    <input type="number" name="beds" id="beds" class="block mt-1 rounded-md w-full border-gray-300"
+                    <x-input-label for="beds" :value="__('Beds')" class="text-black" />
+                    <input type="number" name="beds" id="beds"
+                        class="block mt-1 rounded-md w-full border-gray-300"
                         value="{{ old('beds', $accomodation->beds) }}" min="1" />
 
                 </div>
 
                 {{-- bathrooms --}}
                 <div class="mb-3 w-full">
-                    <x-input-label for="bathrooms" :value="__('Bathrooms')" class="text-black"/>
+                    <x-input-label for="bathrooms" :value="__('Bathrooms')" class="text-black" />
                     <input type="number" name="bathrooms" id="bathrooms" value="{{ old('bathrooms') ?? 1 }}"
                         class="block mt-1 rounded-md w-full border-gray-300
                         @error('bathrooms') is-invalid @enderror"
@@ -84,18 +88,27 @@
 
             {{-- thumb --}}
             <div class="mb-3">
-                <x-input-label for="user_propic" :value="__('Thumbnail')" class="text-black"/>
+                <x-input-label for="user_propic" :value="__('Thumbnail')" class="text-black" />
 
-                <label id="file-name-container" for="user_propic" class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('thumb') is-invalid @enderror">
+                <label id="file-name-container" for="user_propic"
+                    class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('thumb') is-invalid @enderror">
                     Seleziona un file
                 </label>
-                <input type="file" name="user_propic" id="user_propic">
+                <input class="form-control  @error('thumb') is-invalid @enderror" type="file" id="thumb"
+                    name="thumb">
+                @error('thumb')
+                    <div class="alert alert-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
+
+
             </div>
 
             {{-- prezzo notte --}}
             <div class="flex justify-between items-center gap-5">
                 <div>
-                    <x-input-label for="range" :value="__('Price per night')" class="text-black"/>
+                    <x-input-label for="range" :value="__('Price per night')" class="text-black" />
                     <div id="price_display" class="block mt-1 w-full rounded-md bg-white p-2 border border-gray-300">
                         € {{ old('price_per_night', $accomodation->price_per_night) }}
                     </div>
@@ -112,7 +125,7 @@
 
             {{-- service --}}
             <div class="my-5">
-                <x-input-label for="range" :value="__('Price per night')" class="text-black"/>
+                <x-input-label for="range" :value="__('Price per night')" class="text-black" />
                 <div id="price_display" class="mt-1 w-full rounded-md">
                     Choose one or more services
                 </div>
@@ -229,12 +242,11 @@
     // img
     var inputFile = document.getElementById('user_propic');
 
-    inputFile.addEventListener('change', function(){
+    inputFile.addEventListener('change', function() {
         var fileName = inputFile.files[0].name;
         var fileNameContainer = document.getElementById('file-name-container');
         fileNameContainer.textContent = 'Selected file: ' + fileName;
     });
-
 </script>
 
 <style>
@@ -251,7 +263,7 @@
         fill: white;
     }
 
-    input[type="file"]{
+    input[type="file"] {
         display: none;
     }
 
@@ -263,12 +275,14 @@
         background-color: transparent;
         border-radius: 5px;
     }
+
     input[type="range"]::-webkit-slider-runnable-track {
         width: 100%;
         height: 5px;
         background-color: black;
         border-radius: 10px;
     }
+
     input[type="range"]::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;

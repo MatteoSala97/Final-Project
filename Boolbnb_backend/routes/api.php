@@ -26,3 +26,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/accommodations', [AccomodationController::class, 'index']);
 Route::get('/get-address-suggestions', [UserAddressController::class, 'suggestAddressList']);
+Route::get('get-api-key', function () {
+    $api_key = env('TOMTOM_API_KEY');
+    if ($api_key) {
+        return response()->json([
+            'success' => true,
+            'key' => $api_key
+        ]);
+    } else {
+        return response()->json([
+            'success' => false,
+            'error' => 'There was an error retrieving the api key'
+        ]);
+    }
+});
