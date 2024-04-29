@@ -47,10 +47,10 @@
             </div>
         </div> --}}
 
-        <div class="w-full border ">
+        <div class="w-full ">
             @if ($accomodations !== null && count($accomodations) > 0)
-                <div class="subtitle flex justify-between m-5">
-                    <h2 class="title">Your Accommodations ({{ $accomodations->count() }})</h2>
+            <div class="subtitle flex justify-between m-5">
+                <h2 class="title">Your Accommodations ({{ $accomodations->count() }})</h2>
 
                     <x-button-gradient class="gradient-button">
                         <a href="{{ route('dashboard.accomodations.create') }}">
@@ -148,7 +148,7 @@
 
                     {{-- //TODO - Aggiungere la logica di navigazione tra le pagine --}}
 
-                    <nav class="mt-5 flex items-center justify-between text-sm ml-5 mr-5"
+                    {{-- <nav class="mt-5 flex items-center justify-between text-sm ml-5 mr-5"
                         aria-label="Page navigation example">
                         <p>
                             Showing <strong>1-5</strong> of <strong>10</strong>
@@ -191,7 +191,7 @@
                             </li>
                         </ul>
                     </nav>
-                </div>
+                </div> --}}
             @else
                 <div class="info flex flex-col justify-center items-center h-screen text-grey gap-5">
                     <p>
