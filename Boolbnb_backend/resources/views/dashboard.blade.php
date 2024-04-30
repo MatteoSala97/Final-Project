@@ -50,7 +50,9 @@
         <div class="w-full ">
             @if ($accomodations !== null && count($accomodations) > 0)
             <div class="subtitle flex justify-between m-5">
-                <h2 class="title">Your Accommodations ({{ $accomodations->count() }})</h2>
+                <a href="{{ route('accomodations.archive') }}">
+                    <h2 class="title">Your Accommodations ({{ $accomodations->count() }})</h2>
+                </a>
 
                     <x-button-gradient class="gradient-button">
                         <a href="{{ route('dashboard.accomodations.create') }}">
@@ -58,7 +60,7 @@
                         </a>
                     </x-button-gradient>
 
-                </div>
+            </div>
 
                 <!-- Table responsive wrapper -->
                 <div class="overflow-x-auto bg-white">
