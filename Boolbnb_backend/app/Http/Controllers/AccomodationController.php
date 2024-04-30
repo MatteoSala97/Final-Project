@@ -105,6 +105,15 @@ class AccomodationController extends Controller
         return redirect()->route('dashboard');
     }
 
+     /**
+     * Store a recently deleted resource in archive.
+     */
+    public function archive()
+    {
+        $accomodations = Accomodation::where('user_id', auth()->id())->onlyTrashed()->get();
+
+        return view('pages.accomodation.archive', compact('accomodations'));
+    }
 
     /**
      * Display the specified resource.
@@ -189,18 +198,6 @@ class AccomodationController extends Controller
         return redirect()->route('dashboard');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    // public function destroy(Accomodation $accomodation)
-    // {
-    //     $accomodation->services()->detach();
-
-    //     $accomodation->delete();
-
-    //     return redirect()->route('dashboard.accomodations.index');
-    // }
-
 
     public function destroy(Accomodation $accomodation)
     {
@@ -209,17 +206,27 @@ class AccomodationController extends Controller
 
     public function deleteConfirmed(Accomodation $accomodation)
     {
-        $accomodation->services()->detach();
+        // dd($accomodation);
 
-        $accomodation->delete();
+            $accomodation->services()->detach();
+
+            $accomodation->delete();
+
 
         return redirect()->route('dashboard');
-        // return redirect()->route('dashboard.accomodations.index');
     }
 
     public function changeVisibility(Accomodation $accomodation)
     {
         $accomodation->update(['hidden' => !$accomodation->hidden]);
         return redirect()->route('dashboard');
+    }
+
+
+    public function restore(Accomodation $accomodation)
+    {
+        $accomodation->restore();
+
+        return redirect()->to('dashboard');
     }
 }

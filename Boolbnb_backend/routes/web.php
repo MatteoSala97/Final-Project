@@ -53,6 +53,11 @@ Route::middleware('auth')->get('/messages', function () {
     return view('pages.accomodation.messages', compact('accomodations'));
 })->name('messages');
 
+    //archive route
+Route::middleware('auth')->get('/dashboard/accomodations/archive', [AccomodationController::class, 'archive'])->name('accomodations.archive')->withTrashed();
+
+    //restore route
+Route::post('/accomodations/{id}/restore', [AccomodationController::class, 'restore'])->name('accomodations.restore')->withTrashed();
 
 Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(function () {
 
