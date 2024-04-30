@@ -3,6 +3,7 @@
 
 
 use App\Http\Controllers\Api\AccomodationController;
+use App\Http\Controllers\Api\LeadController;
 use App\Http\Controllers\Api\UserAddressController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -42,3 +43,8 @@ Route::get('get-api-key', function () {
         ]);
     }
 });
+
+// http://127.0.0.1:8000/api/contacts}
+Route::post('/contacts', [LeadController::class, 'store']);
+
+
