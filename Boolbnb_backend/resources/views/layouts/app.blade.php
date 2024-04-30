@@ -62,12 +62,12 @@
 
             </div>
             {{-- Logout --}}
-            <div class="sidebar-item mt-auto mb-4">
+            {{-- <div class="sidebar-item mt-auto mb-4">
                 <a href="#" class="flex items-center text-left">
                     <img src="/icons/user.svg" class="mr-2" alt="">
                     <span>Logout</span>
                 </a>
-            </div>
+            </div> --}}
         </div>
             {{ $slot }}
         </main>
@@ -155,4 +155,4 @@
     font-weight: bold;
 }
 
-</style> */
+</style>

@@ -35,9 +35,9 @@
                             <th scope="col" class="px-6 py-5">
                                 Price per night
                             </th>
-                            <th scope="col" class="px-6 py-5">
+                            {{-- <th scope="col" class="px-6 py-5">
                                 Actions
-                            </th>
+                            </th> --}}
                         </tr>
                     </thead>
                     <!-- Table body -->
@@ -60,7 +60,7 @@
                                 <td class="px-6 py-5">{{ $item->address }}</td>
 
                                 <td class="px-6 py-5">{{ $item->price_per_night }} €</td>
-                                <td class="border px-4 py-2">
+                                {{-- <td class="border px-4 py-2">
                                     <div class="flex gap-2 justify-around">
                                         <!-- Restore Form -->
                                         <form method="post" action="{{ route('accomodations.restore', $item->id) }}">
@@ -74,7 +74,7 @@
                                             <button type="submit" class="gradient-button-red">Delete Permanently</button>
                                         </form>
                                     </div>
-                                </td>
+                                </td> --}}
                             </tr>
                         @endforeach
                     </tbody>

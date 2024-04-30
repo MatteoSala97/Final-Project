@@ -206,14 +206,14 @@ class AccomodationController extends Controller
 
     public function deleteConfirmed(Accomodation $accomodation)
     {
-        dd($accomodation);
+        // dd($accomodation);
 
-        //     $accomodation->services()->detach();
+            $accomodation->services()->detach();
 
-        //     $accomodation->delete();
+            $accomodation->delete();
 
 
-        // return redirect()->route('dashboard');
+        return redirect()->route('dashboard');
     }
 
     public function changeVisibility(Accomodation $accomodation)
