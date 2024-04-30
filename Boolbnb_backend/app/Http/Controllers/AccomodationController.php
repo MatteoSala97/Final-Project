@@ -27,6 +27,13 @@ class AccomodationController extends Controller
         return view('pages.accomodation.index', compact('accomodations'));
     }
 
+    public function advertisement()
+    {
+        $accomodations = Accomodation::where('user_id', auth()->id())->get();
+        return view('pages.accomodation.advertisement', compact('accomodations'));
+    }
+
+
     /**
      * Show the form for creating a new resource.
      */
