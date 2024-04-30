@@ -15,7 +15,7 @@ class LeadController extends Controller
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            // 'name' => 'required',
+            'name' => 'required',
             'email' => 'required|email',
             'message' => 'required'
         ]);
