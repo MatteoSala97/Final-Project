@@ -146,6 +146,12 @@ class AccomodationController extends Controller
 
         $accommodations_query = Accomodation::query();
 
+        if ($max_distance !== null && $point_lat !== null && $point_lng !== null) {
+            $accommodations_query->selectRaw("*")
+                ->selectRaw("ST_Distance_Sphere(POINT(longitude, latitude), POINT(?, ?)) AS distance", [$point_lng, $point_lat])
+                ->having('distance', '<=', $max_distance * 1000);
+        }
+
         // Apply filters
         if ($max_price !== null) {
             $accommodations_query->whereBetween('price_per_night', [$min_price, $max_price]);
@@ -168,9 +174,17 @@ class AccomodationController extends Controller
         }
 
         if ($services !== null) {
-            $accommodations_query->whereHas('services', function ($query) use ($services) {
-                $query->whereIn('service_id', $services);
-            });
+            // Check if services parameter is an array
+            if (is_array($services)) {
+                $accommodations_query->whereHas('services', function ($query) use ($services) {
+                    $query->whereIn('service_id', $services);
+                });
+            } else {
+                // Handle the case where only one service is selected
+                $accommodations_query->whereHas('services', function ($query) use ($services) {
+                    $query->where('service_id', $services);
+                });
+            }
         }
 
         // Execute the query
