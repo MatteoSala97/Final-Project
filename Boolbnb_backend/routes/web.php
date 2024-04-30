@@ -24,7 +24,7 @@ Route::get('/', function () {
     if (auth()->check()) {
         $user = User::findOrFail(auth()->id());
         $accomodations = Accomodation::where('user_id', auth()->id())->get();
-        return view('pages.accomodation.index', compact('user', 'accomodations'));
+        return view('dashboard', compact('user', 'accomodations'));
     } else {
         return view('auth.login');
     }
@@ -42,6 +42,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::middleware('auth')->get('/stats', function () {
+    $accomodations = Accomodation::where('user_id', auth()->id())->get();
+    return view('pages.accomodation.stats', compact('accomodations'));
+})->name('stats');
+
 
 Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(function () {
 
