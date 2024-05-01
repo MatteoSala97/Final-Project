@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccomodationController;
+use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\ProfileController;
 use App\Models\User;
 use App\Models\Accomodation;
@@ -61,7 +62,7 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
 
     // http://127.0.0.1:8000/dashboard/dashboard/accomodations/advertisement
     Route::get('/dashboard/accomodations/advertisement', [AccomodationController::class, 'advertisement'])->name('accomodations.advertisement');
-
+    Route::post('/payment/process', [PaymentsController::class, 'process'])->name('payment.process');
 });
 
 

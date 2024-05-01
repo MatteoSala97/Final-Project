@@ -4,6 +4,7 @@
 
 use App\Http\Controllers\Api\AccomodationController;
 use App\Http\Controllers\Api\UserAddressController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,8 @@ Route::get('/accommodations', [AccomodationController::class, 'index']);
 Route::get('/accommodations/{id}', [AccomodationController::class, 'show']);
 Route::get('/get-address-suggestions', [UserAddressController::class, 'suggestAddressList']);
 Route::get('/filtered-accommodations', [AccomodationController::class, 'filteredAccommodations']);
+Route::post('/send-message', [MessageController::class, 'store']);
+
 
 
 Route::get('get-api-key', function () {

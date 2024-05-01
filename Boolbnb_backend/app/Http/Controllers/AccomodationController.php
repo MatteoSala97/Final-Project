@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AccomodationStoreRequest;
 use App\Models\Accomodation;
 use App\Models\Service;
+use Braintree;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
@@ -30,7 +31,16 @@ class AccomodationController extends Controller
     public function advertisement()
     {
         $accomodations = Accomodation::where('user_id', auth()->id())->get();
-        return view('pages.accomodation.advertisement', compact('accomodations'));
+        $gateway = new Braintree\Gateway([
+            'environment' => config('services.braintree.environment'),
+            'merchantId' => config('services.braintree.merchantId'),
+            'publicKey' => config('services.braintree.publicKey'),
+            'privateKey' => config('services.braintree.privateKey')
+        ]);
+
+        $token = $gateway->clientToken()->generate();
+        $tokenization_key = config('services.braintree.tokenizationKey');
+        return view('pages.accomodation.advertisement', compact('accomodations', 'token', 'tokenization_key'));
     }
 
 

@@ -49,8 +49,8 @@
 
         <div class="w-full ">
             @if ($accomodations !== null && count($accomodations) > 0)
-            <div class="subtitle flex justify-between m-5">
-                <h2 class="title">Your Accommodations ({{ $accomodations->count() }})</h2>
+                <div class="subtitle flex justify-between m-5">
+                    <h2 class="title">Your Accommodations ({{ $accomodations->count() }})</h2>
 
                     <x-button-gradient class="gradient-button">
                         <a href="{{ route('dashboard.accomodations.create') }}">
@@ -192,19 +192,19 @@
                         </ul>
                     </nav>
                 </div> --}}
-            @else
-                <div class="info flex flex-col justify-center items-center h-screen text-grey gap-5">
-                    <p>
-                        There are no accommodations, please start by adding a new one.
-                    </p>
+                @else
+                    <div class="info flex flex-col justify-center items-center h-screen text-grey gap-5">
+                        <p>
+                            There are no accommodations, please start by adding a new one.
+                        </p>
 
-                    <x-button-gradient class="gradient-button">
-                        <a href="{{ route('dashboard.accomodations.create') }}">
-                            Add accommodation
-                        </a>
-                    </x-button-gradient>
+                        <x-button-gradient class="gradient-button">
+                            <a href="{{ route('dashboard.accomodations.create') }}">
+                                Add accommodation
+                            </a>
+                        </x-button-gradient>
 
-                </div>
+                    </div>
             @endif
         </div>
     </div>
@@ -232,7 +232,4 @@
     main>* {
         width: 100%;
     }
-
 </style>
-
-
