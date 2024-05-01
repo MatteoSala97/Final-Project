@@ -22,6 +22,11 @@ class Accomodation extends Model
         return $this->belongsToMany(Service::class);
     }
 
+    public function ads()
+    {
+        return $this->belongsToMany(Ad::class);
+    }
+
     public function distanceToPoint($lng, $lat)
     {
         // Calculate the distance between two points using longitude and latitude

@@ -6,10 +6,13 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "braintree/braintree_php": "^6.18",
         "guzzlehttp/guzzle": "^7.8",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "symfony/http-client": "^6.4",
+        "symfony/mailgun-mailer": "^6.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

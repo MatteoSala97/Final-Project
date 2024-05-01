@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Ad extends Model
 {
     use HasFactory;
+
+    public function accomodations()
+    {
+        return $this->belongsToMany(Accomodation::class);
+    }
 }
