@@ -11,7 +11,7 @@
         {{-- <form class="ms-4" action="" method="POST" enctype="multipart/form-data"> @csrf --}}
 
         <div class=" flex justify-between gap-4 mb-4" style="">
-            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer active" id="1">
+            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer active" id="12">
                 <x-silver_svg class="pointer-events-none" />
                 <div class="flex-1 flex flex-col justify-between pointer-events-none">
                     <div class="text-left">
@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer" id="2">
+            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer" id="13">
                 <x-gold_svg class="pointer-events-none" />
                 <div class="flex-1 flex flex-col justify-between pointer-events-none">
                     <div class="text-left">
@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer" id="3">
+            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer" id="14">
                 <x-platinum_svg class="pointer-events-none" />
                 <div class="flex-1 flex flex-col justify-between pointer-events-none">
                     <div class="text-left">
@@ -124,9 +124,14 @@
                                             @if ($item->ads->isNotEmpty())
                                                 @php
                                                     $totalDuration = $item->ads->sum('duration') * 24;
+                                                    $latestExpiration = $item->ads->max(function ($ad) {
+                                                        return $ad->pivot->expiration_date
+                                                            ? Carbon\Carbon::parse($ad->pivot->expiration_date)
+                                                            : null;
+                                                    });
                                                 @endphp
 
-                                                {{ $totalDuration }} hours
+                                                {{ $latestExpiration->format('d-m-Y H:i') }}
                                             @else
                                                 Not Advertised
                                             @endif

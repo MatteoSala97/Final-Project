@@ -6,7 +6,7 @@ use App\Models\Accomodation;
 use App\Models\Ad;
 use Braintree;
 use Braintree\Transaction;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -45,8 +45,18 @@ class PaymentsController extends Controller
 
 
             if ($result->success) {
+                $expirationDate = now();
+                $existingAds = $selected_accommodation->ads;
+                foreach ($existingAds as $ad) {
+                    $expirationDate = max($expirationDate, $ad->pivot->expiration_date);
+                }
+                $expirationDate = Carbon::parse($expirationDate)->addDays($duration);
 
-                $selected_accommodation->ads()->attach($ad_id, ['created_at' => now(), 'updated_at' => now()]);
+                $selected_accommodation->ads()->attach($ad_id, [
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'expiration_date' => $expirationDate
+                ]);
 
 
                 return redirect()->route('dashboard.accomodations.advertisement')->with('success', true);
