@@ -26,23 +26,24 @@
                             Message
                         </th>
                         <th scope="col" class="px-6 py-5">
-                            Accommodation address
+                            Accommodation name
                         </th>
                     </tr>
                 </thead>
 
                 <!-- Table body -->
                 <tbody>
-                    @foreach ($messages as $item)
-                    <a href="#">
-                        <tr class="border-b hover:bg-neutral-100">
-                                <td class="px-6 py-5">{{ $item->email }}</td>
-                                <td class="message-body px-6 py-5">{{ $item->content }}</td>
-                                <td class="px-6 py-5">{{ $item->accomodatio_id }}</td>
-                        </tr>
-                    </a>
+                    @foreach ($messages as $message)
+                        <a href="#">
+                            <tr class="border-b hover:bg-neutral-100">
+                                <td class="px-6 py-5">{{ $message->email }}</td>
+                                <td class="message-body px-6 py-5">{{ $message->content }}</td>
+                                <td class="px-6 py-5">{{ $message->accomodation->title }}</td>
+                            </tr>
+                        </a>
                     @endforeach
                 </tbody>
+
 
             </table>
         </div>
@@ -51,7 +52,6 @@
 
 
 <style>
-
     /* Rules to fix the sidebar and right side dimensions */
     html,
     body {
@@ -68,16 +68,15 @@
         flex: 1;
     }
 
-    main > * {
+    main>* {
         width: 100%;
     }
 
     .message-body {
-        display:inline-block;
+        display: inline-block;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 60ch;
     }
-
 </style>

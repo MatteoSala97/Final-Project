@@ -25,8 +25,9 @@ class Accomodation extends Model
 
     public function ads()
     {
-        return $this->belongsToMany(Ad::class);
+        return $this->belongsToMany(Ad::class)->withPivot('created_at', 'expiration_date');
     }
+
 
     public function distanceToPoint($lng, $lat)
     {
