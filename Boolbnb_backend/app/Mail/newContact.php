@@ -29,8 +29,8 @@ class newContact extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            replyTo: $this->lead->address,
-            subject: 'Nuovo contatto',
+            subject: 'New Contact',
+            replyTo: $this->lead->email
         );
     }
 
