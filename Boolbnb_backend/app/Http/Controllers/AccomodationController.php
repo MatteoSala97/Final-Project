@@ -27,7 +27,6 @@ class AccomodationController extends Controller
         }
 
         return view('pages.accomodation.index', compact('accomodations'));
-
     }
 
     public function advertisement()
@@ -113,7 +112,7 @@ class AccomodationController extends Controller
             }
         }
 
-        return redirect()->route('dashboard', compact('messages'));
+        return redirect()->route('dashboard');
     }
 
     /**

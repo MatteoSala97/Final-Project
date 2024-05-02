@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\NewContact;
+use App\Models\Accomodation;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
