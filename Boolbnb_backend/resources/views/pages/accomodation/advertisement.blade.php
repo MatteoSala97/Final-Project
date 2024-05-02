@@ -219,7 +219,7 @@
             @csrf
             <div id="dropin-container"></div>
             <input type="hidden" id="accommodation_id" name="accommodation_id">
-            <input type="hidden" id="selected_plan_id" name="selected_plan_id">
+            <input type="hidden" id="selected_plan_id" name="selected_plan_id" value="12">
             <input type="submit" value="Purchase" class="gradient-button">
             <input type="hidden" id="nonce" name="payment_method_nonce" />
         </form>
