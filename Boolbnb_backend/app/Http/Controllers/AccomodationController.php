@@ -113,7 +113,7 @@ class AccomodationController extends Controller
             }
         }
 
-        return redirect()->route('dashboard', compact('messages'));
+        return redirect()->route('dashboard');
     }
 
     /**

@@ -11,7 +11,7 @@
         {{-- <form class="ms-4" action="" method="POST" enctype="multipart/form-data"> @csrf --}}
 
         <div class=" flex justify-between gap-4 mb-4" style="">
-            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer active" id="12">
+            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer active" id="1">
                 <x-silver_svg class="pointer-events-none" />
                 <div class="flex-1 flex flex-col justify-between pointer-events-none">
                     <div class="text-left">
@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer" id="13">
+            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer" id="2">
                 <x-gold_svg class="pointer-events-none" />
                 <div class="flex-1 flex flex-col justify-between pointer-events-none">
                     <div class="text-left">
@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer" id="14">
+            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer" id="3">
                 <x-platinum_svg class="pointer-events-none" />
                 <div class="flex-1 flex flex-col justify-between pointer-events-none">
                     <div class="text-left">
