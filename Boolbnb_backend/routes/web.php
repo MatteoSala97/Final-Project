@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccomodationController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\ProfileController;
 use App\Models\User;
@@ -49,15 +50,12 @@ Route::middleware('auth')->get('/stats', function () {
     return view('pages.accomodation.stats', compact('accomodations'));
 })->name('stats');
 
-Route::middleware('auth')->get('/messages', function () {
-    $accomodations = Accomodation::where('user_id', auth()->id())->get();
-    return view('pages.accomodation.messages', compact('accomodations'));
-})->name('messages');
+Route::middleware('auth')->get('/messages', [MessageController::class, 'index'])->name('messages');
 
-    //archive route
+//archive route
 Route::middleware('auth')->get('/dashboard/accomodations/archive', [AccomodationController::class, 'archive'])->name('accomodations.archive')->withTrashed();
 
-    //restore route
+//restore route
 Route::post('/accomodations/{id}/restore', [AccomodationController::class, 'restore'])->name('accomodations.restore')->withTrashed();
 
 Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(function () {

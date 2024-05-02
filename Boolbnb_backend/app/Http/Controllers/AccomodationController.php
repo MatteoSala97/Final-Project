@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AccomodationStoreRequest;
 use App\Models\Accomodation;
+use App\Models\Message;
 use App\Models\Service;
 use Braintree;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ class AccomodationController extends Controller
         }
 
         return view('pages.accomodation.index', compact('accomodations'));
+
     }
 
     public function advertisement()
@@ -59,7 +61,6 @@ class AccomodationController extends Controller
     //Alex: I moved the validation logic in the form request
     public function store(AccomodationStoreRequest $request)
     {
-
 
 
         // $client = new Client([
@@ -112,7 +113,7 @@ class AccomodationController extends Controller
             }
         }
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard', compact('messages'));
     }
 
     /**

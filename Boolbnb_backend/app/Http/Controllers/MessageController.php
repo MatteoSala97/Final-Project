@@ -21,4 +21,20 @@ class MessageController extends Controller
         $new_message = Message::create($validated_data);
         Mail::to('mymail@gmail.com')->send(new NewContact($new_message));
     }
+
+
+
+    public function index()
+    {
+
+        $user = auth()->user();
+
+        // Retrieve messages related to accommodations owned by the user
+        $messages = Message::join('accomodations', 'messages.accomodation_id', '=', 'accomodations.id')
+            ->where('accomodations.user_id', $user->id)
+            ->get();
+
+        // Pass the retrieved messages to the view
+        return view('pages.accomodation.messages', compact('messages'));
+    }
 }
