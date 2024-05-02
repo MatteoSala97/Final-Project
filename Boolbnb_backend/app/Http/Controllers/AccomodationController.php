@@ -115,7 +115,7 @@ class AccomodationController extends Controller
         return redirect()->route('dashboard');
     }
 
-     /**
+    /**
      * Store a recently deleted resource in archive.
      */
     public function archive()
@@ -218,9 +218,9 @@ class AccomodationController extends Controller
     {
         // dd($accomodation);
 
-            $accomodation->services()->detach();
+        $accomodation->services()->detach();
 
-            $accomodation->delete();
+        $accomodation->delete();
 
 
         return redirect()->route('dashboard');
