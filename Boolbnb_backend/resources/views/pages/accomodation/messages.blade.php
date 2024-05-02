@@ -6,46 +6,44 @@
     </x-slot>
 
     <div class="h-screen border">
-        <div class="subtitle flex justify-between m-5">
-            <h2 class="title">Messages</h2>
-        </div>
+        <h2 class="title">Messages ({{ $messages->count() }})</h2>
+            <div class="subtitle flex justify-between m-5">
+            </div>
+            <!-- Table responsive wrapper -->
+            <div class="overflow-x-auto bg-white m-5">
 
-        <!-- Table responsive wrapper -->
-        <div class="overflow-x-auto bg-white m-5">
+                <!-- Table -->
+                <table class="min-w-full text-left text-sm whitespace-nowrap">
 
-            <!-- Table -->
-            <table class="min-w-full text-left text-sm whitespace-nowrap">
+                    <!-- Table head -->
+                    <thead class="uppercase tracking-wider border-b-2">
+                        <tr>
+                            <th scope="col" class="px-6 py-5">
+                                Sender email
+                            </th>
+                            <th scope="col" class="px-6 py-5">
+                                Message
+                            </th>
+                            <th scope="col" class="px-6 py-5">
+                                Accommodation address
+                            </th>
+                        </tr>
+                    </thead>
 
-                <!-- Table head -->
-                <thead class="uppercase tracking-wider border-b-2">
-                    <tr>
-                        <th scope="col" class="px-6 py-5">
-                            Sender email
-                        </th>
-                        <th scope="col" class="px-6 py-5">
-                            Message
-                        </th>
-                        <th scope="col" class="px-6 py-5">
-                            Accommodation address
-                        </th>
-                    </tr>
-                </thead>
-
-                <!-- Table body -->
-                <tbody>
-                    @foreach ($messages as $item)
-                    <a href="#">
-                        <tr class="border-b hover:bg-neutral-100">
+                    <!-- Table body -->
+                    <tbody>
+                        @foreach ($messages as $item)
+                        <a href="#">
+                            <tr class="border-b hover:bg-neutral-100">
                                 <td class="px-6 py-5">{{ $item->email }}</td>
                                 <td class="message-body px-6 py-5">{{ $item->content }}</td>
                                 <td class="px-6 py-5">{{ $item->accomodatio_id }}</td>
-                        </tr>
-                    </a>
-                    @endforeach
-                </tbody>
-
-            </table>
-        </div>
+                            </tr>
+                        </a>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
     </div>
 </x-app-layout>
 

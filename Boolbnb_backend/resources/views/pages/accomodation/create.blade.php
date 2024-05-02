@@ -128,7 +128,7 @@
                 <x-input-label for="thumb" :value="__('Thumbnail')" class="text-black"/>
 
                 <label id="file-name-container" for="thumb" class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('thumb') is-invalid @enderror">
-                    Select file
+                    Select file .png, .jpeg and .jpg
                 </label>
 
                 <input class="form-control @error('thumb') is-invalid @enderror" type="file" id="thumb" accept=".jpeg, .png, .jpg" name="thumb">
@@ -139,6 +139,24 @@
                     </div>
                 @enderror
             </div>
+
+            {{-- MULTIPLE PICTURES --}}
+
+            {{-- <div class="mb-3">
+                <x-input-label for="pictures[]" :value="__('Pictures')" class="text-black"/>
+
+                <label id="file-name-container" for="pictures[]" class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('pictures[]') is-invalid @enderror">
+                    Select file
+                </label>
+
+                <input class="form-control @error('pictures[]') is-invalid @enderror" type="file" id="pictures[]" accept=".jpeg, .png, .jpg" name="pictures[]" multiple>
+
+                @error('pictures[]')
+                    <div class="bg-red-200 p-5 rounded-md">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div> --}}
 
             {{-- prezzo notte --}}
             <div class="flex justify-between items-center gap-5">
