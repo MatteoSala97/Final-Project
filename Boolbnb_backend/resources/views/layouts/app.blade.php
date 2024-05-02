@@ -60,7 +60,7 @@
                         </a>
                     </div>
                     <div class="sidebar-item">
-                        <a href="#" class="flex items-center text-left hover:text-white">
+                        <a href="{{ route('messages') }}" class="flex items-center text-left hover:text-white">
                             <img src="/icons/message-square.svg" class="mr-1" alt="">
                             <span>Messages</span>
                         </a>
@@ -159,4 +159,9 @@
     font-size: 1.5rem;
     font-weight: bold;
 }
+<<<<<<< HEAD
 </style> */
+=======
+
+</style>
+>>>>>>> d07cb80aab23e5bdde3b8593f649e3cd7663118d
