@@ -44,7 +44,11 @@ Route::middleware('auth')->get('/stats', function () {
     return view('pages.accomodation.stats', compact('accomodations'));
 })->name('stats');
 
-Route::middleware('auth')->get('/messages', [MessageController::class, 'index'])->name('messages');
+Route::middleware('auth')->group(function () {
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages');
+    Route::get('/messages/{message}', [MessageController::class, 'show'])->name('messages.show');
+});
+
 
 //archive route
 Route::middleware('auth')->get('/dashboard/accomodations/archive', [AccomodationController::class, 'archive'])->name('accomodations.archive')->withTrashed();
