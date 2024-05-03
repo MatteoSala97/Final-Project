@@ -33,6 +33,7 @@
                 <!-- Table body -->
                 <tbody>
                     @foreach ($messages as $message)
+                        @if ($message->accomodation)
                         <a href="#">
                             <tr class="border-b hover:bg-neutral-100">
                                 <td class="px-6 py-5">{{ $message->name }}</td>
@@ -40,6 +41,7 @@
                                 <td class="px-6 py-5">{{ $message->accomodation->title }}</td>
                             </tr>
                         </a>
+                        @endif
                     @endforeach
                 </tbody>
 
