@@ -213,7 +213,7 @@
                             </tbody>
                         </table>
 
-                        
+
 
                         {{-- <nav class="mt-5 flex items-center justify-between text-sm ml-5 mr-5"
                                 aria-label="Page navigation example">
@@ -265,21 +265,16 @@
                                 There are no accommodations, please start by adding a new one.
                             </p>
 
-                            <x-button-gradient class="gradient-button">
-                                <a href="{{ route('dashboard.accomodations.create') }}">
+                            <a href="{{ route('dashboard.accomodations.create') }}">
+                                <x-button-gradient>
                                     Add accommodation
-                                </a>
-                            </x-button-gradient>
-
+                                </x-button-gradient>
+                            </a>
                         </div>
                 @endif
             </div>
         </div>
-
-
-
-
-
+        
     </div>
 </x-app-layout>
 <script>

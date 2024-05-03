@@ -6,28 +6,27 @@
         <img src="{{ asset('storage/uploads/' . $user->user_propic) }}" id="propic">
     </x-slot>
 
-    <div class="flex h-screen border">
-        <div class="w-full ">
+    <div class="flex w-full">
+        <div class="w-full mx-4">
             @if ($accomodations !== null && count($accomodations) > 0)
                 <div class="subtitle flex justify-between m-5">
                     <a href="{{ route('accomodations.archive') }}">
                         <h2 class="title">Your Accommodations ({{ $accomodations->count() }})</h2>
                     </a>
 
-                    <x-button-gradient class="gradient-button">
-                        <a href="{{ route('dashboard.accomodations.create') }}">
+                    <a href="{{ route('dashboard.accomodations.create') }}">
+                        <x-button-gradient>
                             {{ __('Create a new accommodation') }}
-                        </a>
-                    </x-button-gradient>
-
+                        </x-button-gradient>
+                    </a>
                 </div>
 
                 <!-- Table responsive wrapper -->
-                <div class="overflow-x-auto bg-white">
+                <div class="overflow-x-auto">
                     <!-- Table -->
                     <table class="min-w-full text-left text-sm whitespace-nowrap">
                         <!-- Table head -->
-                        <thead class="uppercase tracking-wider border-b-2">
+                        <thead class="uppercase tracking-wider border border-x-0">
                             <tr>
                                 <th scope="col" class="px-6 py-5">
                                     Thumbnail Image or id
@@ -55,7 +54,7 @@
                         <!-- Table body -->
                         <tbody>
                             @foreach ($accomodations as $item)
-                                <tr class="border-b hover:bg-neutral-100 {{ $item->hidden ? 'text-gray-600' : '' }}">
+                                <tr class="border border-x-0 hover:bg-neutral-100 {{ $item->hidden ? 'text-gray-600' : '' }}">
                                     <th scope="row" class="px-6 py-5" style="height: 80px">
                                         @if ($item->thumb)
                                             <img src="{{ asset('storage/uploads/' . $item->thumb) }}"
@@ -72,7 +71,7 @@
                                     <td class="px-6 py-5">{{ $item->address }}</td>
                                     {{-- <td class="px-6 py-5">{{ $item->city }}</td> --}}
                                     <td class="px-6 py-5">{{ $item->price_per_night }} €</td>
-                                    <td class="border px-4 py-2">
+                                    <td class="border border-x-0 px-4 py-2">
                                         <div class="flex gap-2 justify-around">
                                             <form
                                                 action="{{ route('dashboard.accomodations.changeVisibility', $item->id) }}"
@@ -139,7 +138,6 @@
     body {
         height: 100%;
     }
-
 
     .min-h-screen {
         min-height: 100vh;
