@@ -38,7 +38,7 @@
         <main class="dashboard flex">
 
             {{-- Accommodations / Stats / Advertisement / Messages / Logout --}}
-            <div class="sidebar flex flex-col pt-4 px-5">
+            <div class="sidebar flex flex-col pt-4 px-5 border border-y-0 border-l-0">
                 <div class="flex flex-col gap-4">
 
                     <div class="sidebar-item">
@@ -69,12 +69,12 @@
 
                 </div>
                 {{-- Logout --}}
-                <div class="sidebar-item mt-auto mb-4">
+                {{-- <div class="sidebar-item mt-auto mb-4">
                     <a href="#" class="flex items-center text-left">
                         <img src="/icons/user.svg" class="mr-1" alt="">
                         <span>Logout</span>
                     </a>
-                </div>
+                </div> --}}
             </div>
 
             {{ $slot }}
@@ -102,9 +102,9 @@
 
 <style>
 
-
-    @media screen and (max-width: 768px){
-    }
+.dashboard{
+    /* height: 100%; */
+}
 
 
     @media screen and (max-width: 600px){

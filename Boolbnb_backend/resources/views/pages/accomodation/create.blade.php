@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="container w-9/12 py-6 border-s-1">
+    <div class="container w-9/12 py-6">
 
         <div class="flex items-center px-3 gap-2">
             <a href="{{ route('dashboard') }}" class="flex items-center">
