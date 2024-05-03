@@ -1,6 +1,65 @@
 <x-app-layout>
     <div class="container w-full">
 
+        <div class="absolute w-[85%] h-full overlay justify-center items-center hidden" id="overlay">
+            <div class="payment-confirmation w-[400px] h-[550px] bg-white rounded-lg p-10 flex flex-col gap-8"
+                id="payment-confirmation">
+                <div class="popup-upper justify-between flex items-center">
+                    <h3 class="text-xl font-bold text-black">
+                        Start advertising
+                    </h3>
+                    <i class="fa-solid fa-xmark text-2xl cursor-pointer" id="close-overlay"></i>
+                </div>
+                <div id="popup-title" class="text-2xl font-bold">
+                    Insert accomodation title
+                </div>
+                <div class="flex flex-col gap-3 text-lg" id="popup-bottom">
+
+                    <div class="popup-price flex justify-between">
+                        <div id="selected_package_label">
+                            Silver Package
+                        </div>
+                        <div id="selected_package_price">
+                            € 2.99
+                        </div>
+                    </div>
+                    <div class="expiration flex justify-between">
+                        <div>
+                            Valid For
+                        </div>
+                        <div id="selected_package_duration">
+                            72 hours
+                        </div>
+                    </div>
+
+
+                </div>
+                <form id="payment-form" action="{{ route('dashboard.payment.process') }}" method="post"
+                    class="hidden w-[300px] items-center flex flex-col">
+                    @csrf
+                    <div id="dropin-container">
+
+                    </div>
+                    <input type="hidden" id="accommodation_id" name="accommodation_id">
+                    <input type="hidden" id="selected_plan_name" name="selected_plan_name" value="Silver">
+                    <input type="hidden" id="nonce" name="payment_method_nonce" />
+                    <input type="submit" value="Purchase" class="gradient-button" id="payment-submit-button">
+
+                </form>
+
+                <x-button-gradient class="gradient-button flex justify-center mt-auto" id="confirm-ad-button-wrap">
+                    <button class="uppercase text-lg text-center" id="confirm-ad">
+                        Start Advertising </button>
+                </x-button-gradient>
+
+
+            </div>
+            {{-- </form> --}}
+
+        </div>
+
+
+
         <div class="my-5 flex gap-5 items-center ml-4">
             {{-- <a href="{{ route('dashboard') }}" class="flex items-center">
                 <x-arrowleft/>
@@ -11,7 +70,9 @@
         {{-- <form class="ms-4" action="" method="POST" enctype="multipart/form-data"> @csrf --}}
 
         <div class=" flex justify-between gap-4 mb-4" style="">
-            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer active" id="Silver">
+
+            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer active"
+                id="Silver">
                 <x-silver_svg class="pointer-events-none" />
                 <div class="flex-1 flex flex-col justify-between pointer-events-none">
                     <div class="text-left">
@@ -140,7 +201,10 @@
                                             <div class="flex gap-2 justify-around">
                                                 <x-button-gradient class="gradient-button ">
                                                     <button class="uppercase ad-button"
-                                                        data-accommodation-id="{{ $item->id }}">Advertise</button>
+                                                        data-accommodation-id="{{ $item->id }}"
+                                                        data-accommodation-title="{{ $item->title }}">
+
+                                                        Advertise</button>
                                                 </x-button-gradient>
                                             </div>
                                         </td>
@@ -214,15 +278,7 @@
 
 
 
-        {{-- </form> --}}
-        <form id="payment-form" action="{{ route('dashboard.payment.process') }}" method="post" class="hidden">
-            @csrf
-            <div id="dropin-container"></div>
-            <input type="hidden" id="accommodation_id" name="accommodation_id">
-            <input type="hidden" id="selected_plan_name" name="selected_plan_name" value="Silver">
-            <input type="submit" value="Purchase" class="gradient-button">
-            <input type="hidden" id="nonce" name="payment_method_nonce" />
-        </form>
+
 
     </div>
 </x-app-layout>
@@ -235,8 +291,19 @@
     const hidden_id_input = document.getElementById('accommodation_id');
     const hidden_selected_plan_input = document.getElementById('selected_plan_name');
     const ad_buttons = document.querySelectorAll('.ad-button');
+    const overlay = document.getElementById('overlay')
+    const overlay_close = document.getElementById('close-overlay')
+    const popup_title = document.getElementById('popup-title')
+    const popup_selected_package = document.getElementById('selected_package_label')
+    const popup_selected_package_price = document.getElementById('selected_package_price')
+    const popup_selected_package_duration = document.getElementById('selected_package_duration')
+    const confirm_ad_button = document.getElementById('confirm-ad')
+    const popup_payment_confirmation = document.getElementById('payment-confirmation')
+    const payment_submit_button = document.getElementById('payment-submit-button')
+    const popup_bottom = document.getElementById('popup-bottom');
+    const ad_button_gradient = document.getElementById('confirm-ad-button-wrap')
     let ads_plan_buttons = document.querySelectorAll('.ads')
-    let active_ad = 'silver'
+    let active_ad = 'Silver'
 
 
     ads_plan_buttons.forEach((button) => {
@@ -246,20 +313,78 @@
             })
             e.target.classList.add('active')
             hidden_selected_plan_input.value = e.target.id
+
         })
     })
 
+    const getPriceFromAdName = function(ad_name) {
+        switch (ad_name) {
+            case 'Silver':
+                return 2.99
+                break;
+            case 'Gold':
+                return 5.99
+                break;
+            case 'Platinum':
+                return 9.99
+                break;
+            default:
+                return 2.99
+        }
+    }
 
-    //TODO - fix this accrocchio
+    const getDurationFromAdName = function(ad_name) {
+        switch (ad_name) {
+            case 'Silver':
+                return 24
+                break;
+            case 'Gold':
+                return 72
+                break;
+            case 'Platinum':
+                return 144
+                break;
+            default:
+                return 24
+        }
+    }
+
+
+    //TODO - fix this accrocchio`
     ad_buttons.forEach((button) => {
         button.addEventListener('click', (event) => {
-            console.log(event.target)
-            console.log(event.target.dataset.accommodationId)
             const accommodationId = event.target.dataset.accommodationId;
+            const accommodationTitle = event.target.dataset.accommodationTitle;
             hidden_id_input.value = accommodationId;
-            form.classList.remove('hidden')
+            overlay.classList.remove('hidden')
+            overlay.classList.add('flex')
+            popup_selected_package.innerText = hidden_selected_plan_input.value + ' Package'
+            popup_selected_package_duration.innerText = getDurationFromAdName(hidden_selected_plan_input
+                .value) + ' Hours'
+            popup_title.innerText = accommodationTitle
+            popup_selected_package_price.innerText = getPriceFromAdName(hidden_selected_plan_input
+                .value) + '€'
+            overlay_close.addEventListener('click', () => {
+                overlay.classList.add('hidden')
+                overlay.classList.remove('flex')
+                if (!form.classList.contains('hidden')) {
+                    form.classList.add('hidden')
+                    ad_button_gradient.classList.remove('hidden')
+                    popup_title.classList.remove('hidden')
+                    popup_bottom.classList.remove('hidden')
+                }
+            })
+            confirm_ad_button.addEventListener('click', () => {
+                form.classList.remove('hidden')
+                popup_bottom.classList.add('hidden')
+                ad_button_gradient.classList.add('hidden')
+                popup_title.classList.add('hidden')
+            })
+
         })
     })
+
+
 
 
     braintree.dropin.create({
@@ -271,12 +396,19 @@
         form.addEventListener('submit', event => {
             event.preventDefault();
 
+
+
             dropinInstance.requestPaymentMethod((error, payload) => {
                 if (error) console.error(error);
+                // payment_submit_button.value = 'Purchase'
+                // document.getElementById('other-ways-to-pay').addEventListener('click', () => {
+                //     payment_submit_button.value = 'Confirm Card'
+                // })
+                payment_submit_button.addEventListener('click', () => {
+                    document.getElementById('nonce').value = payload.nonce;
+                    form.submit();
+                })
 
-
-                document.getElementById('nonce').value = payload.nonce;
-                form.submit();
             });
         });
     });
@@ -349,5 +481,15 @@
     .button--green:hover {
         background-color: #8bdda8;
         color: white;
+    }
+
+    .overlay {
+        background-color: rgba(95, 95, 95, 0.7);
+    }
+
+    #payment-close {
+        transform: translate(50%, 50%);
+        color: linear-gradient(135deg, #00CBD8, #B844FF);
+        z-index: 3;
     }
 </style>
