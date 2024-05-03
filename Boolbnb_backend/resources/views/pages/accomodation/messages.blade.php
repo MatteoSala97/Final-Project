@@ -19,6 +19,9 @@
                 <thead class="uppercase tracking-wider border-b-2">
                     <tr>
                         <th scope="col" class="px-6 py-5">
+                            Time and date
+                        </th>
+                        <th scope="col" class="px-6 py-5">
                             Sender email
                         </th>
                         <th scope="col" class="px-6 py-5">
@@ -33,21 +36,35 @@
                 <!-- Table body -->
                 <tbody>
                     @foreach ($messages as $message)
-                        <a href="#">
-                            <tr class="border-b hover:bg-neutral-100">
-                                <td class="px-6 py-5">{{ $message->email }}</td>
-                                <td class="message-body px-6 py-5">{{ $message->content }}</td>
-                                <td class="px-6 py-5">{{ $message->accomodation->title }}</td>
-                            </tr>
-                        </a>
+                        <tr class="border-b hover:bg-neutral-100 message-row view-message-btn" data-message-id="{{ $message->id }}">
+                            <td class="px-6 py-5">{{ $message->created_at }}</td>
+                            <td class="px-6 py-5">{{ $message->email }}</td>
+                            <td class="message-body px-6 py-5">{{ $message->content }}</td>
+                            <td class="px-6 py-5">{{ $message->accomodation->title }}</td>
+                        </tr>
                     @endforeach
                 </tbody>
-
-
+                
+                
             </table>
+            <div class="mt-5 mx-10">
+                {{ $messages->links() }}
+            </div>
         </div>
     </div>
 </x-app-layout>
+
+<script>
+    $(document).ready(function() {
+        $('.view-message-btn').click(function() {
+            
+            var messageId = $(this).closest('.message-row').data('message-id');
+            var url = "{{ route('messages.show', ['message' => $message->id]) }}";
+
+            window.location.href = url;
+        });
+    });
+</script>
 
 
 <style>
