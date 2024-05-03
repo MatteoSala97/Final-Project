@@ -9,5 +9,5 @@ class Lead extends Model
 {
     use HasFactory;
 
-    public $fillable = ['email', 'message' ];
+    public $fillable = ['name','email', 'message' ];
 }
