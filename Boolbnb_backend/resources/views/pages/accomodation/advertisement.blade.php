@@ -11,7 +11,7 @@
         {{-- <form class="ms-4" action="" method="POST" enctype="multipart/form-data"> @csrf --}}
 
         <div class=" flex justify-between gap-4 mb-4" style="">
-            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer active" id="12">
+            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer active" id="Silver">
                 <x-silver_svg class="pointer-events-none" />
                 <div class="flex-1 flex flex-col justify-between pointer-events-none">
                     <div class="text-left">
@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer" id="13">
+            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer" id="Gold">
                 <x-gold_svg class="pointer-events-none" />
                 <div class="flex-1 flex flex-col justify-between pointer-events-none">
                     <div class="text-left">
@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer" id="14">
+            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer" id="Platinum">
                 <x-platinum_svg class="pointer-events-none" />
                 <div class="flex-1 flex flex-col justify-between pointer-events-none">
                     <div class="text-left">
@@ -91,7 +91,7 @@
                                         Price per night
                                     </th>
                                     <th scope="col" class="px-6 py-5">
-                                        AD HOURS LEFT
+                                        Expiration date
                                     </th>
                                     <th scope="col" class="px-6 py-5">
                                         Advertise
@@ -219,7 +219,7 @@
             @csrf
             <div id="dropin-container"></div>
             <input type="hidden" id="accommodation_id" name="accommodation_id">
-            <input type="hidden" id="selected_plan_id" name="selected_plan_id" value="12">
+            <input type="hidden" id="selected_plan_name" name="selected_plan_name" value="Silver">
             <input type="submit" value="Purchase" class="gradient-button">
             <input type="hidden" id="nonce" name="payment_method_nonce" />
         </form>
@@ -233,7 +233,7 @@
     const sandbox_token = "{{ $tokenization_key }}"
     const form = document.getElementById('payment-form');
     const hidden_id_input = document.getElementById('accommodation_id');
-    const hidden_selected_plan_input = document.getElementById('selected_plan_id');
+    const hidden_selected_plan_input = document.getElementById('selected_plan_name');
     const ad_buttons = document.querySelectorAll('.ad-button');
     let ads_plan_buttons = document.querySelectorAll('.ads')
     let active_ad = 'silver'
@@ -245,10 +245,12 @@
                 button.classList.remove('active')
             })
             e.target.classList.add('active')
-            hidden_selected_plan_input.value = Number(e.target.id)
+            hidden_selected_plan_input.value = e.target.id
         })
     })
 
+
+    //TODO - fix this accrocchio
     ad_buttons.forEach((button) => {
         button.addEventListener('click', (event) => {
             console.log(event.target)

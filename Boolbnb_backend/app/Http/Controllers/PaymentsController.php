@@ -18,8 +18,9 @@ class PaymentsController extends Controller
         $paymentNonce = $request->input('payment_method_nonce');
         $accomodation_id = $request->input('accommodation_id');
         $selected_accommodation = Accomodation::find($accomodation_id);
-        $ad_id = $request->input('selected_plan_id');
-        $selected_ad = Ad::find($ad_id);
+        $ad_name = $request->input('selected_plan_name');
+        $selected_ad = Ad::where('name', $ad_name)->first();
+        $ad_id = $selected_ad->id;
         $duration = $selected_ad->duration;
         $pricePerDay = $selected_ad->price_per_day;
 
@@ -66,10 +67,7 @@ class PaymentsController extends Controller
             }
             // return response()->json($result);
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while processing the payment. Please try again later.'
-            ], 500);
+            return redirect()->route('dashboard.accomodations.advertisement')->with('success', false);
         }
     }
 }
