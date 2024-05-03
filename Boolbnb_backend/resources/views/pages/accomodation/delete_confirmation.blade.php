@@ -17,18 +17,18 @@
             </div>
 
             <div class="flex justify-center gap-3 p-3">
-                <x-button-gradient type="submit" class="gradient-button">
-                    <form action="{{ route('dashboard.accomodations.deleteConfirmed', $accomodation) }}" method="POST">
-                        @csrf @method('DELETE')
-                        <button class="uppercase" type="submit">Delete</button>
-                    </form>
-                </x-button-gradient>
 
-                <x-button-gradient type="submit" class="gradient-button">
-                    <a href="{{ route('dashboard') }}">
+                <form action="{{ route('dashboard.accomodations.deleteConfirmed', $accomodation) }}" method="POST">
+                    <button type="submit"> @csrf @method('DELETE')
+                        <x-button-gradient class="uppercase" type="submit">Delete</x-button-gradient>
+                    </button>
+                </form>
+
+                <a href="{{ route('dashboard') }}">
+                    <x-button-gradient type="submit">
                         <p>No please, I have a family ಥ_ಥ</p>
-                    </a>
-                </x-button-gradient>
+                    </x-button-gradient>
+                </a>
             </div>
         </div>
     </div>
