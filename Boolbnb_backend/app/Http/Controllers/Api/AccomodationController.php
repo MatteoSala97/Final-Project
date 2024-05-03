@@ -25,7 +25,8 @@ class AccomodationController extends Controller
         $services = $request->query('services');
 
 
-        $accomodations_query = Accomodation::query();
+        $accomodations_query = Accomodation::where('hidden', false);
+
 
         // Max_distance filter
         if ($max_distance !== null && $point_lat !== null && $point_lng !== null) {
@@ -62,21 +63,34 @@ class AccomodationController extends Controller
 
         // Order by distance if latitude and longitude are provided
         if ($point_lat !== null && $point_lng !== null) {
-            $accomodations_query->orderByRaw('ST_Distance_Sphere(POINT(longitude, latitude), POINT(?, ?))', [$point_lng, $point_lat]);
+            $accomodations_query->leftJoin('accomodation_ad', 'accomodations.id', '=', 'accomodation_ad.accomodation_id')
+                ->select('accomodations.*', 'accomodation_ad.accomodation_id AS has_ad')
+                ->orderByRaw('has_ad DESC, 
+                                              ST_Distance_Sphere(POINT(accomodations.longitude, accomodations.latitude), POINT(?, ?))', [$point_lng, $point_lat]);
         } else {
-            // Filter by service ID 258
-            // $accomodations_query->whereHas('services', function ($query) {
-            //     $query->where('service_id', 25);
-            // });
-            $accomodations_query->orderBy('rating', 'desc');
+            $accomodations_query->leftJoin('accomodation_ad', 'accomodations.id', '=', 'accomodation_ad.accomodation_id')
+                ->select('accomodations.*', 'accomodation_ad.accomodation_id AS has_ad')
+                ->orderByRaw('has_ad DESC, 
+                                              accomodations.rating DESC');
         }
 
 
+
+
         // Eager loading relationships
-        $accomodations_query->with(['pictures', 'services']);
+        $accomodations_query->with(['pictures', 'services', 'ads']);
+
+
+
+
+
 
 
         $accomodations = $accomodations_query->paginate(15);
+
+        foreach ($accomodations as $accommodation) {
+            $accommodation->has_ad = $accommodation->ads->isNotEmpty();
+        }
         //if max_distance was among the filters, attach a "distance_from_point" additional info
         if ($max_distance !== null && $point_lat  !== null  && $point_lng  !== null) {
             foreach ($accomodations as $accommodation) {
@@ -144,7 +158,10 @@ class AccomodationController extends Controller
         $bathrooms = $request->query('bathrooms');
         $services = $request->query('services');
 
-        $accommodations_query = Accomodation::query();
+        $accommodations_query = Accomodation::where('hidden', false);
+
+
+
 
         if ($max_distance !== null && $point_lat !== null && $point_lng !== null) {
             $accommodations_query->selectRaw("*")

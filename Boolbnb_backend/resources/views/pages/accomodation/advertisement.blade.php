@@ -166,9 +166,8 @@
                                         class="border-b hover:bg-neutral-100 {{ $item->hidden ? 'text-gray-600' : '' }}">
                                         <th scope="row" class="px-6 py-5" style="height: 80px">
                                             @if ($item->thumb)
-                                                <img src="{{ asset('storage/uploads/' . $item->thumb) }}"
-                                                    style="height: 80px" class="{{ $item->hidden ? 'grayscale' : '' }}"
-                                                    id="old_thumb">
+                                                <img src="{{ asset($item->thumb) }}" style="height: 80px"
+                                                    class="{{ $item->hidden ? 'grayscale' : '' }}" id="old_thumb">
                                             @else
                                                 <span>
                                                     {{ $item->id }}
@@ -213,7 +212,7 @@
                             </tbody>
                         </table>
 
-                        
+
 
                         {{-- <nav class="mt-5 flex items-center justify-between text-sm ml-5 mr-5"
                                 aria-label="Page navigation example">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AccomodationStoreRequest;
 use App\Models\Accomodation;
 use App\Models\Message;
+use App\Models\Picture;
 use App\Models\Service;
 use App\Models\User;
 use Braintree;
@@ -68,21 +69,6 @@ class AccomodationController extends Controller
     {
 
 
-        // $client = new Client([
-        //     'verify' => false, // Disable SSL verification
-        // ]);
-        // $response = $client->get('https://api.tomtom.com/search/2/search/' . urlencode($request->address . ' ' . $request->cap . ' ' . $request->city) . '.json', [
-        //     'query' => [
-        //         // Add your tomtom API key to the .env file else it won't work
-        //         'key' => env('TOMTOM_API_KEY'),
-        //         'countrySet' => 'IT',
-        //     ],
-        // ]);
-
-        // $data = json_decode($response->getBody(), true);
-        // $latitude = $data['results'][0]['position']['lat'];
-        // $longitude = $data['results'][0]['position']['lon'];
-
 
         $selected_address = json_decode($request['selected_address']);
 
@@ -99,14 +85,31 @@ class AccomodationController extends Controller
         //doing this to make sure the checkbox returns a boolean
         $request['hidden'] = $request->has('hidden');
 
-        if ($request->hasFile('thumb')) {
-            $img_path = Storage::put('uploads', $validatedData['thumb']);
-            $validatedData['thumb'] = basename($img_path);
-        }
+
 
         unset($validatedData['services']);
 
         $new_accommodation = Accomodation::create($validatedData);
+
+        if ($request->hasFile('thumb')) {
+            // Upload the image to the storage directory
+            $img_path = Storage::put('uploads', $validatedData['thumb']);
+
+            // Construct the full URL to the uploaded image
+            $full_url = url('/') . '/storage/' . $img_path;
+
+            // Save the full URL to the 'thumb' column in the 'Accomodation' model
+            $validatedData['thumb'] = $full_url;
+
+            // Update the 'thumb' column of the newly created 'Accomodation' record
+            $new_accommodation->update(['thumb' => $full_url]);
+
+            // Create a record in the 'picture' table
+            $picture = Picture::create([
+                'url' => $full_url,
+                'accomodation_id' => $new_accommodation->id
+            ]);
+        }
 
 
         // Attach services if provided
