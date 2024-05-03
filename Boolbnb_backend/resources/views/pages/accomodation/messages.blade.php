@@ -6,15 +6,14 @@
     </x-slot>
 
     <div class="h-screen border">
-        <div class="subtitle flex justify-between m-5">
-            <h2 class="title">Messages</h2>
-        </div>
+        <h2 class="title">Messages ({{ $messages->count() }})</h2>
+            <div class="subtitle flex justify-between m-5">
+            </div>
+            <!-- Table responsive wrapper -->
+            <div class="overflow-x-auto bg-white m-5">
 
-        <!-- Table responsive wrapper -->
-        <div class="overflow-x-auto bg-white m-5">
-
-            <!-- Table -->
-            <table class="min-w-full text-left text-sm whitespace-nowrap">
+                <!-- Table -->
+                <table class="min-w-full text-left text-sm whitespace-nowrap">
 
                 <!-- Table head -->
                 <thead class="uppercase tracking-wider border-b-2">

@@ -149,14 +149,14 @@
                             </tbody>
                         </table>
 
-                        {{-- //TODO - Aggiungere la logica di navigazione tra le pagine --}}
+                        
 
                         {{-- <nav class="mt-5 flex items-center justify-between text-sm ml-5 mr-5"
                                 aria-label="Page navigation example">
                                 <p>
                                     Showing <strong>1-5</strong> of <strong>10</strong>
                                 </p>
-        
+
                                 <ul class="list-style-none flex">
                                     <li>
                                         <a class="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300"
