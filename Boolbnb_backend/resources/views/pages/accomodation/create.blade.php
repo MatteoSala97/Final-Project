@@ -1,19 +1,19 @@
 <x-app-layout>
-    <div class="container m-5 w-9/12">
+    <div class="container w-9/12 py-6 border-s-1">
 
-        <div class="my-5 flex gap-5 items-center ml-4">
+        <div class="flex items-center px-3 gap-2">
             <a href="{{ route('dashboard') }}" class="flex items-center">
                 <x-arrowleft/>
             </a>
             <p class="font-bold text-xl">Register new accommodation</p>
         </div>
 
-        <form class="ms-4" action="{{ route('dashboard.accomodations.store') }}" method="POST" enctype="multipart/form-data">
+        <form class="px-9 pt-4" action="{{ route('dashboard.accomodations.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             {{-- title --}}
             <div class="mb-3 w-full">
-                <x-input-label for="title" :value="__('Title *')" class="text-black"/>
+                <x-input-label for="title" :value="__('Title *')"/>
                 <input type="text" name="title" id="title" value="{{ old('title') }}"
                     placeholder="Accommodation title"
                     class="block mt-1 w-full rounded-md border-gray-300
@@ -29,8 +29,8 @@
             <div class="flex justify-between gap-5">
 
                 {{-- address --}}
-                <div class="w-1/2 address-input-group mb-3">
-                    <x-input-label for="address" :value="__('Full address *')" class="text-black"/>
+                <div class="w-full address-input-group mb-3">
+                    <x-input-label for="address" :value="__('Full address *')"/>
                     <input type="text" name="address" id="address" placeholder="Via Roma 50"
                         class="block mt-1 w-full rounded-md border-gray-300
                         @error('address') is-invalid @enderror"
@@ -48,7 +48,7 @@
 
                 {{-- city --}}
                 <div class="w-1/2 address-input-group mb-3 hidden">
-                    <x-input-label for="city" :value="__('City *')" class="text-black"/>
+                    <x-input-label for="city" :value="__('City *')"/>
                     <input type="text" name="city" id="city" placeholder="Roma" @required(true)
                         value="{{ old('city') }}"
                         class="block mt-1 w-full rounded-md border-gray-300
@@ -62,12 +62,12 @@
             </div>
 
             {{-- type / rooms / beds / bathrooms --}}
-            <div class="flex justify-between gap-5">
+            <div class="tabella flex justify-between gap-5">
 
                 <!-- type -->
-                <div class="mb-3 w-full">
-                    <x-input-label for="type" :value="__('Type *')" class="text-black"/>
-                    <select name="type" id="type" class="block mt-1 rounded-md w-full border-gray-300">
+                <div class="type mb-3 w-full">
+                    <x-input-label for="type" :value="__('Type *')"/>
+                    <select name="type" id="type" class="block mt-1 rounded-md border-gray-300 text-gray-500 w-full">
                         <option value="House" {{ old('type') == 'House' ? 'selected' : '' }}>House</option>
                         <option value="Apartment" {{ old('type') == 'Apartment' ? 'selected' : '' }}>Apartment</option>
                         <option value="Hotel" {{ old('type') == 'Hotel' ? 'selected' : '' }}>Hotel</option>
@@ -81,10 +81,10 @@
                 </div>
 
                 {{-- rooms --}}
-                <div class="mb-3 w-full">
-                    <x-input-label for="rooms" :value="__('Bedrooms *')" class="text-black"/>
+                <div class="rooms mb-3 w-full">
+                    <x-input-label for="rooms" :value="__('Bedrooms *')"/>
                     <input type="number" name="rooms" id="rooms" value="{{ old('rooms') ?? 1 }}"
-                        class="block mt-1 rounded-md w-full border-gray-300
+                        class="block mt-1 rounded-md w-full border-gray-300 text-gray-500 w-full
                         @error('rooms') is-invalid @enderror" min="1"
                         @required(true) />
                     @error('rooms')
@@ -95,10 +95,10 @@
                 </div>
 
                 {{-- beds --}}
-                <div class="mb-3 w-full">
-                    <x-input-label for="beds" :value="__('Beds *')" class="text-black"/>
+                <div class="beds mb-3 w-full">
+                    <x-input-label for="beds" :value="__('Beds *')"/>
                     <input type="number" name="beds" id="beds"
-                        class="block mt-1 rounded-md w-full border-gray-300
+                        class="block mt-1 rounded-md w-full border-gray-300 text-gray-500 w-full
                         @error('beds') is-invalid @enderror"
                         value="{{ old('beds') ?? 1 }}" min="1" />
                     @error('beds')
@@ -109,10 +109,10 @@
                 </div>
 
                 {{-- bathrooms --}}
-                <div class="mb-3 w-full">
-                    <x-input-label for="bathrooms" :value="__('Bathrooms *')" class="text-black"/>
+                <div class="bathrooms mb-3 w-full">
+                    <x-input-label for="bathrooms" :value="__('Bathrooms *')"/>
                     <input type="number" name="bathrooms" id="bathrooms" value="{{ old('bathrooms') ?? 1 }}"
-                        class="block mt-1 rounded-md w-full border-gray-300
+                        class="block mt-1 rounded-md w-full border-gray-300 text-gray-500 w-full
                         @error('bathrooms') is-invalid @enderror"
                         min="1" />
                     @error('bathrooms')
@@ -125,7 +125,7 @@
 
             {{-- thumb --}}
             <div class="mb-3">
-                <x-input-label for="thumb" :value="__('Thumbnail')" class="text-black"/>
+                <x-input-label for="thumb" :value="__('Thumbnail')"/>
 
                 <label id="file-name-container" for="thumb" class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('thumb') is-invalid @enderror">
                     Select file .png, .jpeg and .jpg
@@ -159,19 +159,19 @@
             </div> --}}
 
             {{-- prezzo notte --}}
-            <div class="flex justify-between items-center gap-5">
-                <div>
-                    <x-input-label for="range" :value="__('Price per night *')" class="text-black"/>
-                    <div id="price_display" class="block mt-1 w-full rounded-md bg-white p-2 border border-gray-300
+            <div class="price_per_night flex justify-between items-center gap-5">
+                <div class="price_per_night_input_label">
+                    <x-input-label for="range" :value="__('Price per night *')"/>
+                    <div id="price_display" class="block mt-1 w-full rounded-md bg-white p-2 border border-gray-300 text-gray-500
                     @error('title') is-invalid @enderror" @required(true)>
                         € {{ old('price_per_night') ? '€' . old('price_per_night') : '0' }}
                     </div>
                 </div>
 
-                <div class="flex-grow mr-5 mt-5">
+                <div class="price_per_night_input_range flex-grow mr-5 mt-5">
                     <x-input-label for="price_per_night" :value="__('')" />
 
-                    <input type="range" class="custom-range form-range w-full mt-2" min="0" max="500" step="10"
+                    <input type="range" class="form-range w-full mt-2" min="0" max="500" step="10"
                         value="{{ old('price_per_night') ? old('price_per_night') : '0' }}" id="price_per_night"
                         name="price_per_night">
                     @error('price_per_night')
@@ -184,29 +184,54 @@
 
             {{-- service --}}
             <div class="my-5">
-                <x-input-label for="range" :value="__('Services *')" class="text-black"/>
-                @error('services')
-                    <div class="bg-red-200 p-5 rounded-md">
-                        {{ $message }}
-                    </div>
-                @enderror
-
-                <div id="price_display" class="mt-1 w-full rounded-md">
-                    Choose one or more services
-                </div>
-
-                <div class="mb-3 flex flex-wrap">
-                    @foreach ($services as $service)
-                        <div class="my-3 me-3 w-2/12">
-                            <input type="checkbox" name="services[]" id="service_{{ $service->id }}"
-                                value="{{ $service->id }}" class="form-checkbox h-5 w-5 text-blue-500"
-                                {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
-                            <label for="service_{{ $service->id }}"
-                                class="ml-2 text-sm text-gray-700">{{ $service->name }}
-                            </label>
+                {{-- lg display --}}
+                <div class="services-lg">
+                    <x-input-label for="range" :value="__('Services *')"/>
+                    @error('services')
+                        <div class="bg-red-200 p-5 rounded-md">
+                            {{ $message }}
                         </div>
-                    @endforeach
+                    @enderror
+
+                    <div id="price_display" class="mt-1 w-full rounded-md">
+                        Choose one or more services
+                    </div>
+
+                    <div class="mb-3 flex flex-wrap">
+                        @foreach ($services as $service)
+                            <div class="my-3 me-3 w-2/12">
+                                <input type="checkbox" name="services[]" id="service_{{ $service->id }}"
+                                    value="{{ $service->id }}" class="form-checkbox h-5 w-5 text-blue-500"
+                                    {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
+                                <label for="service_{{ $service->id }}"
+                                    class="ml-2 text-sm text-gray-700">{{ $service->name }}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
+
+
+                {{-- sm display --}}
+                <div class="services-sm">
+                    <x-input-label for="range" :value="__('Services *')"/>
+                    @error('services')
+                        <div class="bg-red-200 p-5 rounded-md">
+                            {{ $message }}
+                        </div>
+                    @enderror
+
+                    <div id="price_display" class="mt-1 w-full rounded-md">
+                        Choose one or more services
+                    </div>
+
+                    <select name="services[]" id="service_select" class="w-full rounded-md border-gray-300 text-gray-500" multiple>
+                        @foreach ($services as $service)
+                            <option value="{{ $service->id }}" {{ in_array($service->id, old('services', [])) ? 'selected' : '' }}>{{ $service->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
             </div>
 
             {{-- <x-primary-button type="submit">Confirm</x-primary-button> --}}
@@ -316,6 +341,68 @@
 </script>
 
 <style>
+
+    @media screen and (min-width: 769px) {
+        .services-lg{
+            display: block;
+        }
+        .services-sm {
+            display: none;
+        }
+    }
+    @media screen and (max-width: 768px){
+        .tabella{
+            flex-direction: column;
+            gap: 0;
+        }
+        .services-lg{
+            display: none;
+        }
+        .services-sm {
+            display: block;
+        }
+    }
+
+    @media screen and (max-width: 600px){
+        .price_per_night{
+            flex-direction: column;
+            gap: 0;
+        }
+        .price_per_night_input_label{
+            width: 100%;
+        }
+        .price_per_night_input_range{
+            width: 80%;
+            margin: 10px 0px;
+        }
+    }
+
+    @media screen and (max-width: 500px){
+        .price_per_night{
+            flex-direction: column;
+            gap: 0;
+        }
+        .price_per_night_input_label{
+            width: 100%;
+        }
+        .price_per_night_input_range{
+            width: 80%;
+            margin: 10px 0px;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     .dropdown-item {
         padding-left: 30px;
         cursor: pointer;
@@ -347,7 +434,7 @@
         background-color: black;
         border-radius: 10px;
     }
-    input[type="range"]::-webkit-slider-thumb {
+    input[type="range"]::-webkit-slider-thumb{ /* palla */
         -webkit-appearance: none;
         appearance: none;
         width: 25px;
@@ -359,6 +446,8 @@
         margin-top: -10px;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
     }
+
+
 </style>
 
 {{-- <div>
