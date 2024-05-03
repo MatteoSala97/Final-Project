@@ -19,7 +19,7 @@
                 <thead class="uppercase tracking-wider border-b-2">
                     <tr>
                         <th scope="col" class="px-6 py-5">
-                            Sender email
+                            Sender name
                         </th>
                         <th scope="col" class="px-6 py-5">
                             Message
@@ -35,7 +35,7 @@
                     @foreach ($messages as $message)
                         <a href="#">
                             <tr class="border-b hover:bg-neutral-100">
-                                <td class="px-6 py-5">{{ $message->email }}</td>
+                                <td class="px-6 py-5">{{ $message->name }}</td>
                                 <td class="message-body px-6 py-5">{{ $message->content }}</td>
                                 <td class="px-6 py-5">{{ $message->accomodation->title }}</td>
                             </tr>

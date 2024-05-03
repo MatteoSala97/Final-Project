@@ -16,6 +16,7 @@ class MessageController extends Controller
         $data = $request->all();
         $rules = [
             'accomodation_id' => 'required|exists:accomodations,id',
+            'name' => 'required|string',
             'email' => 'required|email',
             'content' => 'required|string',
         ];
