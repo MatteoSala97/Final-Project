@@ -6,10 +6,13 @@ use App\Http\Requests\AccomodationStoreRequest;
 use App\Models\Accomodation;
 use App\Models\Message;
 use App\Models\Service;
+use App\Models\User;
 use Braintree;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Pagination\Paginator;
+
 
 
 
@@ -20,13 +23,16 @@ class AccomodationController extends Controller
      */
     public function index()
     {
-        $accomodations = Accomodation::where('user_id', auth()->id())->get();
+        $user = User::findOrFail(auth()->id());
+        $accomodations = Accomodation::where('user_id', auth()->id())->paginate(5);
 
         if ($accomodations === null) {
             $accomodations = [];
         }
 
-        return view('pages.accomodation.index', compact('accomodations'));
+
+
+        return view('dashboard', compact('accomodations', 'user'));
     }
 
     public function advertisement()

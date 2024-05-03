@@ -24,20 +24,14 @@ use Illuminate\Support\Facades\Route;
 // add welcome page
 Route::get('/', function () {
     if (auth()->check()) {
-        $user = User::findOrFail(auth()->id());
-        $accomodations = Accomodation::where('user_id', auth()->id())->get();
-        return view('dashboard', compact('user', 'accomodations'));
+        return redirect()->route('dashboard');
     } else {
         return view('auth.login');
     }
 });
 
 
-Route::get('/dashboard', function () {
-    $user = User::findOrFail(auth()->id());
-    $accomodations = Accomodation::where('user_id', auth()->id())->get();
-    return view('dashboard', compact('user', 'accomodations'));
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [AccomodationController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

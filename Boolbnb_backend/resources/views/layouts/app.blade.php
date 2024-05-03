@@ -68,13 +68,13 @@
                     </div>
 
                 </div>
-                {{-- Logout --}}
-                {{-- <div class="sidebar-item mt-auto mb-4">
+
+                <div class="sidebar-item mt-auto mb-4">
                     <a href="#" class="flex items-center text-left">
                         <img src="/icons/user.svg" class="mr-1" alt="">
                         <span>Logout</span>
                     </a>
-                </div> --}}
+                </div>
             </div>
 
             {{ $slot }}

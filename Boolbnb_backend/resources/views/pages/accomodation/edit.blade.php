@@ -175,9 +175,9 @@
                 </div>
             </div>
 
-            <x-button-gradient type="submit" class="gradient-button">
-                <button class="uppercase">Confirm Edit</button>
-            </x-button-gradient>
+            <button>
+                <x-button-gradient type="submit">Confirm Edit</x-button-gradient>
+            </button>
 
         </form>
     </div>
@@ -281,7 +281,7 @@
 
 <style>
 
-@media screen and (min-width: 769px) {
+    @media screen and (min-width: 769px) {
         .services-lg{
             display: block;
         }
