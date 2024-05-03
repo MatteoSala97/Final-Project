@@ -108,7 +108,9 @@
                         </tbody>
                     </table>
 
-                    <nav class="mt-5 flex items-center justify-between text-sm ml-5 mr-5"
+                    {{ $accomodations->links() }}
+
+                    {{-- <nav class="mt-5 flex items-center justify-between text-sm ml-5 mr-5"
                         aria-label="Page navigation example">
                         <p>
                             Showing <strong>1-5</strong> of <strong>10</strong>
@@ -150,22 +152,21 @@
                                 </a>
                             </li>
                         </ul>
-                    </nav>
+                    </nav> --}}
                 </div>
-                
-                @else
-                    <div class="info flex flex-col justify-center items-center h-screen text-grey gap-5">
-                        <p>
-                            There are no accommodations, please start by adding a new one.
-                        </p>
+            @else
+                <div class="info flex flex-col justify-center items-center h-screen text-grey gap-5">
+                    <p>
+                        There are no accommodations, please start by adding a new one.
+                    </p>
 
-                        <x-button-gradient class="gradient-button">
-                            <a href="{{ route('dashboard.accomodations.create') }}">
-                                Add accommodation
-                            </a>
-                        </x-button-gradient>
+                    <x-button-gradient class="gradient-button">
+                        <a href="{{ route('dashboard.accomodations.create') }}">
+                            Add accommodation
+                        </a>
+                    </x-button-gradient>
 
-                    </div>
+                </div>
             @endif
 
         </div>
