@@ -107,51 +107,11 @@
                         </tbody>
                     </table>
 
-                    {{ $accomodations->links() }}
+                    <div class="mt-5 mx-10">
+                        {{ $accomodations->links() }}
+                    </div>
 
-                    {{-- <nav class="mt-5 flex items-center justify-between text-sm ml-5 mr-5"
-                        aria-label="Page navigation example">
-                        <p>
-                            Showing <strong>1-5</strong> of <strong>10</strong>
-                        </p>
 
-                        <ul class="list-style-none flex">
-                            <li>
-                                <a class="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300"
-                                    href="#!">
-                                    Previous
-                                </a>
-                            </li>
-                            <li>
-                                <a class="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300"
-                                    href="#!">
-                                    1
-                                </a>
-                            </li>
-                            <li aria-current="page">
-                                <a class="relative block rounded bg-blue-100 px-3 py-1.5 text-sm font-medium text-blue-700 transition-all duration-300"
-                                    href="#!">
-                                    2
-                                    <span
-                                        class="absolute -m-px h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 [clip:rect(0,0,0,0)]">
-                                        (current)
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100"
-                                    href="#!">
-                                    3
-                                </a>
-                            </li>
-                            <li>
-                                <a class="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100"
-                                    href="#!">
-                                    Next
-                                </a>
-                            </li>
-                        </ul>
-                    </nav> --}}
                 </div>
             @else
                 <div class="info flex flex-col justify-center items-center h-screen text-grey gap-5">
@@ -194,4 +154,7 @@
     main>* {
         width: 100%;
     }
+
+    /* Stile dei link della paginazione */
+
 </style>
