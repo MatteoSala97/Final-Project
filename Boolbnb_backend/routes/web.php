@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->get('/stats', function () {
-    $accomodations = Accomodation::where('user_id', auth()->id())->get();
+    $accomodations = Accomodation::where('user_id', auth()->id())->paginate(10);
     return view('pages.accomodation.stats', compact('accomodations'));
 })->name('stats');
 

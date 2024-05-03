@@ -24,7 +24,7 @@ class AccomodationController extends Controller
     public function index()
     {
         $user = User::findOrFail(auth()->id());
-        $accomodations = Accomodation::where('user_id', auth()->id())->paginate(5);
+        $accomodations = Accomodation::where('user_id', auth()->id())->paginate(7);
 
         if ($accomodations === null) {
             $accomodations = [];
@@ -37,7 +37,7 @@ class AccomodationController extends Controller
 
     public function advertisement()
     {
-        $accomodations = Accomodation::where('user_id', auth()->id())->get();
+        $accomodations = Accomodation::where('user_id', auth()->id())->paginate(7);
         $gateway = new Braintree\Gateway([
             'environment' => config('services.braintree.environment'),
             'merchantId' => config('services.braintree.merchantId'),

@@ -11,7 +11,7 @@
             @if ($accomodations !== null && count($accomodations) > 0)
                 <div class="subtitle flex justify-between m-5">
                     <a href="{{ route('accomodations.archive') }}">
-                        <h2 class="title">Your Accommodations ({{ $accomodations->count() }})</h2>
+                        <h2 class="title">Your Accommodations ({{ $accomodations->total() }})</h2>
                     </a>
 
                     <a href="{{ route('dashboard.accomodations.create') }}">
@@ -153,7 +153,5 @@
     main>* {
         width: 100%;
     }
-
-    /* Stile dei link della paginazione */
 
 </style>

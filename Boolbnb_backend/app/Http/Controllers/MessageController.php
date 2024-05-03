@@ -39,7 +39,7 @@ class MessageController extends Controller
             ->join('accomodations', 'messages.accomodation_id', '=', 'accomodations.id')
             ->where('accomodations.user_id', $user->id)
             ->orderBy('messages.created_at', 'desc')
-            ->get();
+            ->paginate(5);
 
         // Pass the retrieved messages to the view
         return view('pages.accomodation.messages', compact('messages'));

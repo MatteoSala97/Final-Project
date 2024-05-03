@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="h-screen border">
-        <h2 class="title">Messages ({{ $messages->count() }})</h2>
+        <h2 class="title p-5">Messages ({{ $messages->count() }})</h2>
             <div class="subtitle flex justify-between m-5">
             </div>
             <!-- Table responsive wrapper -->
@@ -42,9 +42,10 @@
                         </a>
                     @endforeach
                 </tbody>
-
-
             </table>
+            <div class="mt-5 mx-10">
+                {{ $messages->links() }}
+            </div>
         </div>
     </div>
 </x-app-layout>
