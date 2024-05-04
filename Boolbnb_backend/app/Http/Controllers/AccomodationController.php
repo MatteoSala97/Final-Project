@@ -38,7 +38,11 @@ class AccomodationController extends Controller
 
     public function advertisement()
     {
-        $accomodations = Accomodation::where('user_id', auth()->id())->get();
+        $accomodations = Accomodation::withCount('ads')
+            ->where('user_id', auth()->id())
+            ->orderBy('ads_count', 'desc')
+            ->get();
+
         $gateway = new Braintree\Gateway([
             'environment' => config('services.braintree.environment'),
             'merchantId' => config('services.braintree.merchantId'),
@@ -48,8 +52,10 @@ class AccomodationController extends Controller
 
         $token = $gateway->clientToken()->generate();
         $tokenization_key = config('services.braintree.tokenizationKey');
+
         return view('pages.accomodation.advertisement', compact('accomodations', 'token', 'tokenization_key'));
     }
+
 
 
     /**

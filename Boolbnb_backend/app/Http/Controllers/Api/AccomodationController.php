@@ -23,6 +23,9 @@ class AccomodationController extends Controller
         $beds = $request->query('beds');
         $bathrooms = $request->query('bathrooms');
         $services = $request->query('services');
+        $order_by = $request->query('order_by');
+        $max_distance_meters = $max_distance * 1000;
+
 
 
         $accomodations_query = Accomodation::where('hidden', false);
@@ -65,14 +68,34 @@ class AccomodationController extends Controller
         if ($point_lat !== null && $point_lng !== null) {
             $accomodations_query->leftJoin('accomodation_ad', 'accomodations.id', '=', 'accomodation_ad.accomodation_id')
                 ->select('accomodations.*', 'accomodation_ad.accomodation_id AS has_ad')
-                ->orderByRaw('has_ad DESC, 
-                                              ST_Distance_Sphere(POINT(accomodations.longitude, accomodations.latitude), POINT(?, ?))', [$point_lng, $point_lat]);
+                ->selectRaw('ST_Distance_Sphere(POINT(accomodations.longitude, accomodations.latitude), POINT(?, ?)) AS distance', [$point_lng, $point_lat])
+                ->having('distance', '<=', $max_distance_meters);
+
+
+            if ($point_lat !== null && $point_lng !== null) {
+                switch ($order_by) {
+                    case 'distance':
+                        $accomodations_query->orderBy('distance');
+                        break;
+                    case 'price':
+                        $accomodations_query->orderBy('price_per_night');
+                        break;
+                    case 'rating':
+                        $accomodations_query->orderByDesc('rating');
+                        break;
+                    default:
+                        $accomodations_query->orderBy('distance');
+                        break;
+                }
+            }
         } else {
             $accomodations_query->leftJoin('accomodation_ad', 'accomodations.id', '=', 'accomodation_ad.accomodation_id')
                 ->select('accomodations.*', 'accomodation_ad.accomodation_id AS has_ad')
                 ->orderByRaw('has_ad DESC, 
                                               accomodations.rating DESC');
         }
+
+
 
 
 

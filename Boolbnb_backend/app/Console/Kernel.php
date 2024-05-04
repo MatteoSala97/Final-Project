@@ -3,10 +3,12 @@
 namespace App\Console;
 
 use App\Models\Accomodation;
+use App\Models\Message;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -16,27 +18,31 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->call(function () {
-            $now = now();
+            try {
+                // Get current date and time
+                $currentDateTime = now();
 
-            // Get all accommodations with ads
-            $accommodations = Accomodation::whereHas('ads')->get();
+                // Find expired accommodations ads and detach them
+                DB::table('accomodation_ad')
+                    ->where('expiration_date', '<', $currentDateTime)
+                    ->orderBy('id') // Adjust 'id' to the actual primary key column
+                    ->each(function ($record) {
+                        // Detach the record
+                        $accomodationId = $record->accomodation_id;
+                        $adId = $record->ad_id;
+                        Accomodation::find($accomodationId)->ads()->detach($adId);
+                    });
 
-            // Loop through each accommodation
-            foreach ($accommodations as $accommodation) {
-                // Get ads for the current accommodation
-                $ads = $accommodation->ads;
-
-                // Check each ad for expiration
-                foreach ($ads as $ad) {
-                    // Check if the ad has expired
-                    if ($ad->pivot->expiration_date <= $now) {
-                        // Soft delete the ad
-                        $accommodation->ads()->detach($ad->id);
-                    }
-                }
+                // Log success message
+                Log::info('Scheduled task ran successfully.');
+            } catch (\Exception $e) {
+                // Log error message
+                Log::error('Scheduled task failed: ' . $e->getMessage());
             }
-        })->hourly();
+        })->everyHour(); // Adjust the interval as needed
     }
+
+
 
     /**
      * Register the commands for the application.
