@@ -58,9 +58,8 @@
                                 <tr class="border-b hover:bg-neutral-100 {{ $item->hidden ? 'text-gray-600' : '' }}">
                                     <th scope="row" class="px-6 py-5" style="height: 80px">
                                         @if ($item->thumb)
-                                            <img src="{{ asset('storage/uploads/' . $item->thumb) }}"
-                                                style="height: 80px" class="{{ $item->hidden ? 'grayscale' : '' }}"
-                                                id="old_thumb">
+                                            <img src="{{ asset($item->thumb) }}" style="height: 80px"
+                                                class="{{ $item->hidden ? 'grayscale' : '' }}" id="old_thumb">
                                         @else
                                             <span>
                                                 {{ $item->id }}
@@ -108,64 +107,25 @@
                         </tbody>
                     </table>
 
-                    <nav class="mt-5 flex items-center justify-between text-sm ml-5 mr-5"
-                        aria-label="Page navigation example">
-                        <p>
-                            Showing <strong>1-5</strong> of <strong>10</strong>
-                        </p>
-
-                        <ul class="list-style-none flex">
-                            <li>
-                                <a class="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300"
-                                    href="#!">
-                                    Previous
-                                </a>
-                            </li>
-                            <li>
-                                <a class="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300"
-                                    href="#!">
-                                    1
-                                </a>
-                            </li>
-                            <li aria-current="page">
-                                <a class="relative block rounded bg-blue-100 px-3 py-1.5 text-sm font-medium text-blue-700 transition-all duration-300"
-                                    href="#!">
-                                    2
-                                    <span
-                                        class="absolute -m-px h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 [clip:rect(0,0,0,0)]">
-                                        (current)
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100"
-                                    href="#!">
-                                    3
-                                </a>
-                            </li>
-                            <li>
-                                <a class="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100"
-                                    href="#!">
-                                    Next
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                
-                @else
-                    <div class="info flex flex-col justify-center items-center h-screen text-grey gap-5">
-                        <p>
-                            There are no accommodations, please start by adding a new one.
-                        </p>
-
-                        <x-button-gradient class="gradient-button">
-                            <a href="{{ route('dashboard.accomodations.create') }}">
-                                Add accommodation
-                            </a>
-                        </x-button-gradient>
-
+                    <div class="mt-5 mx-10">
+                        {{ $accomodations->links() }}
                     </div>
+
+
+                </div>
+            @else
+                <div class="info flex flex-col justify-center items-center h-screen text-grey gap-5">
+                    <p>
+                        There are no accommodations, please start by adding a new one.
+                    </p>
+
+                    <x-button-gradient class="gradient-button">
+                        <a href="{{ route('dashboard.accomodations.create') }}">
+                            Add accommodation
+                        </a>
+                    </x-button-gradient>
+
+                </div>
             @endif
 
         </div>
@@ -194,4 +154,7 @@
     main>* {
         width: 100%;
     }
+
+    /* Stile dei link della paginazione */
+
 </style>
