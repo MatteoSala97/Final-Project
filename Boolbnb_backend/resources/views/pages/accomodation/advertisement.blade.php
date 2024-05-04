@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="container w-full">
+    <div class="w-full mx-3">
 
         <div class="absolute w-[85%] h-full overlay justify-center items-center hidden" id="overlay">
             <div class="payment-confirmation w-[400px] h-[550px] bg-white rounded-lg p-10 flex flex-col gap-8"
@@ -48,14 +48,12 @@
                 </form>
 
                 <x-button-gradient class="gradient-button flex justify-center mt-auto" id="confirm-ad-button-wrap">
-                    <button class="uppercase text-lg text-center" id="confirm-ad">
+                    <button class="uppercase text-center" id="confirm-ad">
                         Start Advertising </button>
                 </x-button-gradient>
 
 
             </div>
-            {{-- </form> --}}
-
         </div>
 
 
@@ -64,7 +62,7 @@
             {{-- <a href="{{ route('dashboard') }}" class="flex items-center">
                 <x-arrowleft/>
             </a> --}}
-            <p class="font-bold text-xl">Advertisement</p>
+            <p class="title">Advertisement</p>
         </div>
 
         {{-- <form class="ms-4" action="" method="POST" enctype="multipart/form-data"> @csrf --}}
@@ -103,7 +101,7 @@
             </div>
         </div>
 
-        <div class=" border-gray-200 rounded-xl flex justify-center mt-4  h-screen border w-full">
+        <div class=" border-gray-200 rounded-xl flex justify-center mt-4 h-screen  w-[100%]">
             {{-- <div class="flex flex-col justify-center items-center">
                     <p class="text-center">There are no advertised accommodations with this package</p>
                     <div class="mt-4">
@@ -116,7 +114,7 @@
             <div class="w-full ">
                 @if ($accomodations !== null && count($accomodations) > 0)
                     <div class="subtitle flex justify-between m-5">
-                        <h2 class="title">Your Accommodations ({{ $accomodations->count() }})</h2>
+                        <h2 class="title">Your Accommodations ({{ $accomodations->total() }})</h2>
 
                         {{-- <x-button-gradient class="gradient-button">
                             <a href="{{ route('dashboard.accomodations.create') }}">
@@ -196,15 +194,15 @@
                                                 Not Advertised
                                             @endif
                                         </td>
-                                        <td class="border px-4 py-2">
+                                        <td class=" px-4 py-2">
                                             <div class="flex gap-2 justify-around">
-                                                <x-button-gradient class="gradient-button ">
-                                                    <button class="uppercase ad-button"
+                                                <button>
+                                                    <x-button-gradient class="ad-button"
                                                         data-accommodation-id="{{ $item->id }}"
                                                         data-accommodation-title="{{ $item->title }}">
-
-                                                        Advertise</button>
-                                                </x-button-gradient>
+                                                        Advertise
+                                                    </x-button-gradient>
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -212,6 +210,9 @@
                             </tbody>
                         </table>
 
+                        <div class="mt-5 mx-10">
+                            {{ $accomodations->links() }}
+                        </div>
 
 
                         {{-- <nav class="mt-5 flex items-center justify-between text-sm ml-5 mr-5"
@@ -264,21 +265,15 @@
                                 There are no accommodations, please start by adding a new one.
                             </p>
 
-                            <x-button-gradient class="gradient-button">
-                                <a href="{{ route('dashboard.accomodations.create') }}">
+                            <a href="{{ route('dashboard.accomodations.create') }}">
+                                <x-button-gradient>
                                     Add accommodation
-                                </a>
-                            </x-button-gradient>
-
+                                </x-button-gradient>
+                            </a>
                         </div>
                 @endif
             </div>
         </div>
-
-
-
-
-
     </div>
 </x-app-layout>
 <script>
@@ -490,5 +485,20 @@
         transform: translate(50%, 50%);
         color: linear-gradient(135deg, #00CBD8, #B844FF);
         z-index: 3;
+    }
+
+
+    .gradient-button {
+        background-image: linear-gradient(135deg, #00CBD8, #B844FF);
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .gradient-button:hover {
+        background-image: linear-gradient(135deg, #00A9BF, #A336DF);
     }
 </style>

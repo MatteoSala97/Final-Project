@@ -16,6 +16,7 @@ class MessageController extends Controller
         $data = $request->all();
         $rules = [
             'accomodation_id' => 'required|exists:accomodations,id',
+            'name' => 'required|string',
             'email' => 'required|email',
             'content' => 'required|string',
         ];
@@ -37,11 +38,18 @@ class MessageController extends Controller
         // Retrieve messages related to accommodations owned by the user
         $messages = Message::with('accomodation')
             ->join('accomodations', 'messages.accomodation_id', '=', 'accomodations.id')
+            ->select('messages.id as message_id', 'messages.created_at as message_created_at', 'accomodations.id as accomodation_id', 'accomodations.host_thumb as accomodation_host_thumb', 'accomodations.title as accomodation_title', 'messages.*')
             ->where('accomodations.user_id', $user->id)
             ->orderBy('messages.created_at', 'desc')
-            ->get();
+            ->paginate(5);
 
         // Pass the retrieved messages to the view
         return view('pages.accomodation.messages', compact('messages'));
     }
+
+
+    public function show(Message $message)
+{
+    return view('pages.accomodation.messages.show', compact('message'));
+}
 }

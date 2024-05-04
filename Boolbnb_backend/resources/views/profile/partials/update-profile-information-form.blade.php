@@ -48,7 +48,11 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
+
+            <button>
+                <x-button-gradient>{{ __('Save') }}</x-button-gradient>
+            </button>
+
 
             @if (session('status') === 'profile-updated')
                 <p

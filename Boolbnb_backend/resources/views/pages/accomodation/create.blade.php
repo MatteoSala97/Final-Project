@@ -234,10 +234,9 @@
 
             </div>
 
-            {{-- <x-primary-button type="submit">Confirm</x-primary-button> --}}
-            <x-button-gradient type="submit" class="gradient-button">
-                <button class="uppercase">Confirm</button>
-            </x-button-gradient>
+            <button>
+                <x-button-gradient type="submit">Confirm</x-button-gradient>
+            </button>
 
         </form>
     </div>
@@ -328,10 +327,8 @@
         }
     }, 300))
 
-
-    // img
+    // thumb
     var inputFile = document.getElementById('thumb');
-
     inputFile.addEventListener('change', function(){
         var fileName = inputFile.files[0].name;
         var fileNameContainer = document.getElementById('file-name-container');
@@ -341,7 +338,6 @@
 </script>
 
 <style>
-
     @media screen and (min-width: 769px) {
         .services-lg{
             display: block;
@@ -446,148 +442,4 @@
         margin-top: -10px;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
     }
-
-
 </style>
-
-{{-- <div>
-    <div class="mb-3 bg-blue-500">
-        <x-input-label for="title" :value="__('title')" />
-        <input type="text" name="title" id="title" value="{{ old('title') }}"
-            placeholder="Accommodation title"
-            class="block mt-1 w-full
-            @error('title') is-invalid @enderror" @required(true) />
-        @error('title')
-            <div class="bg-red-200">
-                {{ $message }}
-            </div>
-        @enderror
-    </div>
-
-    <div class="mb-3 bg-blue-500">
-        <x-input-label for="type" :value="__('type')" />
-        <select name="type" id="type" class="block mt-1 w-full">
-            <option value="House" {{ old('type') == 'House' ? 'selected' : '' }}>House</option>
-            <option value="Apartment" {{ old('type') == 'Apartment' ? 'selected' : '' }}>Apartment</option>
-            <option value="Hotel" {{ old('type') == 'Hotel' ? 'selected' : '' }}>Hotel</option>
-            <option value="GuestHouse" {{ old('type') == 'GuestHouse' ? 'selected' : '' }}>GuestHouse</option>
-        </select>
-        @error('type')
-            <div class="bg-red-200">
-                {{ $message }}
-            </div>
-        @enderror
-    </div>
-
-    <div class="mb-3 bg-blue-500">
-        <x-input-label for="rooms" :value="__('rooms')" />
-        <input type="number" name="rooms" id="rooms" value="{{ old('rooms') ?? 1 }}"
-            class="form-control
-            @error('rooms') is-invalid @enderror" min="1"
-            @required(true) />
-        @error('rooms')
-            <div class="bg-red-200">
-                {{ $message }}
-            </div>
-        @enderror
-    </div>
-
-    <div class="mb-3 bg-blue-500">
-        <x-input-label for="beds" :value="__('beds')" />
-        <input type="number" name="beds" id="beds"
-            class="form-control
-            @error('beds') is-invalid @enderror"
-            value="{{ old('beds') ?? 1 }}" min="1" />
-        @error('beds')
-            <div class="bg-red-200">
-                {{ $message }}
-            </div>
-        @enderror
-    </div>
-
-    <div class="mb-3 bg-blue-500">
-        <x-input-label for="bathrooms" :value="__('bathrooms')" />
-        <input type="number" name="bathrooms" id="bathrooms" value="{{ old('bathrooms') ?? 1 }}"
-            class="form-control
-            @error('bathrooms') is-invalid @enderror"
-            min="1" />
-        @error('bathrooms')
-            <div class="bg-red-200">
-                {{ $message }}
-            </div>
-        @enderror
-    </div>
-
-    <div class="w-50 address-input-group mb-3 bg-blue-500">
-        <x-input-label for="address" :value="__('address')" />
-        <input type="text" name="address" id="address" placeholder="Your address here"
-            class="form-control
-            @error('address') is-invalid @enderror"
-            @required(true) value="{{ old('address') }}" autocomplete="off" />
-        @error('address')
-            <div class="bg-red-200">
-                {{ $message }}
-            </div>
-        @enderror
-        <ul class="dropdown-menu-dark w-full" id="create-dropdown">
-        </ul>
-        <input type="hidden" name="selected_address" id="selected_address">
-    </div>
-
-    <div class="mb-3 bg-blue-500">
-        <x-input-label for="city" :value="__('city')" />
-        <input type="text" name="city" id="city" placeholder="Your city here" @required(true)
-            value="{{ old('city') }}"
-            class="form-control
-            @error('city') is-invalid @enderror" />
-        @error('city')
-            <div class="bg-red-200">
-                {{ $message }}
-            </div>
-        @enderror
-    </div>
-
-    <div class="mb-3 bg-blue-500">
-        <x-input-label for="price_per_night" :value="__('price_per_night')" />
-        <input type="range" class="form-range" min="0" max="500" step="10"
-            value="{{ old('price_per_night') ? old('price_per_night') : '0' }}" id="price_per_night"
-            name="price_per_night">
-        <div id="price_display">Price: {{ old('price_per_night') ? '€' . old('price_per_night') : '0' }}
-        </div>
-        @error('price_per_night')
-            <div class="bg-red-200">
-                {{ $message }}
-            </div>
-        @enderror
-    </div>
-
-    <div class="mb-3">
-        <x-input-label for="thumb" :value="__('thumb')" />
-
-        <input class="form-control @error('thumb') is-invalid @enderror" type="file" id="thumb"
-            name="thumb">
-        @error('thumb')
-            <div class="bg-red-200">
-                {{ $message }}
-            </div>
-        @enderror
-    </div>
-
-    <div class="my-5">
-        <h5 class="mb-3">
-            What services does your accommodation offer?
-        </h5>
-        <div class="mb-3 flex flex-wrap">
-            @foreach ($services as $service)
-                <div class="my-3 me-3">
-                    <input type="checkbox" name="services[]" id="service_{{ $service->id }}"
-                        value="{{ $service->id }}" class="form-checkbox h-5 w-5 text-blue-500"
-                        {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
-                    <label for="service_{{ $service->id }}"
-                        class="ml-2 text-sm text-gray-700">{{ $service->name }}</label>
-                </div>
-            @endforeach
-        </div>
-    </div>
-
-</div> --}}
