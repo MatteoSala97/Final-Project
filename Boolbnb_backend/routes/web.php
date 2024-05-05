@@ -24,20 +24,14 @@ use Illuminate\Support\Facades\Route;
 // add welcome page
 Route::get('/', function () {
     if (auth()->check()) {
-        $user = User::findOrFail(auth()->id());
-        $accomodations = Accomodation::where('user_id', auth()->id())->get();
-        return view('dashboard', compact('user', 'accomodations'));
+        return redirect()->route('dashboard');
     } else {
         return view('auth.login');
     }
 });
 
 
-Route::get('/dashboard', function () {
-    $user = User::findOrFail(auth()->id());
-    $accomodations = Accomodation::where('user_id', auth()->id())->get();
-    return view('dashboard', compact('user', 'accomodations'));
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [AccomodationController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -46,11 +40,15 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->get('/stats', function () {
-    $accomodations = Accomodation::where('user_id', auth()->id())->get();
+    $accomodations = Accomodation::where('user_id', auth()->id())->paginate(10);
     return view('pages.accomodation.stats', compact('accomodations'));
 })->name('stats');
 
-Route::middleware('auth')->get('/messages', [MessageController::class, 'index'])->name('messages');
+Route::middleware('auth')->group(function () {
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages');
+    Route::get('/messages/{message}', [MessageController::class, 'show'])->name('messages.show');
+});
+
 
 //archive route
 Route::middleware('auth')->get('/dashboard/accomodations/archive', [AccomodationController::class, 'archive'])->name('accomodations.archive')->withTrashed();
