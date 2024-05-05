@@ -3,21 +3,23 @@
 
         <div class="flex items-center px-3 gap-2">
             <a href="{{ route('dashboard') }}" class="flex items-center">
-                <x-arrowleft/>
+                <x-arrowleft />
             </a>
             <p class="font-bold text-xl">Register new accommodation</p>
         </div>
 
-        <form class="px-9 pt-4" action="{{ route('dashboard.accomodations.store') }}" method="POST" enctype="multipart/form-data">
+        <form class="px-9 pt-4" action="{{ route('dashboard.accomodations.store') }}" method="POST"
+            enctype="multipart/form-data">
             @csrf
 
             {{-- title --}}
             <div class="mb-3 w-full">
-                <x-input-label for="title" :value="__('Title *')"/>
+                <x-input-label for="title" :value="__('Title *')" />
                 <input type="text" name="title" id="title" value="{{ old('title') }}"
                     placeholder="Accommodation title"
                     class="block mt-1 w-full rounded-md border-gray-300
-                    @error('title') is-invalid @enderror" @required(true) />
+                    @error('title') is-invalid @enderror"
+                    @required(true) />
                 @error('title')
                     <div class="bg-red-200 p-5 rounded-md">
                         {{ $message }}
@@ -25,12 +27,12 @@
                 @enderror
             </div>
 
-            {{-- address city--}}
+            {{-- address city --}}
             <div class="flex justify-between gap-5">
 
                 {{-- address --}}
                 <div class="w-full address-input-group mb-3">
-                    <x-input-label for="address" :value="__('Full address *')"/>
+                    <x-input-label for="address" :value="__('Full address *')" />
                     <input type="text" name="address" id="address" placeholder="Via Roma 50"
                         class="block mt-1 w-full rounded-md border-gray-300
                         @error('address') is-invalid @enderror"
@@ -43,12 +45,13 @@
                     <ul class="w-full" id="create-dropdown"></ul>
                     {{-- <ul class="mt-1 rounded-md bg-white border border-gray-300 w-full" id="create-dropdown"></ul> --}}
 
-                    <input type="hidden"  value="{{ old('selected_address') ?? '' }}" name="selected_address" id="selected_address">
+                    <input type="hidden" value="{{ old('selected_address') ?? '' }}" name="selected_address"
+                        id="selected_address">
                 </div>
 
                 {{-- city --}}
                 <div class="w-1/2 address-input-group mb-3 hidden">
-                    <x-input-label for="city" :value="__('City *')"/>
+                    <x-input-label for="city" :value="__('City *')" />
                     <input type="text" name="city" id="city" placeholder="Roma" @required(true)
                         value="{{ old('city') }}"
                         class="block mt-1 w-full rounded-md border-gray-300
@@ -66,12 +69,14 @@
 
                 <!-- type -->
                 <div class="type mb-3 w-full">
-                    <x-input-label for="type" :value="__('Type *')"/>
-                    <select name="type" id="type" class="block mt-1 rounded-md border-gray-300 text-gray-500 w-full">
+                    <x-input-label for="type" :value="__('Type *')" />
+                    <select name="type" id="type"
+                        class="block mt-1 rounded-md border-gray-300 text-gray-500 w-full">
                         <option value="House" {{ old('type') == 'House' ? 'selected' : '' }}>House</option>
                         <option value="Apartment" {{ old('type') == 'Apartment' ? 'selected' : '' }}>Apartment</option>
                         <option value="Hotel" {{ old('type') == 'Hotel' ? 'selected' : '' }}>Hotel</option>
-                        <option value="GuestHouse" {{ old('type') == 'GuestHouse' ? 'selected' : '' }}>GuestHouse</option>
+                        <option value="GuestHouse" {{ old('type') == 'GuestHouse' ? 'selected' : '' }}>GuestHouse
+                        </option>
                     </select>
                     @error('type')
                         <div class="bg-red-200 p-5 rounded-md">
@@ -82,11 +87,11 @@
 
                 {{-- rooms --}}
                 <div class="rooms mb-3 w-full">
-                    <x-input-label for="rooms" :value="__('Bedrooms *')"/>
+                    <x-input-label for="rooms" :value="__('Bedrooms *')" />
                     <input type="number" name="rooms" id="rooms" value="{{ old('rooms') ?? 1 }}"
                         class="block mt-1 rounded-md w-full border-gray-300 text-gray-500 w-full
-                        @error('rooms') is-invalid @enderror" min="1"
-                        @required(true) />
+                        @error('rooms') is-invalid @enderror"
+                        min="1" @required(true) />
                     @error('rooms')
                         <div class="bg-red-200 p-5 rounded-md">
                             {{ $message }}
@@ -96,7 +101,7 @@
 
                 {{-- beds --}}
                 <div class="beds mb-3 w-full">
-                    <x-input-label for="beds" :value="__('Beds *')"/>
+                    <x-input-label for="beds" :value="__('Beds *')" />
                     <input type="number" name="beds" id="beds"
                         class="block mt-1 rounded-md w-full border-gray-300 text-gray-500 w-full
                         @error('beds') is-invalid @enderror"
@@ -110,7 +115,7 @@
 
                 {{-- bathrooms --}}
                 <div class="bathrooms mb-3 w-full">
-                    <x-input-label for="bathrooms" :value="__('Bathrooms *')"/>
+                    <x-input-label for="bathrooms" :value="__('Bathrooms *')" />
                     <input type="number" name="bathrooms" id="bathrooms" value="{{ old('bathrooms') ?? 1 }}"
                         class="block mt-1 rounded-md w-full border-gray-300 text-gray-500 w-full
                         @error('bathrooms') is-invalid @enderror"
@@ -125,13 +130,15 @@
 
             {{-- thumb --}}
             <div class="mb-3">
-                <x-input-label for="thumb" :value="__('Thumbnail')"/>
+                <x-input-label for="thumb" :value="__('Thumbnail')" />
 
-                <label id="file-name-container" for="thumb" class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('thumb') is-invalid @enderror">
+                <label id="file-name-container" for="thumb"
+                    class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('thumb') is-invalid @enderror">
                     Select file .png, .jpeg and .jpg
                 </label>
 
-                <input class="form-control @error('thumb') is-invalid @enderror" type="file" id="thumb" accept=".jpeg, .png, .jpg" name="thumb">
+                <input class="form-control @error('thumb') is-invalid @enderror" type="file" id="thumb"
+                    accept=".jpeg, .png, .jpg" name="thumb">
 
                 @error('thumb')
                     <div class="bg-red-200 p-5 rounded-md">
@@ -141,6 +148,26 @@
             </div>
 
             {{-- MULTIPLE PICTURES --}}
+
+            <div class="mb-3">
+                <x-input-label for="pictures[]" :value="__('Pictures (Maximum 5)')" class="text-black" />
+
+                <label id="file-name-container" for="pictures[]"
+                    class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('pictures[]') is-invalid @enderror">
+                    Select file
+                </label>
+
+                <input class="form-control @error('pictures[]') is-invalid @enderror" type="file" id="pictures[]"
+                    accept=".jpeg, .png, .jpg" name="pictures[]" multiple>
+
+                @error('pictures[]')
+                    <div class="bg-red-200 p-5 rounded-md">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+
 
             {{-- <div class="mb-3">
                 <x-input-label for="pictures[]" :value="__('Pictures')" class="text-black"/>
@@ -161,9 +188,11 @@
             {{-- prezzo notte --}}
             <div class="price_per_night flex justify-between items-center gap-5">
                 <div class="price_per_night_input_label">
-                    <x-input-label for="range" :value="__('Price per night *')"/>
-                    <div id="price_display" class="block mt-1 w-full rounded-md bg-white p-2 border border-gray-300 text-gray-500
-                    @error('title') is-invalid @enderror" @required(true)>
+                    <x-input-label for="range" :value="__('Price per night *')" />
+                    <div id="price_display"
+                        class="block mt-1 w-full rounded-md bg-white p-2 border border-gray-300 text-gray-500
+                    @error('title') is-invalid @enderror"
+                        @required(true)>
                         € {{ old('price_per_night') ? '€' . old('price_per_night') : '0' }}
                     </div>
                 </div>
@@ -171,9 +200,9 @@
                 <div class="price_per_night_input_range flex-grow mr-5 mt-5">
                     <x-input-label for="price_per_night" :value="__('')" />
 
-                    <input type="range" class="form-range w-full mt-2" min="0" max="500" step="10"
-                        value="{{ old('price_per_night') ? old('price_per_night') : '0' }}" id="price_per_night"
-                        name="price_per_night">
+                    <input type="range" class="form-range w-full mt-2" min="0" max="500"
+                        step="10" value="{{ old('price_per_night') ? old('price_per_night') : '0' }}"
+                        id="price_per_night" name="price_per_night">
                     @error('price_per_night')
                         <div class="bg-red-200 p-5 rounded-md">
                             {{ $message }}
@@ -186,7 +215,7 @@
             <div class="my-5">
                 {{-- lg display --}}
                 <div class="services-lg">
-                    <x-input-label for="range" :value="__('Services *')"/>
+                    <x-input-label for="range" :value="__('Services *')" />
                     @error('services')
                         <div class="bg-red-200 p-5 rounded-md">
                             {{ $message }}
@@ -214,7 +243,7 @@
 
                 {{-- sm display --}}
                 <div class="services-sm">
-                    <x-input-label for="range" :value="__('Services *')"/>
+                    <x-input-label for="range" :value="__('Services *')" />
                     @error('services')
                         <div class="bg-red-200 p-5 rounded-md">
                             {{ $message }}
@@ -225,9 +254,12 @@
                         Choose one or more services
                     </div>
 
-                    <select name="services[]" id="service_select" class="w-full rounded-md border-gray-300 text-gray-500" multiple>
+                    <select name="services[]" id="service_select"
+                        class="w-full rounded-md border-gray-300 text-gray-500" multiple>
                         @foreach ($services as $service)
-                            <option value="{{ $service->id }}" {{ in_array($service->id, old('services', [])) ? 'selected' : '' }}>{{ $service->name }}</option>
+                            <option value="{{ $service->id }}"
+                                {{ in_array($service->id, old('services', [])) ? 'selected' : '' }}>
+                                {{ $service->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -329,59 +361,66 @@
 
     // thumb
     var inputFile = document.getElementById('thumb');
-    inputFile.addEventListener('change', function(){
+    inputFile.addEventListener('change', function() {
         var fileName = inputFile.files[0].name;
         var fileNameContainer = document.getElementById('file-name-container');
         fileNameContainer.textContent = 'Selected file: ' + fileName;
     });
-
 </script>
 
 <style>
     @media screen and (min-width: 769px) {
-        .services-lg{
+        .services-lg {
             display: block;
         }
+
         .services-sm {
             display: none;
         }
     }
-    @media screen and (max-width: 768px){
-        .tabella{
+
+    @media screen and (max-width: 768px) {
+        .tabella {
             flex-direction: column;
             gap: 0;
         }
-        .services-lg{
+
+        .services-lg {
             display: none;
         }
+
         .services-sm {
             display: block;
         }
     }
 
-    @media screen and (max-width: 600px){
-        .price_per_night{
+    @media screen and (max-width: 600px) {
+        .price_per_night {
             flex-direction: column;
             gap: 0;
         }
-        .price_per_night_input_label{
+
+        .price_per_night_input_label {
             width: 100%;
         }
-        .price_per_night_input_range{
+
+        .price_per_night_input_range {
             width: 80%;
             margin: 10px 0px;
         }
     }
 
-    @media screen and (max-width: 500px){
-        .price_per_night{
+    @media screen and (max-width: 500px) {
+        .price_per_night {
             flex-direction: column;
             gap: 0;
         }
-        .price_per_night_input_label{
+
+        .price_per_night_input_label {
             width: 100%;
         }
-        .price_per_night_input_range{
+
+        .price_per_night_input_range {
             width: 80%;
             margin: 10px 0px;
         }
@@ -412,7 +451,7 @@
         fill: white;
     }
 
-    input[type="file"]{
+    input[type="file"] {
         display: none;
     }
 
@@ -424,13 +463,16 @@
         background-color: transparent;
         border-radius: 5px;
     }
+
     input[type="range"]::-webkit-slider-runnable-track {
         width: 100%;
         height: 5px;
         background-color: black;
         border-radius: 10px;
     }
-    input[type="range"]::-webkit-slider-thumb{ /* palla */
+
+    input[type="range"]::-webkit-slider-thumb {
+        /* palla */
         -webkit-appearance: none;
         appearance: none;
         width: 25px;

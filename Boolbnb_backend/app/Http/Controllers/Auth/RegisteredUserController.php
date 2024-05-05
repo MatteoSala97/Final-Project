@@ -56,7 +56,8 @@ class RegisteredUserController extends Controller
         if ($request->hasFile('user_propic')) {
 
             $img_path = Storage::put('uploads', $request['user_propic']);
-            $user_propic_filename = basename($img_path);
+            $full_url = url('/') . '/storage/' . $img_path;
+            $user_propic_filename = $full_url;
         }
 
         $user = User::create([
