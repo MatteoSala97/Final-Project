@@ -68,7 +68,7 @@
             <x-input-label for="user_propic" :value="__('')" />
             <label id="file-name-container" for="user_propic"
                 class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500">
-                Select file
+                Insert a photo
             </label>
             <input type="file" name="user_propic" id="user_propic">
             <x-input-error :messages="$errors->get('user_propic')" class="mt-2" />

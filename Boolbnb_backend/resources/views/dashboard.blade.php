@@ -9,9 +9,9 @@
     <div class="flex w-full">
         <div class="w-full mx-4">
             @if ($accomodations !== null && count($accomodations) > 0)
-                <div class="subtitle flex justify-between m-5">
+                <div id="CIAOOOOOOO" class="subtitle flex justify-between m-5">
                     <a href="{{ route('accomodations.archive') }}">
-                        <h2 class="title">Your Accommodations ({{ $accomodations->count() }})</h2>
+                        <p class="font-bold text-xl">Your Accommodations ({{ $accomodations->count() }})</p>
                     </a>
 
                     <a href="{{ route('dashboard.accomodations.create') }}">
@@ -28,25 +28,25 @@
                         <!-- Table head -->
                         <thead class="uppercase tracking-wider border border-x-0">
                             <tr>
-                                <th scope="col" class="px-6 py-5">
+                                <th scope="col" class="px-6 py-5 th-id">
                                     Thumbnail Image or id
                                 </th>
-                                <th scope="col" class="px-6 py-5">
+                                <th scope="col" class="px-6 py-5 th-title">
                                     Title
                                 </th>
-                                <th scope="col" class="px-6 py-5">
+                                <th scope="col" class="px-6 py-5 th-type">
                                     Type
                                 </th>
-                                <th scope="col" class="px-6 py-5">
+                                <th scope="col" class="px-6 py-5 th-address">
                                     Address
                                 </th>
                                 {{-- <th scope="col" class="px-6 py-5">
                                     City
                                 </th> --}}
-                                <th scope="col" class="px-6 py-5">
+                                <th scope="col" class="px-6 py-5 th-price_per_night">
                                     Price per night
                                 </th>
-                                <th scope="col" class="px-6 py-5">
+                                <th scope="col" class="px-6 py-5 th-btn">
                                     Actions
                                 </th>
                             </tr>
@@ -55,7 +55,7 @@
                         <tbody>
                             @foreach ($accomodations as $item)
                                 <tr class="border border-x-0 hover:bg-neutral-100 {{ $item->hidden ? 'text-gray-600' : '' }}">
-                                    <th scope="row" class="px-6 py-5" style="height: 80px">
+                                    <td scope="row" class="px-6 py-5 td-id" style="height: 80px">
                                         @if ($item->thumb)
                                             <img src="{{ asset('storage/uploads/' . $item->thumb) }}"
                                                 style="height: 80px" class="{{ $item->hidden ? 'grayscale' : '' }}"
@@ -65,14 +65,14 @@
                                                 {{ $item->id }}
                                             </span>
                                         @endif
-                                    </th>
-                                    <td class="px-6 py-5">{{ $item->title }}</td>
-                                    <td class="px-6 py-5">{{ $item->type }}</td>
-                                    <td class="px-6 py-5">{{ $item->address }}</td>
+                                    </td>
+                                    <td class="td-title px-6 py-5">{{ $item->title }}</td>
+                                    <td class="td-type px-6 py-5">{{ $item->type }}</td>
+                                    <td class="td-address px-6 py-5">{{ $item->address }}</td>
                                     {{-- <td class="px-6 py-5">{{ $item->city }}</td> --}}
-                                    <td class="px-6 py-5">{{ $item->price_per_night }} €</td>
-                                    <td class="border border-x-0 px-4 py-2">
-                                        <div class="flex gap-2 justify-around">
+                                    <td class="td-price_per_night px-6 py-5">{{ $item->price_per_night }} €</td>
+                                    <td class=" px-4 py-2">
+                                        <div class="td-btn flex gap-2 justify-around">
                                             <form
                                                 action="{{ route('dashboard.accomodations.changeVisibility', $item->id) }}"
                                                 method="POST">
@@ -84,8 +84,6 @@
                                                         <img src="{{ asset('icons/eye-slashed.svg') }}"
                                                             alt="Show button">
                                                     @endif
-
-
                                                 </button>
                                             </form>
 
@@ -93,6 +91,7 @@
                                                 class="btn btn-yellow py-1">
                                                 <img src="{{ asset('icons/pencil.svg') }}" alt="Edit button">
                                             </a>
+
                                             <form method="POST"
                                                 action="{{ route('dashboard.accomodations.destroy', $item->id) }}">
                                                 @csrf @method('DELETE')
@@ -168,6 +167,141 @@
 </x-app-layout>
 
 <style>
+    .dashboard{
+        background-color: lightblue;
+    }
+
+    .td-address{
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    @media screen and (max-width: 1200px){
+        .td-address{
+            /* background-color: blue; */
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .th-id{
+            /* background-color: blue; */
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+    @media screen and (max-width: 1100px){
+        .td-address{
+            max-width: 150px;
+        }
+        .td-type, .th-type{
+            display: none;
+        }
+
+    }
+
+    @media screen and (max-width: 980px){
+        .th-price_per_night{
+            /* background-color: blue; */
+            max-width: 110px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .th-id{
+            max-width: 110px;
+        }
+        #CIAOOOOOOO{
+            flex-direction: column-reverse;
+            text-align: center;
+        }
+
+    }
+
+    @media screen and (max-width: 870px){
+        .th-price_per_night{
+            /* background-color: blue; */
+            max-width: 110px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .th-id{
+            max-width: 110px;
+        }
+        .td-price_per_night, .th-price_per_night{
+            display: none;
+        }
+    }
+
+    @media screen and (max-width: 768px){
+        .td-id,
+        .td-title,
+        .td-type,
+        .td-address,
+        .td-price_per_night,
+        .td-btn{
+            /* background-color: yellow; */
+        }
+        .th-id,
+        .th-title,
+        .th-type,
+        .th-address,
+        .th-price_per_night,
+        .th-btn{
+            /* background-color: green; */
+        }
+
+
+        .td-address{
+            /* background-color: blue; */
+            max-width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .td-id, .th-id{
+            display: none;
+        }
+    }
+
+
+    @media screen and (max-width: 480px){
+        .th-id,
+        .th-title,
+        .th-type,
+        .th-address,
+        .th-price_per_night,
+        .th-btn{
+
+        }
+
+        .th-id,
+        .th-title,
+        .th-type,
+        .th-address,
+        .th-price_per_night,
+        .th-btn{
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     /* Rules to fix the sidebar and right side dimensions */
     html,
     body {

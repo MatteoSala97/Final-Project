@@ -138,10 +138,14 @@
                                         </td>
                                         <td class="border px-4 py-2">
                                             <div class="flex gap-2 justify-around">
-                                                <x-button-gradient class="gradient-button ">
-                                                    <button class="uppercase ad-button"
-                                                        data-accommodation-id="{{ $item->id }}">Advertise</button>
-                                                </x-button-gradient>
+
+                                                <button>
+                                                    <x-button-gradient class="ad-button"
+                                                        data-accommodation-id="{{ $item->id }}">
+                                                        Advertise
+                                                    </x-button-gradient>
+                                                </button>
+
                                             </div>
                                         </td>
                                     </tr>
