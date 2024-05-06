@@ -5,27 +5,30 @@
         </h2>
     </x-slot>
 
-    <div class="h-screen border">
+    <div class=" h-screen border">
         @if ($accomodations !== null && count($accomodations) > 0)
             <div class="subtitle flex justify-between m-5">
                 <h2 class="title">Statistics (Total accommodations: {{ $accomodations->total() }})</h2>
             </div>
 
-            <div class="flex flex-wrap justify-start gap-5 px-5">
+            <div class="salve flex  gap-5 px-5">
                 @foreach ($accomodations as $item)
-                    <div class="cards max-w-sm rounded overflow-hidden shadow-lg">
-                        <img class="w-full" src="{{ asset($item->thumb) }}" style="height: 200px"
-                            alt="{{ $item->title }}">
+                    <div class="cards  rounded overflow-hidden shadow-lg bg-red-300">
+                        <img class="w-full" src="{{ asset($item->thumb) }}" style="height: 200px" alt="{{ $item->title }}">
+
                         <div class="px-6 py-4">
                             <div class="font-bold text-xl mb-2">{{ $item->title }}</div>
                         </div>
+
                         <div class="px-6 pt-4">
                             <span
                                 class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{ $item->rating ?? 'No rating' }}</span>
                             <span
                                 class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{ $item->price_per_night }}
-                                € per night</span>
+                                € per night
+                            </span>
                         </div>
+
                     </div>
                 @endforeach
             </div>
@@ -48,6 +51,26 @@
 </x-app-layout>
 
 <style>
+
+    @media screen and (max-width: 1200px){
+
+        .salve{
+            flex-direction: column
+        }
+        .cards{
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .cards {
+            flex: 1 1 calc(100% - 1rem);
+            max-width: calc(100% - 1rem);
+        }
+    }
+
+
+
     /* Rules to fix the sidebar and right side dimensions */
     html,
     body {
@@ -68,17 +91,11 @@
         width: 100%;
     }
 
-    .cards {
+    /* .cards {
         flex: 1 1 calc(20% - 1rem);
         max-width: calc(20% - 1rem);
-    }
+    } */
 
-    @media (max-width: 768px) {
-        .cards {
-            flex: 1 1 calc(100% - 1rem);
-            max-width: calc(100% - 1rem);
-        }
-    }
 
     .info {
         justify-content: center;

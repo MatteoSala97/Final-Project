@@ -46,8 +46,8 @@
                         @endif
                     @endforeach
                 </tbody>
-                
-                
+
+
             </table>
             <div class="mt-5 mx-10">
                 {{ $messages->links() }}
@@ -59,7 +59,7 @@
 <script>
     $(document).ready(function() {
         $('.view-message-btn').click(function() {
-            
+
             var messageId = $(this).closest('.message-row').data('message-id');
             var url = "{{ route('messages.show', ['message' => $message->id]) }}";
 
