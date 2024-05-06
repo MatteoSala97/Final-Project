@@ -154,7 +154,7 @@ class AccomodationController extends Controller
      */
     public function archive()
     {
-        $accomodations = Accomodation::where('user_id', auth()->id())->onlyTrashed()->get();
+        $accomodations = Accomodation::where('user_id', auth()->id())->onlyTrashed()->paginate(7);
 
         return view('pages.accomodation.archive', compact('accomodations'));
     }

@@ -375,6 +375,22 @@
         }
     });
 
+
+    $(document).ready(function() {
+
+        var storedPrice = localStorage.getItem('price_per_night');
+        if (storedPrice) {
+            $('#price_per_night').val(storedPrice);
+            $('#price_display').text('€ ' + storedPrice);
+        }
+
+        $('#price_per_night').on('input', function() {
+            var price = $(this).val();
+            $('#price_display').text('€ ' + price);
+            localStorage.setItem('price_per_night', price);
+        });
+    });
+
 </script>
 
 <style>

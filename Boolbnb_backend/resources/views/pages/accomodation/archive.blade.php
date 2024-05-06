@@ -64,11 +64,11 @@
                                     <div class="flex gap-2 justify-around">
                                         <!-- Restore Form -->
 
-                                            <button type="submit" class="gradient-button-green">Restore</button>
+                                        <button type="submit" class="gradient-button-green">Restore</button>
 
                                         <!-- Permanently Delete Form -->
 
-                                            <button type="submit" class="gradient-button-red">Delete Permanently</button>
+                                        <button type="submit" class="gradient-button-red">Delete Permanently</button>
 
                                     </div>
                                 </td>
@@ -76,6 +76,10 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+            <div class="mt-5 mx-10">
+                <!-- Visualizzazione dei link per la paginazione -->
+                {{ $accomodations->links() }}
             </div>
         </div>
     </div>
