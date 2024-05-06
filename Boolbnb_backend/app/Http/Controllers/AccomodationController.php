@@ -81,6 +81,11 @@ class AccomodationController extends Controller
 
         $validatedData = $request->validated();
 
+        if ($request->hasFile('pictures') && count($request->file('pictures')) > 5) {
+            return redirect()->back()->withErrors(['pictures' => 'You can upload a maximum of 5 pictures.']);
+        }
+        unset($validatedData['pictures']);
+
         //image save
 
 
@@ -91,7 +96,11 @@ class AccomodationController extends Controller
         //doing this to make sure the checkbox returns a boolean
         $request['hidden'] = $request->has('hidden');
 
+        $user = auth()->user();
+        if ($user && $user->user_propic !== null) {
 
+            $validatedData['host_thumb'] = $user->user_propic;
+        }
 
         unset($validatedData['services']);
 
@@ -115,6 +124,18 @@ class AccomodationController extends Controller
                 'url' => $full_url,
                 'accomodation_id' => $new_accommodation->id
             ]);
+        }
+
+        if ($request->hasFile('pictures')) {
+            foreach ($request->file('pictures') as $image) {
+
+                $img_path = Storage::put('uploads', $image);
+                $full_url = url('/') . '/storage/' . $img_path;
+                $picture = Picture::create([
+                    'url' => $full_url,
+                    'accomodation_id' => $new_accommodation->id
+                ]);
+            }
         }
 
 
@@ -197,12 +218,32 @@ class AccomodationController extends Controller
             'city' => 'required|string',
             'price_per_night' => 'required|numeric',
             'thumb' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'pictures.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048|max:5',
+
         ]);
+
+        if ($request->hasFile('pictures') && count($request->file('pictures')) > 5) {
+            return redirect()->back()->withErrors(['pictures' => 'You can upload a maximum of 5 pictures.'])->withInput();
+        }
 
         if ($request->hasFile('thumb')) {
             $img_path = Storage::put('uploads', $validatedData['thumb']);
             $validatedData['thumb'] = basename($img_path);
         }
+
+        if ($request->hasFile('pictures')) {
+            foreach ($request->file('pictures') as $image) {
+
+                $img_path = Storage::put('uploads', $image);
+                $full_url = url('/') . '/storage/' . $img_path;
+                $picture = Picture::create([
+                    'url' => $full_url,
+                    'accomodation_id' => $accomodation->id
+                ]);
+            }
+        }
+
+        unset($validatedData['pictures']);
 
         $accomodation->update($validatedData);
 

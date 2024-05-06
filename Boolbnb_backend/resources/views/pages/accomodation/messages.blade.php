@@ -22,7 +22,7 @@
                             Time and date
                         </th>
                         <th scope="col" class="px-6 py-5">
-                            Sender email
+                            Sender Name
                         </th>
                         <th scope="col" class="px-6 py-5">
                             Message
@@ -36,12 +36,14 @@
                 <!-- Table body -->
                 <tbody>
                     @foreach ($messages as $message)
-                        <tr class="border-b hover:bg-neutral-100 message-row view-message-btn" data-message-id="{{ $message->id }}">
-                            <td class="px-6 py-5">{{ $message->created_at }}</td>
-                            <td class="px-6 py-5">{{ $message->email }}</td>
-                            <td class="message-body px-6 py-5">{{ $message->content }}</td>
-                            <td class="px-6 py-5">{{ $message->accomodation->title }}</td>
-                        </tr>
+                        @if ($message->accomodation)
+                            <tr class="border-b hover:bg-neutral-100 message-row view-message-btn" data-message-id="{{ $message->id }}">
+                                <td class="px-6 py-5">{{ $message->created_at }}</td>
+                                <td class="px-6 py-5">{{ $message->name }}</td>
+                                <td class="message-body px-6 py-5">{{ $message->content }}</td>
+                                <td class="px-6 py-5">{{ $message->accomodation->title }}</td>
+                            </tr>
+                        @endif
                     @endforeach
                 </tbody>
                 

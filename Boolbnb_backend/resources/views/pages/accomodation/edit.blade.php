@@ -3,7 +3,7 @@
 
         <div class="flex items-center px-3 gap-2">
             <a href="{{ route('dashboard') }}" class="flex items-center">
-                <x-arrowleft/>
+                <x-arrowleft />
             </a>
             <p class="font-bold text-xl">Edit an existing accommodation</p>
         </div>
@@ -15,7 +15,7 @@
 
             {{-- title --}}
             <div class="mb-3 w-full">
-                <x-input-label for="title" :value="__('Title *')"/>
+                <x-input-label for="title" :value="__('Title *')" />
                 <input type="text" name="title" id="title" placeholder="Your title here"
                     class="block mt-1 w-full rounded-md border-gray-300 text-gray-500"
                     value="{{ old('title', $accomodation->title) }}" />
@@ -25,7 +25,7 @@
             <div class="flex justify-between gap-5">
                 {{-- address --}}
                 <div class="w-full address-input-group mb-3">
-                    <x-input-label for="address" :value="__('Full address *')"/>
+                    <x-input-label for="address" :value="__('Full address *')" />
                     <input type="text" name="address" id="address" placeholder="Your address here"
                         class="block mt-1 w-full rounded-md border-gray-300 text-gray-500"
                         value="{{ old('address', $accomodation->address) }}" />
@@ -44,8 +44,9 @@
             <div class="tabella flex justify-between gap-5">
                 <!-- type -->
                 <div class="type mb-3 w-full">
-                    <x-input-label for="type" :value="__('Type *')"/>
-                    <select name="type" id="type" class="block mt-1 rounded-md w-full border-gray-300 text-gray-500">
+                    <x-input-label for="type" :value="__('Type *')" />
+                    <select name="type" id="type"
+                        class="block mt-1 rounded-md w-full border-gray-300 text-gray-500">
                         <option value="House" {{ old('type', $accomodation->type) == 'House' ? 'selected' : '' }}>House
                         </option>
                         <option value="Apartment"
@@ -61,7 +62,7 @@
 
                 {{-- rooms --}}
                 <div class="rooms mb-3 w-full">
-                    <x-input-label for="rooms" :value="__('Bedrooms *')"/>
+                    <x-input-label for="rooms" :value="__('Bedrooms *')" />
                     <input type="number" name="rooms" id="rooms"
                         class="block mt-1 rounded-md w-full border-gray-300 text-gray-500"
                         value="{{ old('rooms', $accomodation->rooms) }}" min="1" />
@@ -70,7 +71,7 @@
 
                 {{-- beds --}}
                 <div class="beds mb-3 w-full">
-                    <x-input-label for="beds" :value="__('Beds *')"/>
+                    <x-input-label for="beds" :value="__('Beds *')" />
                     <input type="number" name="beds" id="beds"
                         class="block mt-1 rounded-md w-full border-gray-300 text-gray-500"
                         value="{{ old('beds', $accomodation->beds) }}" min="1" />
@@ -79,7 +80,7 @@
 
                 {{-- bathrooms --}}
                 <div class="bathrooms mb-3 w-full">
-                    <x-input-label for="bathrooms" :value="__('Bathrooms *')"/>
+                    <x-input-label for="bathrooms" :value="__('Bathrooms *')" />
                     <input type="number" name="bathrooms" id="bathrooms" value="{{ old('bathrooms') ?? 1 }}"
                         class="block mt-1 rounded-md w-full border-gray-300 text-gray-500
                         @error('bathrooms') is-invalid @enderror"
@@ -90,20 +91,19 @@
 
             {{-- thumb --}}
             <div class="mb-3">
-                <x-input-label for="thumb" :value="__('Thumbnail')"/>
+                <x-input-label for="thumb" :value="__('Thumbnail')" />
 
                 @if ($accomodation->thumb)
-                <div class="d-flex mb-3 flex-column">
-                    <label for="old_thumb" class="form-label">
-                        Your current Thumbnail Image
-                    </label>
-                    <img src="{{ asset('storage/uploads/' . $accomodation->thumb) }}" style="width: 250px"
-                        id="old_thumb">
-                </div>
+                    <div class="d-flex mb-3 flex-column">
+                        <label for="old_thumb" class="form-label">
+                            Your current Thumbnail Image
+                        </label>
+                        <img src="{{ asset($accomodation->thumb) }}" style="width: 250px" id="old_thumb">
+                    </div>
                 @else
-                <label for="old_thumb" class="form-label">
-                    Currently you didn't upload any Thumbnail image for this accommodation
-                </label>
+                    <label for="old_thumb" class="form-label">
+                        Currently you didn't upload any Thumbnail image for this accommodation
+                    </label>
                 @endif
 
                 <label id="file-name-container" for="thumb"
@@ -119,11 +119,37 @@
                 @enderror
             </div>
 
+            {{-- Multiple pictures --}}
+
+            <div class="mb-3">
+                <x-input-label for="pictures[]" :value="__('Pictures (Maximum 5)')" class="text-black" />
+
+                <label id="file-name-container" for="pictures[]"
+                    class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('pictures[]') is-invalid @enderror">
+                    Select file
+                </label>
+
+                <input class="form-control @error('pictures[]') is-invalid @enderror" type="file" id="pictures[]"
+                    accept=".jpeg, .png, .jpg" name="pictures[]" multiple>
+
+                @if ($errors->has('pictures'))
+                    <div class="bg-red-200 p-5 rounded-md">
+                        @foreach ($errors->get('pictures') as $error)
+                            <p>{{ $error }}</p>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+
+
+
+
             {{-- prezzo notte --}}
             <div class="price_per_night flex justify-between items-center gap-5">
                 <div class="price_per_night_input_label">
-                    <x-input-label for="range" :value="__('Price per night *')"/>
-                    <div id="price_display" class="block mt-1 w-full rounded-md bg-white p-2 border border-gray-300 text-gray-500">
+                    <x-input-label for="range" :value="__('Price per night *')" />
+                    <div id="price_display"
+                        class="block mt-1 w-full rounded-md bg-white p-2 border border-gray-300 text-gray-500">
                         € {{ old('price_per_night', $accomodation->price_per_night) }}
                     </div>
                 </div>
@@ -131,9 +157,9 @@
                 <div class="price_per_night_input_range flex-grow mr-5 mt-5">
                     <x-input-label for="price_per_night" :value="__('')" />
 
-                    <input type="range" class="form-range w-full mt-2" min="0" max="500" step="10"
-                        value="{{ old('price_per_night', $accomodation->price_per_night) }}" id="price_per_night"
-                        name="price_per_night">
+                    <input type="range" class="form-range w-full mt-2" min="0" max="500"
+                        step="10" value="{{ old('price_per_night', $accomodation->price_per_night) }}"
+                        id="price_per_night" name="price_per_night">
                 </div>
             </div>
 
@@ -162,14 +188,17 @@
 
                 {{-- sm display --}}
                 <div class="services-sm">
-                    <x-input-label for="range" :value="__('Services *')"/>
+                    <x-input-label for="range" :value="__('Services *')" />
                     <div id="price_display" class="mt-1 w-full rounded-md">
                         Choose one or more services
                     </div>
 
-                    <select name="services[]" id="service_select" class="w-full rounded-md border-gray-300 text-gray-500" multiple>
+                    <select name="services[]" id="service_select"
+                        class="w-full rounded-md border-gray-300 text-gray-500" multiple>
                         @foreach ($services as $service)
-                            <option value="{{ $service->id }}" {{ in_array($service->id, $associatedServices) ? 'selected' : '' }}>{{ $service->name }}</option>
+                            <option value="{{ $service->id }}"
+                                {{ in_array($service->id, $associatedServices) ? 'selected' : '' }}>
+                                {{ $service->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -280,51 +309,58 @@
 </script>
 
 <style>
-
     @media screen and (min-width: 769px) {
-        .services-lg{
+        .services-lg {
             display: block;
         }
+
         .services-sm {
             display: none;
         }
     }
-    @media screen and (max-width: 768px){
-        .tabella{
+
+    @media screen and (max-width: 768px) {
+        .tabella {
             flex-direction: column;
             gap: 0;
         }
-        .services-lg{
+
+        .services-lg {
             display: none;
         }
+
         .services-sm {
             display: block;
         }
     }
 
-    @media screen and (max-width: 600px){
-        .price_per_night{
+    @media screen and (max-width: 600px) {
+        .price_per_night {
             flex-direction: column;
             gap: 0;
         }
-        .price_per_night_input_label{
+
+        .price_per_night_input_label {
             width: 100%;
         }
-        .price_per_night_input_range{
+
+        .price_per_night_input_range {
             width: 80%;
             margin: 10px 0px;
         }
     }
 
-    @media screen and (max-width: 500px){
-        .price_per_night{
+    @media screen and (max-width: 500px) {
+        .price_per_night {
             flex-direction: column;
             gap: 0;
         }
-        .price_per_night_input_label{
+
+        .price_per_night_input_label {
             width: 100%;
         }
-        .price_per_night_input_range{
+
+        .price_per_night_input_range {
             width: 80%;
             margin: 10px 0px;
         }
