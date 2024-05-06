@@ -68,14 +68,16 @@
             {{-- <a href="{{ route('dashboard') }}" class="flex items-center">
                 <x-arrowleft/>
             </a> --}}
-            <p class="title">Advertisement</p>
+            <p class="font-bold text-xl ml-5">Advertisement</p>
         </div>
 
         {{-- btn advertisement --}}
-        <div class="btn-advertisement flex justify-between gap-4 mb-4">
+        <div class="btn-advertisement flex justify-between gap-4 mx-4">
             <div class="ads border border-gray-200 rounded-xl items-center flex gap-3 p-5 w-full cursor-pointer active"
                 id="Silver">
-                <x-silver_svg class="pointer-events-none" />
+                <figure>
+                    <x-silver_svg class="pointer-events-none" />
+                </figure>
                 <div class="flex-1 flex flex-col justify-between pointer-events-none">
                     <div class="text-left">
                         <h1 class="title">Silver</h1>
@@ -85,7 +87,9 @@
             </div>
 
             <div class="ads border border-gray-200 rounded-xl items-center flex gap-3 p-5 w-full cursor-pointer" id="Gold">
-                <x-gold_svg class="pointer-events-none" />
+                <figure>
+                    <x-gold_svg class="pointer-events-none" />
+                </figure>
                 <div class="flex-1 flex flex-col justify-between pointer-events-none">
                     <div class="text-left">
                         <h1 class="title">Gold</h1>
@@ -95,7 +99,9 @@
             </div>
 
             <div class="ads border border-gray-200 rounded-xl items-center flex gap-3 p-5 w-full cursor-pointer" id="Platinum">
-                <x-platinum_svg class="pointer-events-none" />
+                <figure>
+                    <x-platinum_svg class="pointer-events-none" />
+                </figure>
                 <div class="flex-1 flex flex-col justify-between pointer-events-none">
                     <div class="text-left">
                         <h1 class="title">Platinum</h1>
@@ -120,10 +126,10 @@
                     </div>
                 </div> --}}
 
-            <div class="w-full">
+            <div class="w-full mx-4">
                 @if ($accomodations !== null && count($accomodations) > 0)
                     <div class="subtitle flex justify-between m-5">
-                        <h2 class="title">Your Accommodations ({{ $accomodations->total() }})</h2>
+                        <h2 id="title-ads" class="font-bold text-xl ">Your Accommodations ({{ $accomodations->total() }})</h2>
 
                         {{-- <x-button-gradient class="gradient-button">
                             <a href="{{ route('dashboard.accomodations.create') }}">
@@ -134,11 +140,11 @@
                     </div>
 
                     <!-- Table responsive wrapper -->
-                    <div class="overflow-x-auto w-full">
+                    <div class="overflow-x-auto">
                         <!-- Table -->
                         <table class="min-w-full text-left text-sm whitespace-nowrap">
                             <!-- Table head -->
-                            <thead class="uppercase tracking-wider border-b-2">
+                            <thead class="uppercase tracking-wider border border-x-0">
                                 <tr>
                                     <th scope="col" class="px-6 py-5 th-id">
                                         Thumbnail Image or id
@@ -170,7 +176,7 @@
                             <tbody>
                                 @foreach ($accomodations as $item)
                                     <tr
-                                        class="border-b hover:bg-neutral-100 {{ $item->hidden ? 'text-gray-600' : '' }}">
+                                        class="border border-x-0 hover:bg-neutral-100 {{ $item->hidden ? 'text-gray-600' : '' }}">
                                         <td scope="row" class="px-6 py-5 td-id" style="height: 80px">
                                             @if ($item->thumb)
                                                 <img src="{{ asset($item->thumb) }}" style="height: 80px"
@@ -203,18 +209,18 @@
                                                 Not Advertised
                                             @endif
                                         </td>
-                                        <td class=" px-4 py-2 td-btn">
+                                        <td class="py-2 td-btn">
                                             <div class="flex gap-2 justify-around">
 
-                                                {{-- <button>
+                                                <button class="lg-button">
                                                     <x-button-gradient class="ad-button"
                                                         data-accommodation-id="{{ $item->id }}"
                                                         data-accommodation-title="{{ $item->title }}">
                                                         Advertise
                                                     </x-button-gradient>
-                                                </button> --}}
+                                                </button>
 
-                                                <button class="ad-button gradient-button uppercase"
+                                                <button class="sm-button ad-button gradient-button uppercase"
                                                     data-accommodation-id="{{ $item->id }}"
                                                     data-accommodation-title="{{ $item->title }}">
                                                     Advertise
@@ -274,20 +280,20 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </nav>
-                        </div> --}}
+                            </nav> --}}
+                    </div>
                     @else
-                        <div class="info flex flex-col justify-center items-center h-screen text-grey gap-5">
-                            <p>
-                                There are no accommodations, please start by adding a new one.
-                            </p>
+                    <div class="info flex flex-col justify-center items-center h-2/4 text-grey gap-5">
+                        <p>
+                            There are no accommodations, please start by adding a new one.
+                        </p>
 
-                            <a href="{{ route('dashboard.accomodations.create') }}">
-                                <x-button-gradient>
-                                    Add accommodation
-                                </x-button-gradient>
-                            </a>
-                        </div>
+                        <a href="{{ route('dashboard.accomodations.create') }}">
+                            <x-button-gradient >
+                                Add accommodation
+                            </x-button-gradient>
+                        </a>
+                    </div>
                 @endif
             </div>
         </div>
@@ -428,6 +434,10 @@
 
 <style>
 
+    body{
+        /* background-color: red; */
+    }
+
     .th-id,
     .th-title,
     .th-address,
@@ -440,15 +450,15 @@
     .td-address,
     .td-expiration_date,
     .td-btn{
-        /* background-color: yellow; */
+        /* background-color: orange; */
     }
 
-    .td-address{
-        /* max-width: 200px;
+    .th-address, .td-address{
+        max-width: 100px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        background-color: orange; */
+        /* background-color: orange; */
     }
     @media screen and (max-width: 1200px){
         .td-address{
@@ -474,9 +484,6 @@
         }
     }
     @media screen and (max-width: 1000px){
-        body{
-            /* background-color: red; */
-        }
         .td-id, .th-id{
             display: none;
         }
@@ -534,6 +541,14 @@
         }
     }
 
+    @media screen and (min-width: 769px){
+        .lg-button{
+            display: block;
+        }
+        .sm-button{
+            display: none;
+        }
+    }
 
     @media screen and (max-width: 768px){
 
@@ -553,6 +568,21 @@
             padding: 8px;
         }
 
+        figure{
+            display: none;
+        }
+
+        #title-ads{
+            font-size: 15px;
+        }
+
+        .lg-button{
+            display: none;
+        }
+        .sm-button{
+            display: block;
+        }
+
     }
 
 
@@ -562,7 +592,8 @@
         .th-address,
         .th-expiration_date,
         .th-btn{
-            padding: 0px;
+            /* background-color: #00CBD8; */
+            padding: 2px;
         }
 
         .td-id,

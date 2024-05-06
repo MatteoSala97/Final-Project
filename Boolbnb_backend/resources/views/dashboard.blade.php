@@ -9,9 +9,9 @@
     <div class="flex w-full">
         <div class="w-full mx-4">
             @if ($accomodations !== null && count($accomodations) > 0)
-                <div id="CIAOOOOOOO" class="subtitle flex justify-between m-5">
+                <div id="create-accom" class="subtitle flex justify-between m-5">
                     <a href="{{ route('accomodations.archive') }}">
-                        <p class="font-bold text-xl">Your Accommodations ({{ $accomodations->count() }})</p>
+                        <p class="accom-title font-bold text-xl">Your Accommodations ({{ $accomodations->count() }})</p>
                     </a>
 
                     <a href="{{ route('dashboard.accomodations.create') }}">
@@ -57,7 +57,7 @@
                                 <tr class="border border-x-0 hover:bg-neutral-100 {{ $item->hidden ? 'text-gray-600' : '' }}">
                                     <td scope="row" class="px-6 py-5 td-id" style="height: 80px">
                                         @if ($item->thumb)
-                                            <img src="{{ asset($item->thumb) }}" style="height: 80px"
+                                            <img src="{{ asset($item->thumb) }}" style="height: 80px;"
                                                 class="{{ $item->hidden ? 'grayscale' : '' }}" id="old_thumb">
                                         @else
                                             <span>
@@ -105,7 +105,7 @@
                         </tbody>
                     </table>
 
-                    <div class="mt-5 mx-10">
+                    <div class="ciaoooooooo mt-5 mx-10">
                         {{ $accomodations->links() }}
                     </div>
 
@@ -133,102 +133,137 @@
 </x-app-layout>
 
 <style>
+    /* Rules to fix the sidebar and right side dimensions */
+    html,
+    body {
+        height: 100%;
+    }
+    .min-h-screen {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+    main {
+        flex: 1;
+    }
+    main>* {
+        width: 100%;
+    }
 
-    .td-address{
+
+    /*
+    .th-id, .td-id,
+    .th-title, .td-title,
+    .th-type, .td-type,
+    .th-address, .td-address,
+    .th-price_per_night, .td-price_per_night,
+    .th-btn, .td-btn
+    */
+
+
+
+
+
+
+    .th-address, .td-address{
         max-width: 200px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
-    @media screen and (max-width: 1200px){
-        .td-address{
-            /* background-color: blue; */
+
+    @media screen and (max-width: 1220px){
+
+        .th-address, .td-address{
             max-width: 150px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
         }
-        .th-id{
-            /* background-color: blue; */
+        .th-id, .td-id{
             max-width: 150px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
     }
+
     @media screen and (max-width: 1100px){
-        .td-address{
+        .th-address, .td-address{
             max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         .td-type, .th-type{
             display: none;
         }
-
-    }
-
-    @media screen and (max-width: 980px){
-        .th-price_per_night{
-            /* background-color: blue; */
-            max-width: 110px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .th-id{
-            max-width: 110px;
-        }
-        #CIAOOOOOOO{
-            flex-direction: column-reverse;
-            text-align: center;
-        }
-
-    }
-
-    @media screen and (max-width: 870px){
-        .th-price_per_night{
-            /* background-color: blue; */
-            max-width: 110px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .th-id{
-            max-width: 110px;
-        }
-        .td-price_per_night, .th-price_per_night{
-            display: none;
-        }
-    }
-
-    @media screen and (max-width: 768px){
-        .td-id,
-        .td-title,
-        .td-type,
-        .td-address,
-        .td-price_per_night,
-        .td-btn{
-            /* background-color: yellow; */
-        }
-        .th-id,
-        .th-title,
-        .th-type,
-        .th-address,
-        .th-price_per_night,
-        .th-btn{
-            /* background-color: green; */
-        }
-
-
-        .td-address{
-            /* background-color: blue; */
+        .th-price_per_night, .td-price_per_night{
             max-width: 100px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
 
+    }
+
+    @media screen and (max-width: 980px){
+        .th-price_per_night{
+            max-width: 110px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .th-id, .td-id{
+            max-width: 110px;
+        }
+        #create-accom{
+            flex-direction: column-reverse;
+            text-align: center;
+        }
+        .td-price_per_night, .th-price_per_night{
+            display: none;
+        }
+
+        .accom-title{
+            font-size: 15px;
+        }
+
+    }
+
+    @media screen and (max-width: 800px){
+        .th-address, .td-address{
+            max-width: 130px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+    }
+
+    @media screen and (max-width: 768px){
+        .td-address{
+            max-width: 100px;
+        }
         .td-id, .th-id{
             display: none;
+        }
+    }
+
+    @media screen and (max-width: 460px){
+        .th-id,
+        .th-title,
+        .th-type,
+        .th-address,
+        .th-price_per_night,
+        .th-btn{
+            padding: 5px;
+        }
+        .td-id,
+        .td-title,
+        .td-type,
+        .td-address,
+        .td-price_per_night,
+        .td-btn{
+            padding: 3px;
+            gap: 0;
         }
     }
 
@@ -242,51 +277,14 @@
         .th-btn{
             padding: 0px;
         }
-
-
         .td-id,
         .td-title,
         .td-type,
         .td-address,
         .td-price_per_night,
         .td-btn{
-            padding: 3px;
+            padding: 0px;
             gap: 0;
         }
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-    /* Rules to fix the sidebar and right side dimensions */
-    html,
-    body {
-        height: 100%;
-    }
-
-    .min-h-screen {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-
-
-    main {
-        flex: 1;
-    }
-
-    main>* {
-        width: 100%;
-    }
-
 </style>

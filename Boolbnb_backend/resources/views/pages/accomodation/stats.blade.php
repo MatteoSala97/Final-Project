@@ -5,15 +5,15 @@
         </h2>
     </x-slot>
 
-    <div class=" h-screen border">
+    <div class="h-screen mb-4">
         @if ($accomodations !== null && count($accomodations) > 0)
             <div class="subtitle flex justify-between m-5">
-                <h2 class="title">Statistics (Total accommodations: {{ $accomodations->total() }})</h2>
+                <h2 class="font-bold text-xl mx-3">Statistics (Total accommodations: {{ $accomodations->total() }})</h2>
             </div>
 
-            <div class="salve flex  gap-5 px-5">
+            <div class="flex flex-wrap gap-5 px-5">
                 @foreach ($accomodations as $item)
-                    <div class="cards  rounded overflow-hidden shadow-lg bg-red-300">
+                    <div class="cards rounded overflow-hidden shadow-lg w-2/6">
                         <img class="w-full" src="{{ asset($item->thumb) }}" style="height: 200px" alt="{{ $item->title }}">
 
                         <div class="px-6 py-4">
@@ -52,20 +52,12 @@
 
 <style>
 
-    @media screen and (max-width: 1200px){
-
+    @media screen and (max-width: 780px){
         .salve{
             flex-direction: column
         }
         .cards{
             width: 100%;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .cards {
-            flex: 1 1 calc(100% - 1rem);
-            max-width: calc(100% - 1rem);
         }
     }
 

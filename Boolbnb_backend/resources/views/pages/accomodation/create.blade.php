@@ -369,76 +369,43 @@
 </script>
 
 <style>
-    @media screen and (min-width: 769px) {
+    @media screen and (min-width: 769px){
         .services-lg {
             display: block;
         }
-
         .services-sm {
             display: none;
         }
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 768px){
         .tabella {
             flex-direction: column;
             gap: 0;
         }
-
         .services-lg {
             display: none;
         }
-
         .services-sm {
             display: block;
         }
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 600px){
         .price_per_night {
             flex-direction: column;
             gap: 0;
         }
-
-        .price_per_night_input_label {
+        .price_per_night_input_label{
             width: 100%;
         }
-
-        .price_per_night_input_range {
+        .price_per_night_input_range{
             width: 80%;
             margin: 10px 0px;
         }
     }
 
-    @media screen and (max-width: 500px) {
-        .price_per_night {
-            flex-direction: column;
-            gap: 0;
-        }
-
-        .price_per_night_input_label {
-            width: 100%;
-        }
-
-        .price_per_night_input_range {
-            width: 80%;
-            margin: 10px 0px;
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    .dropdown-item {
+    .dropdown-item{
         padding-left: 30px;
         cursor: pointer;
         display: flex;
@@ -446,16 +413,16 @@
         gap: 15px;
     }
 
-    .dropdown-item svg {
+    .dropdown-item svg{
         width: 10px;
         fill: white;
     }
 
-    input[type="file"] {
+    input[type="file"]{
         display: none;
     }
 
-    input[type="range"] {
+    input[type="range"]{
         -webkit-appearance: none;
         appearance: none;
         width: 100%;
@@ -464,14 +431,15 @@
         border-radius: 5px;
     }
 
-    input[type="range"]::-webkit-slider-runnable-track {
+    input[type="range"]::-webkit-slider-runnable-track{
+        /* barra */
         width: 100%;
         height: 5px;
         background-color: black;
         border-radius: 10px;
     }
 
-    input[type="range"]::-webkit-slider-thumb {
+    input[type="range"]::-webkit-slider-thumb{
         /* palla */
         -webkit-appearance: none;
         appearance: none;
