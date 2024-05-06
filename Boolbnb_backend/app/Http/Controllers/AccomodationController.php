@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requeas\AccomodationStoreRequest;
-use App\Http\Requests\AccomodationStoreRequest as RequestsAccomodationStoreRequest;
+use App\Http\Requests\AccomodationStoreRequest;
+
 use App\Models\Accomodation;
 use App\Models\Message;
 use App\Models\Picture;
