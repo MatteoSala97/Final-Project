@@ -16,16 +16,17 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans text-gray-900 antialiased">
-    <div class="gradient-background min-h-screen flex sm:justify-center items-center pt-6 sm:pt-0">
+    <div class="ciaooo flex justify-between min-h-screen items-center">
 
-        <div>
+        <div class="logo-container">
             <x-logoM/>
             <p>Whether you have a spare room or an entire home, hosting with us opens up a world of opportunities</p>
         </div>
 
-
-        <div class="guest w-full sm:max-w-md mt-6 p-8 bg-white overflow-hidden sm:rounded-lg" >
-            {{ $slot }}
+        <div>
+            <div class="guest w-full max-w-md mt-6 p-8 bg-white overflow-hidden rounded-lg">
+                {{ $slot }}
+            </div>
         </div>
 
     </div>
@@ -33,25 +34,44 @@
 </html>
 
 <style>
-    .gradient-background{
+
+    @media screen and (max-width: 1000px){
+        .logo-container{
+            display: none;
+        }
+
+        body{
+            background-size: 100% 100%, 30% 100% !important;
+        }
+
+        .ciaooo{
+            margin: 0 auto;
+            justify-content: center;
+        }
+
+    }
+
+    body{
         background: linear-gradient(to bottom, #00CBD8, #B844FF) left,
                     linear-gradient(to top, #ffffff, #ffffff) right;
         background-size: 70% 100%, 30% 100%;
         background-repeat: no-repeat;
     }
     .guest{
-        position: relative;
-        right: 6%;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
     p{
         font-size: 40px;
         width: 350px;
         margin-top: 150px;
-        margin-right: 450px;
         color: white;
         font-family: "Open Sans", sans-serif;
         font-weight: 700;
-        font-style: normal;
     }
+    .ciaooo{
+        width: 70%;
+        margin: 0 auto;
+    }
+
+
 </style>

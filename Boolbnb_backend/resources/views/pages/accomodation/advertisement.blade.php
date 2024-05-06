@@ -1,8 +1,9 @@
 <x-app-layout>
-    <div class="w-full mx-3">
+    <div class="w-full">
 
+        {{-- pagamento --}}
         <div class="absolute w-[85%] h-full overlay justify-center items-center hidden" id="overlay">
-            <div class="payment-confirmation w-[400px] h-[550px] bg-white rounded-lg p-10 flex flex-col gap-8"
+            <div class="payment-confirmation w-[350px]  bg-white rounded-lg p-6 flex flex-col gap-8"
                 id="payment-confirmation">
                 <div class="popup-upper justify-between flex items-center">
                     <h3 class="text-xl font-bold text-black">
@@ -43,14 +44,19 @@
                     <input type="hidden" id="accommodation_id" name="accommodation_id">
                     <input type="hidden" id="selected_plan_name" name="selected_plan_name" value="Silver">
                     <input type="hidden" id="nonce" name="payment_method_nonce" />
-                    <input type="submit" value="Purchase" class="gradient-button" id="payment-submit-button">
+                    <button>
+                        <x-button-gradient>
+                            <input class="uppercase" type="submit" value="Purchase" id="payment-submit-button">
+                        </x-button-gradient>
+                    </button>
 
                 </form>
 
-                <x-button-gradient class="gradient-button flex justify-center mt-auto" id="confirm-ad-button-wrap">
-                    <button class="uppercase text-center" id="confirm-ad">
-                        Start Advertising </button>
-                </x-button-gradient>
+                <button class="uppercase text-center" id="confirm-ad">
+                    <x-button-gradient class="flex justify-center mt-auto" id="confirm-ad-button-wrap">
+                        Start Advertising
+                    </x-button-gradient>
+                </button>
 
 
             </div>
@@ -62,16 +68,16 @@
             {{-- <a href="{{ route('dashboard') }}" class="flex items-center">
                 <x-arrowleft/>
             </a> --}}
-            <p class="title">Advertisement</p>
+            <p class="font-bold text-xl ml-5">Advertisement</p>
         </div>
 
-        {{-- <form class="ms-4" action="" method="POST" enctype="multipart/form-data"> @csrf --}}
-
-        <div class=" flex justify-between gap-4 mb-4" style="">
-
-            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer active"
+        {{-- btn advertisement --}}
+        <div class="btn-advertisement flex justify-between gap-4 mx-4">
+            <div class="ads border border-gray-200 rounded-xl items-center flex gap-3 p-5 w-full cursor-pointer active"
                 id="Silver">
-                <x-silver_svg class="pointer-events-none" />
+                <figure>
+                    <x-silver_svg class="pointer-events-none" />
+                </figure>
                 <div class="flex-1 flex flex-col justify-between pointer-events-none">
                     <div class="text-left">
                         <h1 class="title">Silver</h1>
@@ -80,8 +86,10 @@
                 </div>
             </div>
 
-            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer" id="Gold">
-                <x-gold_svg class="pointer-events-none" />
+            <div class="ads border border-gray-200 rounded-xl items-center flex gap-3 p-5 w-full cursor-pointer" id="Gold">
+                <figure>
+                    <x-gold_svg class="pointer-events-none" />
+                </figure>
                 <div class="flex-1 flex flex-col justify-between pointer-events-none">
                     <div class="text-left">
                         <h1 class="title">Gold</h1>
@@ -90,8 +98,10 @@
                 </div>
             </div>
 
-            <div class="ads border border-gray-200 rounded-xl flex gap-3 p-6 w-2/6 cursor-pointer" id="Platinum">
-                <x-platinum_svg class="pointer-events-none" />
+            <div class="ads border border-gray-200 rounded-xl items-center flex gap-3 p-5 w-full cursor-pointer" id="Platinum">
+                <figure>
+                    <x-platinum_svg class="pointer-events-none" />
+                </figure>
                 <div class="flex-1 flex flex-col justify-between pointer-events-none">
                     <div class="text-left">
                         <h1 class="title">Platinum</h1>
@@ -101,7 +111,12 @@
             </div>
         </div>
 
-        <div class=" border-gray-200 rounded-xl flex justify-center mt-4 h-screen  w-[100%]">
+
+
+
+
+
+        <div class=" border-gray-200 rounded-xl flex mt-4 h-screen">
             {{-- <div class="flex flex-col justify-center items-center">
                     <p class="text-center">There are no advertised accommodations with this package</p>
                     <div class="mt-4">
@@ -111,10 +126,10 @@
                     </div>
                 </div> --}}
 
-            <div class="w-full ">
+            <div class="w-full mx-4">
                 @if ($accomodations !== null && count($accomodations) > 0)
                     <div class="subtitle flex justify-between m-5">
-                        <h2 class="title">Your Accommodations ({{ $accomodations->total() }})</h2>
+                        <h2 id="title-ads" class="font-bold text-xl ">Your Accommodations ({{ $accomodations->total() }})</h2>
 
                         {{-- <x-button-gradient class="gradient-button">
                             <a href="{{ route('dashboard.accomodations.create') }}">
@@ -125,34 +140,34 @@
                     </div>
 
                     <!-- Table responsive wrapper -->
-                    <div class="overflow-x-auto bg-white">
+                    <div class="overflow-x-auto">
                         <!-- Table -->
                         <table class="min-w-full text-left text-sm whitespace-nowrap">
                             <!-- Table head -->
-                            <thead class="uppercase tracking-wider border-b-2">
+                            <thead class="uppercase tracking-wider border border-x-0">
                                 <tr>
-                                    <th scope="col" class="px-6 py-5">
+                                    <th scope="col" class="px-6 py-5 th-id">
                                         Thumbnail Image or id
                                     </th>
-                                    <th scope="col" class="px-6 py-5">
+                                    <th scope="col" class="px-6 py-5 th-title">
                                         Title
                                     </th>
                                     {{-- <th scope="col" class="px-6 py-5">
                                         Type
                                     </th> --}}
-                                    <th scope="col" class="px-6 py-5">
+                                    <th scope="col" class="px-6 py-5 th-address">
                                         Address
                                     </th>
                                     {{-- <th scope="col" class="px-6 py-5">
                                             City
                                         </th> --}}
-                                    <th scope="col" class="px-6 py-5">
+                                    {{-- <th scope="col" class="px-6 py-5 th-price_per_night">
                                         Price per night
-                                    </th>
-                                    <th scope="col" class="px-6 py-5">
+                                    </th> --}}
+                                    <th scope="col" class="px-6 py-5 th-expiration_date">
                                         Expiration date
                                     </th>
-                                    <th scope="col" class="px-6 py-5">
+                                    <th scope="col" class="px-6 py-5 th-btn">
                                         Advertise
                                     </th>
                                 </tr>
@@ -161,8 +176,8 @@
                             <tbody>
                                 @foreach ($accomodations as $item)
                                     <tr
-                                        class="border-b hover:bg-neutral-100 {{ $item->hidden ? 'text-gray-600' : '' }}">
-                                        <th scope="row" class="px-6 py-5" style="height: 80px">
+                                        class="border border-x-0 hover:bg-neutral-100 {{ $item->hidden ? 'text-gray-600' : '' }}">
+                                        <td scope="row" class="px-6 py-5 td-id" style="height: 80px">
                                             @if ($item->thumb)
                                                 <img src="{{ asset($item->thumb) }}" style="height: 80px"
                                                     class="{{ $item->hidden ? 'grayscale' : '' }}" id="old_thumb">
@@ -172,13 +187,13 @@
                                                 </span>
                                             @endif
                                         </th>
-                                        <td class="px-6 py-5">{{ $item->title }}</td>
+                                        <td class="td-title px-6 py-5">{{ $item->title }}</td>
                                         {{-- <td class="px-6 py-5">{{ $item->type }}</td> --}}
 
-                                        <td class="px-6 py-5">{{ $item->address }}</td>
+                                        <td class="px-6 py-5 td-address">{{ $item->address }}</td>
                                         {{-- <td class="px-6 py-5">{{ $item->city }}</td> --}}
-                                        <td class="px-6 py-5">{{ $item->price_per_night }} €</td>
-                                        <td class="px-6 py-5">
+                                        {{-- <td class="td-price_per_night px-6 py-5">{{ $item->price_per_night }} €</td> --}}
+                                        <td class="px-6 py-5 td-expiration_date">
                                             @if ($item->ads->isNotEmpty())
                                                 @php
                                                     $totalDuration = $item->ads->sum('duration') * 24;
@@ -194,15 +209,23 @@
                                                 Not Advertised
                                             @endif
                                         </td>
-                                        <td class=" px-4 py-2">
+                                        <td class="py-2 td-btn">
                                             <div class="flex gap-2 justify-around">
-                                                <button>
+
+                                                <button class="lg-button">
                                                     <x-button-gradient class="ad-button"
                                                         data-accommodation-id="{{ $item->id }}"
                                                         data-accommodation-title="{{ $item->title }}">
                                                         Advertise
                                                     </x-button-gradient>
                                                 </button>
+
+                                                <button class="sm-button ad-button gradient-button uppercase"
+                                                    data-accommodation-id="{{ $item->id }}"
+                                                    data-accommodation-title="{{ $item->title }}">
+                                                    Advertise
+                                                </button>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -257,25 +280,26 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </nav>
-                        </div> --}}
+                            </nav> --}}
+                    </div>
                     @else
-                        <div class="info flex flex-col justify-center items-center h-screen text-grey gap-5">
-                            <p>
-                                There are no accommodations, please start by adding a new one.
-                            </p>
+                    <div class="info flex flex-col justify-center items-center h-2/4 text-grey gap-5">
+                        <p>
+                            There are no accommodations, please start by adding a new one.
+                        </p>
 
-                            <a href="{{ route('dashboard.accomodations.create') }}">
-                                <x-button-gradient>
-                                    Add accommodation
-                                </x-button-gradient>
-                            </a>
-                        </div>
+                        <a href="{{ route('dashboard.accomodations.create') }}">
+                            <x-button-gradient >
+                                Add accommodation
+                            </x-button-gradient>
+                        </a>
+                    </div>
                 @endif
             </div>
         </div>
     </div>
 </x-app-layout>
+
 <script>
     // 4111111111111111	test card
     const button = document.querySelector('#submit-button');
@@ -409,6 +433,191 @@
 </script>
 
 <style>
+
+    body{
+        /* background-color: red; */
+    }
+
+    .th-id,
+    .th-title,
+    .th-address,
+    .th-expiration_date,
+    .th-btn{
+        /* background-color: green; */
+    }
+    .td-id,
+    .td-title,
+    .td-address,
+    .td-expiration_date,
+    .td-btn{
+        /* background-color: orange; */
+    }
+
+    .th-address, .td-address{
+        max-width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        /* background-color: orange; */
+    }
+    @media screen and (max-width: 1200px){
+        .td-address{
+            /* background-color: purple; */
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+
+        .th-id{
+            /* background-color: blue; */
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+    @media screen and (max-width: 1100px){
+        .td-address{
+            max-width: 100px;
+        }
+    }
+    @media screen and (max-width: 1000px){
+        .td-id, .th-id{
+            display: none;
+        }
+
+        .th-title, .td-title{
+            /* background-color: lightblue; */
+            max-width: 70px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+        }
+
+
+        .th-expiration_date, .td-expiration_date{
+            /* background-color: orange; */
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .th-btn, .td-btn{
+            /* background-color: pink; */
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+    }
+
+
+    @media screen and (max-width: 900px){
+        .th-address, .td-address{
+            display: none;
+        }
+        .th-expiration_date, .td-expiration_date{
+            max-width: 90px;
+        }
+
+        .th-btn, .td-btn{
+            /* background-color: gold; */
+            max-width: 80px;
+        }
+
+    }
+
+    @media screen and (max-width: 870px){
+        .btn-advertisement{
+            flex-direction: column;
+        }
+        .ads{
+            padding: 8px;
+        }
+    }
+
+    @media screen and (min-width: 769px){
+        .lg-button{
+            display: block;
+        }
+        .sm-button{
+            display: none;
+        }
+    }
+
+    @media screen and (max-width: 768px){
+
+        .th-id,
+        .th-title,
+        .th-address,
+        .th-expiration_date,
+        .th-btn{
+            padding: 5px;
+        }
+
+        .td-id,
+        .td-title,
+        .td-address,
+        .td-expiration_date,
+        .td-btn{
+            padding: 8px;
+        }
+
+        figure{
+            display: none;
+        }
+
+        #title-ads{
+            font-size: 15px;
+        }
+
+        .lg-button{
+            display: none;
+        }
+        .sm-button{
+            display: block;
+        }
+
+    }
+
+
+    @media screen and (max-width: 460px){
+        .th-id,
+        .th-title,
+        .th-address,
+        .th-expiration_date,
+        .th-btn{
+            /* background-color: #00CBD8; */
+            padding: 2px;
+        }
+
+        .td-id,
+        .td-title,
+        .td-address,
+        .td-expiration_date,
+        .td-btn{
+            padding: 3px;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /* Rules to fix the sidebar and right side dimensions */
     .ads:hover,
     .ads.active {
@@ -488,17 +697,4 @@
     }
 
 
-    .gradient-button {
-        background-image: linear-gradient(135deg, #00CBD8, #B844FF);
-        border: none;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .gradient-button:hover {
-        background-image: linear-gradient(135deg, #00A9BF, #A336DF);
-    }
 </style>
