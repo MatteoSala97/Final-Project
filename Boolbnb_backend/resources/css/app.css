@@ -81,3 +81,14 @@
 .gradient-button:hover {
     background-image: linear-gradient(135deg, #00A9BF, #A336DF);
 }
+
+.active-bg{
+    color: white;
+    background-color: #000000;
+    border-radius: 20px;
+
+}
+
+.active-bg img{
+    filter: invert(1);
+}

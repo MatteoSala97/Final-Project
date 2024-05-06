@@ -43,26 +43,26 @@
             <div class="sidebar flex flex-col pt-4 px-5 border border-y-0 border-l-0">
                 <div class="flex flex-col gap-4">
 
-                    <div class="sidebar-item">
+                    <div class="sidebar-item {{ request()->routeIs('dashboard') ? 'active-bg' : '' }}">
                         <a href="{{ route('dashboard') }}" class="flex items-center text-left">
                             <img src="/icons/home-alt.svg" class="mr-1" alt="home">
                             <span>Accommodations</span>
                         </a>
                     </div>
-                    <div class="sidebar-item">
+                    <div class="sidebar-item {{ request()->routeIs('stats') ? 'active-bg' : '' }}">
                         <a href="{{ route('stats') }}" class="flex text-left">
                             <img src="/icons/graph-bar.svg" class="mr-1" alt="stats">
                             <span>Stats</span>
                         </a>
                     </div>
-                    <div class="sidebar-item">
+                    <div class="sidebar-item {{ request()->routeIs('dashboard.accomodations.advertisement') ? 'active-bg' : '' }}">
                         <a href="{{ route('dashboard.accomodations.advertisement') }}"
                             class="flex items-center text-left">
                             <img src="/icons/rocket.svg" class="mr-1" alt="ads">
                             <span>Advertisement</span>
                         </a>
                     </div>
-                    <div class="sidebar-item">
+                    <div class="sidebar-item {{ request()->routeIs('messages') ? 'active-bg' : '' }}">
                         <a href="{{ route('messages') }}" class="flex items-center text-left">
                             <img src="/icons/message-square.svg" class="mr-1" alt="message">
                             <span>Messages</span>
