@@ -123,6 +123,8 @@
                         </a>
                     </x-button-gradient>
 
+
+
                 </div>
             @endif
 
@@ -131,9 +133,6 @@
 </x-app-layout>
 
 <style>
-    .dashboard{
-        background-color: lightblue;
-    }
 
     .td-address{
         max-width: 200px;
@@ -234,24 +233,27 @@
     }
 
 
-    @media screen and (max-width: 480px){
+    @media screen and (max-width: 460px){
         .th-id,
         .th-title,
         .th-type,
         .th-address,
         .th-price_per_night,
         .th-btn{
-
+            padding: 0px;
         }
 
-        .th-id,
-        .th-title,
-        .th-type,
-        .th-address,
-        .th-price_per_night,
-        .th-btn{
 
+        .td-id,
+        .td-title,
+        .td-type,
+        .td-address,
+        .td-price_per_night,
+        .td-btn{
+            padding: 3px;
+            gap: 0;
         }
+
 
     }
 
