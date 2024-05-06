@@ -25,6 +25,33 @@
                             <span
                                 class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{ $item->price_per_night }}
                                 € per night</span>
+
+                            <div class="flex items-center gap-2">
+
+                                <span
+                                    class=" bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 flex items-center gap-2">
+                                    <img src="{{ asset('icons/message-square.svg') }}" alt="Map Icon">
+                                    <span>
+                                        {{ $item->views()->count() }} views
+                                    </span>
+
+
+                                </span>
+
+                                <span
+                                    class=" bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 flex items-center gap-2">
+                                    <img src="{{ asset('icons/Map.svg') }}" alt="Map Icon">
+                                    <span>
+                                        {{ $item->messages()->count() }} messages
+                                    </span>
+
+
+
+
+                                </span>
+                            </div>
+
+
                         </div>
                     </div>
                 @endforeach
