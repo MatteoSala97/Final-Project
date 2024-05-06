@@ -147,48 +147,43 @@
                 @enderror
             </div>
 
+
+
             {{-- MULTIPLE PICTURES --}}
 
-            <div class="mb-3">
-                <x-input-label for="pictures[]" :value="__('Pictures (Maximum 5)')" class="text-black" />
 
-                <label id="file-name-container" for="pictures[]"
-                    class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('pictures[]') is-invalid @enderror">
+            {{-- <div class="mb-3">
+                <input type="file" name="photos[]" multiple>
+            </div> --}}
+
+
+
+
+
+
+
+            <div class="mb-3">
+                <x-input-label for="pictures[]" :value="__('Pictures')" class="text-black" />
+
+                <label id="file-name-container" for="photos"
+                    class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('photos') is-invalid @enderror">
                     Select file
                 </label>
 
-                <input class="form-control @error('pictures[]') is-invalid @enderror" type="file" id="pictures[]"
-                    accept=".jpeg, .png, .jpg" name="pictures[]" multiple>
+                <input class="form-control @error('photos') is-invalid @enderror" type="file" id="photos"
+                    accept=".jpeg, .png, .jpg" name="photos[]" multiple>
 
-                @error('pictures[]')
+                @error('photos')
                     <div class="bg-red-200 p-5 rounded-md">
                         {{ $message }}
                     </div>
                 @enderror
             </div>
 
-
-
-            {{-- <div class="mb-3">
-                <x-input-label for="pictures[]" :value="__('Pictures')" class="text-black"/>
-
-                <label id="file-name-container" for="pictures[]" class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('pictures[]') is-invalid @enderror">
-                    Select file
-                </label>
-
-                <input class="form-control @error('pictures[]') is-invalid @enderror" type="file" id="pictures[]" accept=".jpeg, .png, .jpg" name="pictures[]" multiple>
-
-                @error('pictures[]')
-                    <div class="bg-red-200 p-5 rounded-md">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div> --}}
-
             {{-- prezzo notte --}}
             <div class="price_per_night flex justify-between items-center gap-5">
                 <div class="price_per_night_input_label">
-                    <x-input-label for="range" :value="__('Price per night *')" />
+                    <x-input-label for="price_per_night" :value="__('Price per night *')" />
                     <div id="price_display"
                         class="block mt-1 w-full rounded-md bg-white p-2 border border-gray-300 text-gray-500
                     @error('title') is-invalid @enderror"
@@ -215,14 +210,14 @@
             <div class="my-5">
                 {{-- lg display --}}
                 <div class="services-lg">
-                    <x-input-label for="range" :value="__('Services *')" />
+                    <x-input-label for="services[]" :value="__('Services *')" />
                     @error('services')
                         <div class="bg-red-200 p-5 rounded-md">
                             {{ $message }}
                         </div>
                     @enderror
 
-                    <div id="price_display" class="mt-1 w-full rounded-md">
+                    <div id="service_div" class="mt-1 w-full rounded-md">
                         Choose one or more services
                     </div>
 
@@ -243,7 +238,7 @@
 
                 {{-- sm display --}}
                 <div class="services-sm">
-                    <x-input-label for="range" :value="__('Services *')" />
+                    <x-input-label for="services[]" :value="__('Services *')" />
                     @error('services')
                         <div class="bg-red-200 p-5 rounded-md">
                             {{ $message }}
@@ -282,7 +277,7 @@
     const selected_address_input = document.getElementById('selected_address');
     const dropdown_menu = document.getElementById('create-dropdown')
 
-    console.log(address_input)
+
 
     priceRange.addEventListener('input', function() {
         priceDisplay.innerText = '€ ' + priceRange.value;
@@ -315,7 +310,6 @@
                     longitude
                 }
                 const selectedAddressJSON = JSON.stringify(selected_address);
-                console.log(selectedAddressJSON);
                 selected_address_input.value = selectedAddressJSON
 
             })
@@ -347,7 +341,6 @@
                 })
                 .then(data => {
                     let suggested_addresses = [];
-                    console.log(data.results[0]);
                     data.results.forEach(position => {
                         suggested_addresses.push(position);
                     });
