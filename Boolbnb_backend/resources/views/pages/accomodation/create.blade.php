@@ -147,9 +147,10 @@
                 @enderror
             </div>
 
-            <<<<<<< HEAD {{-- MULTIPLE PICTURES --}}======={{-- MULTIPLE pictures --}}>>>>>>>
-                ee11aeaf935536ffa4dcb8f67b44b159876ba416
+            {{-- MULTIPLE pictures --}}
 
+            <div class="mb-3">
+                <x-input-label for="pictures[]" :value="__('Pictures (Maximum 5)')" class="text-black" />
 
                 <label id="file-count-container" for="pictures[]"
                     class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('pictures[]') is-invalid @enderror">
@@ -164,94 +165,94 @@
                         {{ $message }}
                     </div>
                 @enderror
-    </div>
+            </div>
 
-    {{-- prezzo notte --}}
-    <div class="price_per_night flex justify-between items-center gap-5">
-        <div class="price_per_night_input_label">
-            <x-input-label for="price_per_night" :value="__('Price per night *')" />
-            <div id="price_display"
-                class="block mt-1 w-full rounded-md bg-white p-2 border border-gray-300 text-gray-500
+            {{-- prezzo notte --}}
+            <div class="price_per_night flex justify-between items-center gap-5">
+                <div class="price_per_night_input_label">
+                    <x-input-label for="range" :value="__('Price per night *')" />
+                    <div id="price_display"
+                        class="block mt-1 w-full rounded-md bg-white p-2 border border-gray-300 text-gray-500
                     @error('title') is-invalid @enderror"
-                @required(true)>
-                € {{ old('price_per_night') ? '€' . old('price_per_night') : '0' }}
-            </div>
-        </div>
-
-        <div class="price_per_night_input_range flex-grow mr-5 mt-5">
-            <x-input-label for="price_per_night" :value="__('')" />
-
-            <input type="range" class="form-range w-full mt-2" min="0" max="500" step="10"
-                value="{{ old('price_per_night') ? old('price_per_night') : '0' }}" id="price_per_night"
-                name="price_per_night">
-            @error('price_per_night')
-                <div class="bg-red-200 p-5 rounded-md">
-                    {{ $message }}
-                </div>
-            @enderror
-        </div>
-    </div>
-
-    {{-- service --}}
-    <div class="my-5">
-        {{-- lg display --}}
-        <div class="services-lg">
-            <x-input-label for="services[]" :value="__('Services *')" />
-            @error('services')
-                <div class="bg-red-200 p-5 rounded-md">
-                    {{ $message }}
-                </div>
-            @enderror
-
-            <div id="service_div" class="mt-1 w-full rounded-md">
-                Choose one or more services
-            </div>
-
-            <div class="mb-3 flex flex-wrap">
-                @foreach ($services as $service)
-                    <div class="my-3 me-3 w-2/12">
-                        <input type="checkbox" name="services[]" id="service_{{ $service->id }}"
-                            value="{{ $service->id }}" class="form-checkbox h-5 w-5 text-blue-500"
-                            {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
-                        <label for="service_{{ $service->id }}"
-                            class="ml-2 text-sm text-gray-700">{{ $service->name }}
-                        </label>
+                        @required(true)>
+                        € {{ old('price_per_night') ? '€' . old('price_per_night') : '0' }}
                     </div>
-                @endforeach
-            </div>
-        </div>
-
-
-        {{-- sm display --}}
-        <div class="services-sm">
-            <x-input-label for="services[]" :value="__('Services *')" />
-            @error('services')
-                <div class="bg-red-200 p-5 rounded-md">
-                    {{ $message }}
                 </div>
-            @enderror
 
-            <div id="price_display" class="mt-1 w-full rounded-md">
-                Choose one or more services
+                <div class="price_per_night_input_range flex-grow mr-5 mt-5">
+                    <x-input-label for="price_per_night" :value="__('')" />
+
+                    <input type="range" class="form-range w-full mt-2" min="0" max="500"
+                        step="10" value="{{ old('price_per_night') ? old('price_per_night') : '0' }}"
+                        id="price_per_night" name="price_per_night">
+                    @error('price_per_night')
+                        <div class="bg-red-200 p-5 rounded-md">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
             </div>
 
-            <select name="services[]" id="service_select" class="w-full rounded-md border-gray-300 text-gray-500"
-                multiple>
-                @foreach ($services as $service)
-                    <option value="{{ $service->id }}"
-                        {{ in_array($service->id, old('services', [])) ? 'selected' : '' }}>
-                        {{ $service->name }}</option>
-                @endforeach
-            </select>
-        </div>
+            {{-- service --}}
+            <div class="my-5">
+                {{-- lg display --}}
+                <div class="services-lg">
+                    <x-input-label for="range" :value="__('Services *')" />
+                    @error('services')
+                        <div class="bg-red-200 p-5 rounded-md">
+                            {{ $message }}
+                        </div>
+                    @enderror
 
-    </div>
+                    <div id="price_display" class="mt-1 w-full rounded-md">
+                        Choose one or more services
+                    </div>
 
-    <button>
-        <x-button-gradient type="submit">Confirm</x-button-gradient>
-    </button>
+                    <div class="mb-3 flex flex-wrap">
+                        @foreach ($services as $service)
+                            <div class="my-3 me-3 w-2/12">
+                                <input type="checkbox" name="services[]" id="service_{{ $service->id }}"
+                                    value="{{ $service->id }}" class="form-checkbox h-5 w-5 text-blue-500"
+                                    {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
+                                <label for="service_{{ $service->id }}"
+                                    class="ml-2 text-sm text-gray-700">{{ $service->name }}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
 
-    </form>
+
+                {{-- sm display --}}
+                <div class="services-sm">
+                    <x-input-label for="range" :value="__('Services *')" />
+                    @error('services')
+                        <div class="bg-red-200 p-5 rounded-md">
+                            {{ $message }}
+                        </div>
+                    @enderror
+
+                    <div id="price_display" class="mt-1 w-full rounded-md">
+                        Choose one or more services
+                    </div>
+
+                    <select name="services[]" id="service_select"
+                        class="w-full rounded-md border-gray-300 text-gray-500" multiple>
+                        @foreach ($services as $service)
+                            <option value="{{ $service->id }}"
+                                {{ in_array($service->id, old('services', [])) ? 'selected' : '' }}>
+                                {{ $service->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+            </div>
+
+            <button>
+                <x-button-gradient type="submit">Confirm</x-button-gradient>
+            </button>
+
+        </form>
     </div>
 </x-app-layout>
 
@@ -263,7 +264,7 @@
     const selected_address_input = document.getElementById('selected_address');
     const dropdown_menu = document.getElementById('create-dropdown')
 
-
+    console.log(address_input)
 
     priceRange.addEventListener('input', function() {
         priceDisplay.innerText = '€ ' + priceRange.value;
@@ -296,6 +297,7 @@
                     longitude
                 }
                 const selectedAddressJSON = JSON.stringify(selected_address);
+                console.log(selectedAddressJSON);
                 selected_address_input.value = selectedAddressJSON
 
             })
@@ -327,6 +329,7 @@
                 })
                 .then(data => {
                     let suggested_addresses = [];
+                    console.log(data.results[0]);
                     data.results.forEach(position => {
                         suggested_addresses.push(position);
                     });
