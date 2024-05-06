@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requeas\AccomodationStoreRequest;
+use App\Http\Requests\AccomodationStoreRequest as RequestsAccomodationStoreRequest;
 use App\Models\Accomodation;
 use App\Models\Message;
 use App\Models\Picture;
@@ -233,8 +234,8 @@ class AccomodationController extends Controller
             $validatedData['thumb'] = basename($img_path);
         }
 
-        if ($request->hasFile('photos')) {
-            foreach ($request->file('photos') as $image) {
+        if ($request->hasFile('pictures')) {
+            foreach ($request->file('pictures') as $image) {
 
                 $img_path = Storage::put('uploads', $image);
                 $full_url = url('/') . '/storage/' . $img_path;
