@@ -74,8 +74,6 @@ class AccomodationController extends Controller
     public function store(AccomodationStoreRequest $request)
     {
 
-
-
         $selected_address = json_decode($request['selected_address']);
 
 
@@ -218,7 +216,7 @@ class AccomodationController extends Controller
             'city' => 'required|string',
             'price_per_night' => 'required|numeric',
             'thumb' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'pictures.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048|max:5',
+            'pictures.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
 
         ]);
 

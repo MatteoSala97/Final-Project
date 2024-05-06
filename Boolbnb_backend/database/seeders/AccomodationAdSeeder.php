@@ -15,7 +15,7 @@ class AccomodationAdSeeder extends Seeder
     public function run()
     {
         $accommodationIds = [1169, 1366, 489, 960, 1176, 1503, 999, 150, 1238, 793, 338, 14, 1495, 1314, 368];
-        $adId = 14;
+        $adId = 3;
         $expirationDate = Carbon::now()->addYears(100);
 
         foreach ($accommodationIds as $accommodationId) {
