@@ -75,7 +75,6 @@ class AccomodationController extends Controller
     public function store(AccomodationStoreRequest $request)
     {
 
-
         $selected_address = json_decode($request['selected_address']);
 
 
@@ -129,8 +128,8 @@ class AccomodationController extends Controller
             ]);
         }
 
-        if ($request->hasFile('photos')) {
-            foreach ($request->file('photos') as $image) {
+        if ($request->hasFile('pictures')) {
+            foreach ($request->file('pictures') as $image) {
 
                 $img_path = Storage::put('uploads', $image);
                 $full_url = url('/') . '/storage/' . $img_path;
@@ -159,7 +158,7 @@ class AccomodationController extends Controller
      */
     public function archive()
     {
-        $accomodations = Accomodation::where('user_id', auth()->id())->onlyTrashed()->get();
+        $accomodations = Accomodation::where('user_id', auth()->id())->onlyTrashed()->paginate(7);
 
         return view('pages.accomodation.archive', compact('accomodations'));
     }

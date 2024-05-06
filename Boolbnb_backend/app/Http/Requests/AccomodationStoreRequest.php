@@ -33,7 +33,7 @@ class AccomodationStoreRequest extends FormRequest
             'city' => 'required|string',
             'price_per_night' => 'required|numeric',
             'thumb' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'photos.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'pictures.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'services' => 'required|array|min:1',
         ];
     }

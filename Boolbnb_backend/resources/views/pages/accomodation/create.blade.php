@@ -147,125 +147,111 @@
                 @enderror
             </div>
 
+            <<<<<<< HEAD {{-- MULTIPLE PICTURES --}}======={{-- MULTIPLE pictures --}}>>>>>>>
+                ee11aeaf935536ffa4dcb8f67b44b159876ba416
 
 
-            {{-- MULTIPLE PICTURES --}}
-
-
-            {{-- <div class="mb-3">
-                <input type="file" name="photos[]" multiple>
-            </div> --}}
-
-
-
-
-
-
-
-            <div class="mb-3">
-                <x-input-label for="pictures[]" :value="__('Pictures')" class="text-black" />
-
-                <label id="file-name-container" for="photos"
-                    class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('photos') is-invalid @enderror">
-                    Select file
+                <label id="file-count-container" for="pictures[]"
+                    class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('pictures[]') is-invalid @enderror">
+                    Select files .png, .jpeg and .jpg
                 </label>
 
-                <input class="form-control @error('photos') is-invalid @enderror" type="file" id="photos"
-                    accept=".jpeg, .png, .jpg" name="photos[]" multiple>
+                <input class="form-control @error('pictures[]') is-invalid @enderror" type="file" id="pictures[]"
+                    accept=".jpeg, .png, .jpg" name="pictures[]" multiple>
 
-                @error('photos')
+                @error('pictures[]')
                     <div class="bg-red-200 p-5 rounded-md">
                         {{ $message }}
                     </div>
                 @enderror
-            </div>
+    </div>
 
-            {{-- prezzo notte --}}
-            <div class="price_per_night flex justify-between items-center gap-5">
-                <div class="price_per_night_input_label">
-                    <x-input-label for="price_per_night" :value="__('Price per night *')" />
-                    <div id="price_display"
-                        class="block mt-1 w-full rounded-md bg-white p-2 border border-gray-300 text-gray-500
+    {{-- prezzo notte --}}
+    <div class="price_per_night flex justify-between items-center gap-5">
+        <div class="price_per_night_input_label">
+            <x-input-label for="price_per_night" :value="__('Price per night *')" />
+            <div id="price_display"
+                class="block mt-1 w-full rounded-md bg-white p-2 border border-gray-300 text-gray-500
                     @error('title') is-invalid @enderror"
-                        @required(true)>
-                        € {{ old('price_per_night') ? '€' . old('price_per_night') : '0' }}
-                    </div>
-                </div>
+                @required(true)>
+                € {{ old('price_per_night') ? '€' . old('price_per_night') : '0' }}
+            </div>
+        </div>
 
-                <div class="price_per_night_input_range flex-grow mr-5 mt-5">
-                    <x-input-label for="price_per_night" :value="__('')" />
+        <div class="price_per_night_input_range flex-grow mr-5 mt-5">
+            <x-input-label for="price_per_night" :value="__('')" />
 
-                    <input type="range" class="form-range w-full mt-2" min="0" max="500"
-                        step="10" value="{{ old('price_per_night') ? old('price_per_night') : '0' }}"
-                        id="price_per_night" name="price_per_night">
-                    @error('price_per_night')
-                        <div class="bg-red-200 p-5 rounded-md">
-                            {{ $message }}
-                        </div>
-                    @enderror
+            <input type="range" class="form-range w-full mt-2" min="0" max="500" step="10"
+                value="{{ old('price_per_night') ? old('price_per_night') : '0' }}" id="price_per_night"
+                name="price_per_night">
+            @error('price_per_night')
+                <div class="bg-red-200 p-5 rounded-md">
+                    {{ $message }}
                 </div>
+            @enderror
+        </div>
+    </div>
+
+    {{-- service --}}
+    <div class="my-5">
+        {{-- lg display --}}
+        <div class="services-lg">
+            <x-input-label for="services[]" :value="__('Services *')" />
+            @error('services')
+                <div class="bg-red-200 p-5 rounded-md">
+                    {{ $message }}
+                </div>
+            @enderror
+
+            <div id="service_div" class="mt-1 w-full rounded-md">
+                Choose one or more services
             </div>
 
-            {{-- service --}}
-            <div class="my-5">
-                {{-- lg display --}}
-                <div class="services-lg">
-                    <x-input-label for="services[]" :value="__('Services *')" />
-                    @error('services')
-                        <div class="bg-red-200 p-5 rounded-md">
-                            {{ $message }}
-                        </div>
-                    @enderror
-
-                    <div id="service_div" class="mt-1 w-full rounded-md">
-                        Choose one or more services
+            <div class="mb-3 flex flex-wrap">
+                @foreach ($services as $service)
+                    <div class="my-3 me-3 w-2/12">
+                        <input type="checkbox" name="services[]" id="service_{{ $service->id }}"
+                            value="{{ $service->id }}" class="form-checkbox h-5 w-5 text-blue-500"
+                            {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
+                        <label for="service_{{ $service->id }}"
+                            class="ml-2 text-sm text-gray-700">{{ $service->name }}
+                        </label>
                     </div>
+                @endforeach
+            </div>
+        </div>
 
-                    <div class="mb-3 flex flex-wrap">
-                        @foreach ($services as $service)
-                            <div class="my-3 me-3 w-2/12">
-                                <input type="checkbox" name="services[]" id="service_{{ $service->id }}"
-                                    value="{{ $service->id }}" class="form-checkbox h-5 w-5 text-blue-500"
-                                    {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
-                                <label for="service_{{ $service->id }}"
-                                    class="ml-2 text-sm text-gray-700">{{ $service->name }}
-                                </label>
-                            </div>
-                        @endforeach
-                    </div>
+
+        {{-- sm display --}}
+        <div class="services-sm">
+            <x-input-label for="services[]" :value="__('Services *')" />
+            @error('services')
+                <div class="bg-red-200 p-5 rounded-md">
+                    {{ $message }}
                 </div>
+            @enderror
 
-
-                {{-- sm display --}}
-                <div class="services-sm">
-                    <x-input-label for="services[]" :value="__('Services *')" />
-                    @error('services')
-                        <div class="bg-red-200 p-5 rounded-md">
-                            {{ $message }}
-                        </div>
-                    @enderror
-
-                    <div id="price_display" class="mt-1 w-full rounded-md">
-                        Choose one or more services
-                    </div>
-
-                    <select name="services[]" id="service_select"
-                        class="w-full rounded-md border-gray-300 text-gray-500" multiple>
-                        @foreach ($services as $service)
-                            <option value="{{ $service->id }}"
-                                {{ in_array($service->id, old('services', [])) ? 'selected' : '' }}>
-                                {{ $service->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
+            <div id="price_display" class="mt-1 w-full rounded-md">
+                Choose one or more services
             </div>
 
-            <button>
-                <x-button-gradient type="submit">Confirm</x-button-gradient>
-            </button>
+            <select name="services[]" id="service_select" class="w-full rounded-md border-gray-300 text-gray-500"
+                multiple>
+                @foreach ($services as $service)
+                    <option value="{{ $service->id }}"
+                        {{ in_array($service->id, old('services', [])) ? 'selected' : '' }}>
+                        {{ $service->name }}</option>
+                @endforeach
+            </select>
+        </div>
 
-        </form>
+    </div>
+
+    <button>
+        <x-button-gradient type="submit">Confirm</x-button-gradient>
+    </button>
+
+    </form>
     </div>
 </x-app-layout>
 
@@ -358,6 +344,49 @@
         var fileName = inputFile.files[0].name;
         var fileNameContainer = document.getElementById('file-name-container');
         fileNameContainer.textContent = 'Selected file: ' + fileName;
+    });
+
+    document.getElementById('pictures[]').addEventListener('change', function() {
+        var files = this.files;
+        var fileCount = files.length;
+        var label = document.getElementById('file-count-container');
+
+
+        if (fileCount > 5) {
+            alert('You can only select up to 5 files.');
+            this.value = '';
+            return;
+        }
+
+        if (fileCount === 0) {
+            label.innerText = 'No file selected. You can add up to 5 more files.';
+        } else if (fileCount === 1) {
+            label.innerText = 'File selected: ' + fileCount + '. You can add up to 4 more files.';
+        } else if (fileCount === 2) {
+            label.innerText = 'Files selected: ' + fileCount + '. You can add up to 3 more files.';
+        } else if (fileCount === 3) {
+            label.innerText = 'Files selected: ' + fileCount + '. You can add up to 2 more files.';
+        } else if (fileCount === 4) {
+            label.innerText = 'Files selected: ' + fileCount + '. You can add one more file.';
+        } else {
+            label.innerText = 'Files selected: ' + fileCount + ". You've reached the maximum amount of files.";
+        }
+    });
+
+
+    $(document).ready(function() {
+
+        var storedPrice = localStorage.getItem('price_per_night');
+        if (storedPrice) {
+            $('#price_per_night').val(storedPrice);
+            $('#price_display').text('€ ' + storedPrice);
+        }
+
+        $('#price_per_night').on('input', function() {
+            var price = $(this).val();
+            $('#price_display').text('€ ' + price);
+            localStorage.setItem('price_per_night', price);
+        });
     });
 </script>
 
