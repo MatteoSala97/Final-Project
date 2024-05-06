@@ -117,11 +117,11 @@
                         There are no accommodations, please start by adding a new one.
                     </p>
 
-                    <x-button-gradient class="gradient-button">
-                        <a href="{{ route('dashboard.accomodations.create') }}">
+                    <a href="{{ route('dashboard.accomodations.create') }}">
+                        <x-button-gradient >
                             Add accommodation
-                        </a>
-                    </x-button-gradient>
+                        </x-button-gradient>
+                    </a>
 
 
 
