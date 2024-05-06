@@ -44,7 +44,7 @@
                             <tr class="border border-x-0 hover:bg-neutral-100 {{ $item->hidden ? 'text-gray-600' : '' }}">
                                 <td scope="row" class="px-6 py-5 th-id" style="height: 80px">
                                     @if ($item->thumb)
-                                        <img src="{{ asset('storage/uploads/' . $item->thumb) }}"
+                                        <img src="{{ asset($item->thumb) }}"
                                             style="height: 80px" class="{{ $item->hidden ? 'grayscale' : '' }}"
                                             id="old_thumb">
                                     @else
@@ -59,9 +59,13 @@
                                 <td class="px-6 py-5 td-price_per_night">{{ $item->price_per_night }} €</td>
                                 <td class="px-4 py-2 td-btn">
                                     <div class="flex gap-2 justify-around">
+                                        <!-- Restore Form -->
 
-                                            <button type="submit" class="gradient-button-green">Restore</button>
-                                            <button type="submit" class="gradient-button-red">Delete</button>
+                                        <button type="submit" class="gradient-button-green">Restore</button>
+
+                                        <!-- Permanently Delete Form -->
+
+                                        <button type="submit" class="gradient-button-red">Delete Permanently</button>
 
                                     </div>
                                 </td>
@@ -69,6 +73,10 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+            <div class="mt-5 mx-10">
+                <!-- Visualizzazione dei link per la paginazione -->
+                {{ $accomodations->links() }}
             </div>
         </div>
     </div>

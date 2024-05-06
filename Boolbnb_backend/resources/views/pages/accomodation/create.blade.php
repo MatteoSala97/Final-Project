@@ -147,14 +147,14 @@
                 @enderror
             </div>
 
-            {{-- MULTIPLE PICTURES --}}
+            {{-- MULTIPLE pictures --}}
 
             <div class="mb-3">
                 <x-input-label for="pictures[]" :value="__('Pictures (Maximum 5)')" class="text-black" />
 
-                <label id="file-name-container" for="pictures[]"
+                <label id="file-count-container" for="pictures[]"
                     class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('pictures[]') is-invalid @enderror">
-                    Select file
+                    Select files .png, .jpeg and .jpg
                 </label>
 
                 <input class="form-control @error('pictures[]') is-invalid @enderror" type="file" id="pictures[]"
@@ -166,24 +166,6 @@
                     </div>
                 @enderror
             </div>
-
-
-
-            {{-- <div class="mb-3">
-                <x-input-label for="pictures[]" :value="__('Pictures')" class="text-black"/>
-
-                <label id="file-name-container" for="pictures[]" class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('pictures[]') is-invalid @enderror">
-                    Select file
-                </label>
-
-                <input class="form-control @error('pictures[]') is-invalid @enderror" type="file" id="pictures[]" accept=".jpeg, .png, .jpg" name="pictures[]" multiple>
-
-                @error('pictures[]')
-                    <div class="bg-red-200 p-5 rounded-md">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div> --}}
 
             {{-- prezzo notte --}}
             <div class="price_per_night flex justify-between items-center gap-5">
@@ -282,7 +264,7 @@
     const selected_address_input = document.getElementById('selected_address');
     const dropdown_menu = document.getElementById('create-dropdown')
 
-    console.log(address_input)
+    priceDisplay.innerText = priceRange.value
 
     priceRange.addEventListener('input', function() {
         priceDisplay.innerText = '€ ' + priceRange.value;
@@ -366,6 +348,49 @@
         var fileNameContainer = document.getElementById('file-name-container');
         fileNameContainer.textContent = 'Selected file: ' + fileName;
     });
+
+    document.getElementById('pictures[]').addEventListener('change', function() {
+        var files = this.files;
+        var fileCount = files.length;
+        var label = document.getElementById('file-count-container');
+
+
+        if (fileCount > 5) {
+            alert('You can only select up to 5 files.');
+            this.value = '';
+            return;
+        }
+
+        if (fileCount === 0) {
+            label.innerText = 'No file selected. You can add up to 5 more files.';
+        } else if (fileCount === 1) {
+            label.innerText = 'File selected: ' + fileCount + '. You can add up to 4 more files.';
+        } else if (fileCount === 2) {
+            label.innerText = 'Files selected: ' + fileCount + '. You can add up to 3 more files.';
+        } else if (fileCount === 3) {
+            label.innerText = 'Files selected: ' + fileCount + '. You can add up to 2 more files.';
+        } else if (fileCount === 4) {
+            label.innerText = 'Files selected: ' + fileCount + '. You can add one more file.';
+        } else {
+            label.innerText = 'Files selected: ' + fileCount + ". You've reached the maximum amount of files.";
+        }
+    });
+
+
+    // $(document).ready(function() {
+
+    //     var storedPrice = localStorage.getItem('price_per_night');
+    //     if (storedPrice) {
+    //         $('#price_per_night').val(storedPrice);
+    //         $('#price_display').text('€ ' + storedPrice);
+    //     }
+
+    //     $('#price_per_night').on('input', function() {
+    //         var price = $(this).val();
+    //         $('#price_display').text('€ ' + price);
+    //         localStorage.setItem('price_per_night', price);
+    //     });
+    // });
 </script>
 
 <style>

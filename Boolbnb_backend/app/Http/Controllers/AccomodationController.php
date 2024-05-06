@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AccomodationStoreRequest;
+
 use App\Models\Accomodation;
 use App\Models\Message;
 use App\Models\Picture;
@@ -74,17 +75,18 @@ class AccomodationController extends Controller
     public function store(AccomodationStoreRequest $request)
     {
 
-
-
         $selected_address = json_decode($request['selected_address']);
 
 
         $validatedData = $request->validated();
 
-        if ($request->hasFile('pictures') && count($request->file('pictures')) > 5) {
-            return redirect()->back()->withErrors(['pictures' => 'You can upload a maximum of 5 pictures.']);
-        }
-        unset($validatedData['pictures']);
+        $uploadedFiles = $request->file('photos');
+
+        // if ($request->hasFile('pictures') && count($uploadedFiles) > 5) {
+        //     return redirect()->back()->withErrors(['pictures' => 'You can upload a maximum of 5 pictures.']);
+        // }
+
+        unset($validatedData['photos']);
 
         //image save
 
@@ -156,7 +158,7 @@ class AccomodationController extends Controller
      */
     public function archive()
     {
-        $accomodations = Accomodation::where('user_id', auth()->id())->onlyTrashed()->get();
+        $accomodations = Accomodation::where('user_id', auth()->id())->onlyTrashed()->paginate(7);
 
         return view('pages.accomodation.archive', compact('accomodations'));
     }
@@ -218,7 +220,7 @@ class AccomodationController extends Controller
             'city' => 'required|string',
             'price_per_night' => 'required|numeric',
             'thumb' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'pictures.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048|max:5',
+            'pictures.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
 
         ]);
 

@@ -49,7 +49,7 @@ class MessageController extends Controller
 
 
     public function show(Message $message)
-{
-    return view('pages.accomodation.messages.show', compact('message'));
-}
+    {
+        return view('pages.accomodation.messages.show', compact('message'));
+    }
 }

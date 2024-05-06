@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class View extends Model
 {
     use HasFactory;
+    public $guarded = [];
 }

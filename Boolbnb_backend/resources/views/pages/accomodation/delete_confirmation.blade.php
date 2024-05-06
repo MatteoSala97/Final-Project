@@ -2,17 +2,19 @@
     <div class="container m-52">
         <div class="p-3 border rounded-xl">
 
-            <h1 class="font-bold text-xl">Are you sure you want to delete: {{$accomodation->title}}? ({{ $accomodation->count() }})</h1>
+            <h1 class="font-bold text-xl">Are you sure you want to delete: {{$accomodation->title}}? (ID: {{$accomodation->id }})</h1>
 
-            <div class="flex justify-center m-5" >
-                <div class="bg-red-200" style="width: 18rem;">
+            <div class="flex justify-center m-5">
+                <div class="bg-white rounded-lg shadow-lg p-5" style="width: 18rem;">
 
                     @if ($accomodation->thumb)
-                        <img src="{{ asset('storage/uploads/' . $accomodation->thumb) }}" class="bg-blue-200" alt="{{$accomodation->title}}">
+                        <img src="{{ asset($accomodation->thumb) }}" class="w-full h-auto rounded-t-lg" alt="{{$accomodation->title}}">
                     @endif
 
-                    <h1>{{ $accomodation->title }}</h1>
-                    <p>{{ $accomodation->address }}, {{ $accomodation->city }}</p>
+                    <div class="p-4">
+                        <h1 class="text-lg font-semibold text-gray-800">{{ $accomodation->title }}</h1>
+                        <p class="text-sm text-gray-600">{{ $accomodation->address }}, {{ $accomodation->city }}</p>
+                    </div>
                 </div>
             </div>
 
