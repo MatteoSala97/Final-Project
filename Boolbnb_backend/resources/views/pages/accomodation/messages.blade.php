@@ -7,13 +7,13 @@
 
     <div class="h-screen border">
         <h2 class="title p-5">Messages ({{ $messages->count() }})</h2>
-            <div class="subtitle flex justify-between m-5">
-            </div>
-            <!-- Table responsive wrapper -->
-            <div class="overflow-x-auto bg-white m-5">
+        <div class="subtitle flex justify-between m-5">
+        </div>
+        <!-- Table responsive wrapper -->
+        <div class="overflow-x-auto bg-white m-5">
 
-                <!-- Table -->
-                <table class="min-w-full text-left text-sm whitespace-nowrap">
+            <!-- Table -->
+            <table class="min-w-full text-left text-sm whitespace-nowrap">
 
                 <!-- Table head -->
                 <thead class="uppercase tracking-wider border-b-2">
@@ -37,7 +37,9 @@
                 <tbody>
                     @foreach ($messages as $message)
                         @if ($message->accomodation)
-                            <tr class="border-b hover:bg-neutral-100 message-row view-message-btn" data-message-id="{{ $message->id }}">
+                            <tr class="border-b hover:bg-neutral-100 message-row view-message-btn"
+                                data-message-id="{{ $message->id }}"
+                                onclick="window.location='{{ route('messages.show', ['message' => $message->id]) }}';">
                                 <td class="px-6 py-5">{{ $message->created_at }}</td>
                                 <td class="px-6 py-5">{{ $message->name }}</td>
                                 <td class="message-body px-6 py-5">{{ $message->content }}</td>
@@ -46,8 +48,9 @@
                         @endif
                     @endforeach
                 </tbody>
-                
-                
+
+
+
             </table>
             <div class="mt-5 mx-10">
                 {{ $messages->links() }}
@@ -56,17 +59,7 @@
     </div>
 </x-app-layout>
 
-<script>
-    $(document).ready(function() {
-        $('.view-message-btn').click(function() {
-            
-            var messageId = $(this).closest('.message-row').data('message-id');
-            var url = "{{ route('messages.show', ['message' => $message->id]) }}";
-
-            window.location.href = url;
-        });
-    });
-</script>
+<script></script>
 
 
 <style>

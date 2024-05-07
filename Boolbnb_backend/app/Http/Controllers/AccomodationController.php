@@ -80,13 +80,13 @@ class AccomodationController extends Controller
 
         $validatedData = $request->validated();
 
-        $uploadedFiles = $request->file('photos');
+        $uploadedFiles = $request->file('pictures');
 
         // if ($request->hasFile('pictures') && count($uploadedFiles) > 5) {
         //     return redirect()->back()->withErrors(['pictures' => 'You can upload a maximum of 5 pictures.']);
         // }
 
-        unset($validatedData['photos']);
+        unset($validatedData['pictures']);
 
         //image save
 
