@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Request\AccomodationStoreRequest;
+use App\Http\Requests\AccomodationStoreRequest as RequestsAccomodationStoreRequest;
 use App\Models\Accomodation;
 use App\Models\Message;
 use App\Models\Picture;
@@ -71,7 +72,7 @@ class AccomodationController extends Controller
      * Store a newly created resource in storage.
      */
     //Alex: I moved the validation logic in the form request
-    public function store(AccomodationStoreRequest $request)
+    public function store(RequestsAccomodationStoreRequest $request)
     {
 
         $selected_address = json_decode($request['selected_address']);

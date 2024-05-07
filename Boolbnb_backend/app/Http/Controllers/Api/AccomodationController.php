@@ -71,34 +71,32 @@ class AccomodationController extends Controller
                 ->selectRaw('ST_Distance_Sphere(POINT(accomodations.longitude, accomodations.latitude), POINT(?, ?)) AS distance', [$point_lng, $point_lat])
                 ->having('distance', '<=', $max_distance_meters);
 
-
-            if ($point_lat !== null && $point_lng !== null) {
-                switch ($order_by) {
-                    case 'distance':
-                        $accomodations_query->orderBy('distance');
-                        break;
-                    case 'price':
-                        $accomodations_query->orderBy('price_per_night');
-                        break;
-                    case 'rating':
-                        $accomodations_query->orderByDesc('rating');
-                        break;
-                    default:
-                        $accomodations_query->orderBy('distance');
-                        break;
-                }
+            switch ($order_by) {
+                case 'distance':
+                    $accomodations_query->orderBy('distance');
+                    break;
+                case 'price':
+                    $accomodations_query->orderBy('price_per_night');
+                    break;
+                case 'rating':
+                    $accomodations_query->orderByDesc('rating');
+                    break;
+                default:
+                    $accomodations_query->orderBy('distance');
+                    break;
             }
         } else {
+            // If latitude and longitude are not provided, order by default criteria
             $accomodations_query->leftJoin('accomodation_ad', 'accomodations.id', '=', 'accomodation_ad.accomodation_id')
                 ->select('accomodations.*', 'accomodation_ad.accomodation_id AS has_ad')
-                ->orderByRaw('has_ad DESC, 
-                                              accomodations.rating DESC');
+                ->orderByRaw('has_ad DESC, accomodations.rating DESC');
         }
 
 
 
 
 
+        $accomodations_query->orderBy('has_ad', 'DESC');
 
         // Eager loading relationships
         $accomodations_query->with(['pictures', 'services', 'ads']);
@@ -110,6 +108,9 @@ class AccomodationController extends Controller
 
 
         $accomodations = $accomodations_query->paginate(15);
+
+
+
 
         foreach ($accomodations as $accommodation) {
             $accommodation->has_ad = $accommodation->ads->isNotEmpty();
