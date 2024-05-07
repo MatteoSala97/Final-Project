@@ -152,3 +152,10 @@
         fileNameContainer.textContent = 'Selected file: ' + fileName;
     });
 </script>
+
+<style>
+
+    @media screen and (max-width: 768px){
+    }
+
+</style>
