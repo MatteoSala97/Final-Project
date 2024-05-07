@@ -14,7 +14,8 @@
             <div class="flex flex-wrap gap-5 px-4">
                 @foreach ($accomodations as $item)
                     <div class="cards rounded overflow-hidden shadow-lg w-2/6">
-                        <img class="w-full" src="{{ asset($item->thumb) }}" style="height: 200px" alt="{{ $item->title }}">
+                        <img class="w-full" src="{{ asset($item->thumb) }}" style="height: 200px"
+                            alt="{{ $item->title }}">
 
                         <div class="px-6 py-4">
                             <div class="font-bold text-xl mb-2">{{ $item->title }}</div>
@@ -31,7 +32,7 @@
 
                                 <span
                                     class=" bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 flex items-center gap-2">
-                                    <img src="{{ asset('icons/message-square.svg') }}" alt="Map Icon">
+                                    <img src="{{ asset('icons/Map.svg') }}" alt="Map Icon">
                                     <span>
                                         {{ $item->views()->count() }} views
                                     </span>
@@ -41,7 +42,8 @@
 
                                 <span
                                     class=" bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 flex items-center gap-2">
-                                    <img src="{{ asset('icons/Map.svg') }}" alt="Map Icon">
+                                    <img src="{{ asset('icons/message-square.svg') }}" alt="Map Icon">
+
                                     <span>
                                         {{ $item->messages()->count() }} messages
                                     </span>
@@ -77,12 +79,12 @@
 </x-app-layout>
 
 <style>
-
-    @media screen and (max-width: 780px){
-        .salve{
+    @media screen and (max-width: 780px) {
+        .salve {
             flex-direction: column
         }
-        .cards{
+
+        .cards {
             width: 100%;
         }
     }

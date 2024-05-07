@@ -39,7 +39,7 @@ class Kernel extends ConsoleKernel
                 // Log error message
                 Log::error('Scheduled task failed: ' . $e->getMessage());
             }
-        })->everyHour(); // Adjust the interval as needed
+        })->everyTenSeconds(); // Adjust the interval as needed
     }
 
 
