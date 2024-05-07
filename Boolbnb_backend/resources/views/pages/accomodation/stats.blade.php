@@ -8,10 +8,10 @@
     <div class="h-screen mb-4">
         @if ($accomodations !== null && count($accomodations) > 0)
             <div class="subtitle flex justify-between m-5">
-                <h2 class="font-bold text-xl mx-3">Statistics (Total accommodations: {{ $accomodations->total() }})</h2>
+                <h2 class="font-bold text-xl ml-4">Statistics (Total accommodations: {{ $accomodations->total() }})</h2>
             </div>
 
-            <div class="flex flex-wrap gap-5 px-5">
+            <div class="flex flex-wrap gap-5 px-4">
                 @foreach ($accomodations as $item)
                     <div class="cards rounded overflow-hidden shadow-lg w-2/6">
                         <img class="w-full" src="{{ asset($item->thumb) }}" style="height: 200px" alt="{{ $item->title }}">
