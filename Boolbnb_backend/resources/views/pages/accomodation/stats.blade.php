@@ -26,26 +26,33 @@
                                 class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{ $item->rating ?? 'No rating' }}</span>
                             <span
                                 class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{ $item->price_per_night }}
-                                € per night</span>
+                                € per night
+                            </span>
 
                             <div class="flex items-center gap-2">
 
                                 <span
-                                    class=" bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 flex items-center gap-2">
-                                    <img src="{{ asset('icons/Map.svg') }}" alt="Map Icon">
-                                    <span>
-                                        {{ $item->views()->count() }} views
+                                    class=" bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 flex items-center gap-2 ">
+                                    <img src="{{ asset('icons/Map.svg') }}" alt="Views Icon">
+                                    <span class="">
+                                        {{ $item->views()->count() }}
+                                        <span class="hide-me">
+                                            views
+                                        </span>
                                     </span>
 
 
                                 </span>
 
                                 <span
-                                    class=" bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 flex items-center gap-2">
-                                    <img src="{{ asset('icons/message-square.svg') }}" alt="Map Icon">
+                                    class=" bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 flex items-center gap-2 ">
+                                    <img src="{{ asset('icons/message-square.svg') }}" alt="Messages Icon">
 
-                                    <span>
-                                        {{ $item->messages()->count() }} messages
+                                    <span class="">
+                                        {{ $item->messages()->count() }}
+                                        <span class="hide-me">
+                                            messages
+                                        </span>
                                     </span>
 
 
@@ -96,14 +103,15 @@
         .cards {
             width: calc(50% - 1rem);
         }
+        .hide-me{
+           display: none;
+        }
+
     }
 
     @media screen and (max-width: 640px) {
         .cards {
             width: calc(100% - 1rem);
-        }
-        .counter span {
-            font-size: 0.8rem; /* Puoi regolare questa dimensione a tuo piacimento */
         }
     }
 
