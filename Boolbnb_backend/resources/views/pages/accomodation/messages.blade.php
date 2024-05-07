@@ -56,7 +56,7 @@
     </div>
 </x-app-layout>
 
-<script>
+{{-- <script>
     $(document).ready(function() {
         $('.view-message-btn').click(function() {
 
@@ -66,7 +66,7 @@
             window.location.href = url;
         });
     });
-</script>
+</script> --}}
 
 
 <style>
