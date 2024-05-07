@@ -79,16 +79,33 @@
 </x-app-layout>
 
 <style>
-    @media screen and (max-width: 780px) {
-        .salve {
-            flex-direction: column
-        }
-
+   @media screen and (min-width: 1024px) {
         .cards {
-            width: 100%;
+            width: calc(20% - 1rem);
+            margin: 0 auto;
         }
     }
 
+    @media screen and (max-width: 1023px) {
+        .cards {
+            width: calc(33.33% - 1rem);
+        }
+    }
+
+    @media screen and (max-width: 834px) {
+        .cards {
+            width: calc(50% - 1rem);
+        }
+    }
+
+    @media screen and (max-width: 640px) {
+        .cards {
+            width: calc(100% - 1rem);
+        }
+        .counter span {
+            font-size: 0.8rem; /* Puoi regolare questa dimensione a tuo piacimento */
+        }
+    }
 
 
     /* Rules to fix the sidebar and right side dimensions */
