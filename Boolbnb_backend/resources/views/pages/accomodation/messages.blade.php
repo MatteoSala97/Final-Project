@@ -57,7 +57,17 @@
     </div>
 </x-app-layout>
 
-<script></script>
+{{-- <script>
+    $(document).ready(function() {
+        $('.view-message-btn').click(function() {
+
+            var messageId = $(this).closest('.message-row').data('message-id');
+            var url = "{{ route('messages.show', ['message' => $message->id]) }}";
+
+            window.location.href = url;
+        });
+    });
+</script> --}}
 
 
 <style>
