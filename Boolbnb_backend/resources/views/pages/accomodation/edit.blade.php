@@ -1,5 +1,5 @@
 <x-app-layout>
-   <div class="container w-9/12 py-6">
+    <div class="container w-9/12 py-6">
 
         <div class="flex items-center px-3 gap-2">
             <a href="{{ route('dashboard') }}" class="flex items-center">
@@ -111,7 +111,7 @@
                     Select a file .png, .jpeg and .jpg
                 </label>
                 <input class="form-control  @error('thumb') is-invalid @enderror" type="file" id="thumb"
-                    name="thumb">
+                    name="thumb" accept=".jpeg, .png, .jpg">
                 @error('thumb')
                     <div class="alert alert-danger">
                         {{ $message }}
