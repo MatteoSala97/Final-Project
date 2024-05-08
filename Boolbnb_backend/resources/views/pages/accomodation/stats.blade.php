@@ -13,10 +13,12 @@
 
             <div class="flex flex-wrap gap-5 px-4">
                 @foreach ($accomodations as $item)
-                    <div class="cards rounded overflow-hidden shadow-lg w-2/6">
-                        @if($item->thumb)
-                            <img class="w-full" src="{{ asset($item->thumb) }}" style="height: 200px" alt="{{ $item->title }}">
-                            @else
+                    <div class="cards rounded overflow-hidden shadow-lg w-2/6 cursor-pointer"
+                        onclick="window.location='{{ route('accomodations.show-stats', ['accomodation' => $item->id]) }}';">
+                        @if ($item->thumb)
+                            <img class="w-full" src="{{ asset($item->thumb) }}" style="height: 200px"
+                                alt="{{ $item->title }}">
+                        @else
                             <p class="no-img">No image</p>
                         @endif
 
@@ -89,7 +91,7 @@
 </x-app-layout>
 
 <style>
-    .no-img{
+    .no-img {
         background-color: rgb(240, 240, 240);
         text-align: center;
         height: 200px;
@@ -99,14 +101,15 @@
         align-items: center;
     }
 
-   @media screen and (min-width: 1024px) {
+    @media screen and (min-width: 1024px) {
         .cards {
             width: calc(20% - 1rem);
             margin: 0 auto;
         }
     }
-    @media screen and (max-width: 460px){
-        .font-bold{
+
+    @media screen and (max-width: 460px) {
+        .font-bold {
             font-size: 15px;
         }
 
