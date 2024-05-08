@@ -5,39 +5,32 @@
         </h2>
     </x-slot>
 
-    <div class="h-screen w-full border p-5">
+    <div class="h-screen w-full mx-4 mt-5">
 
         <div class="flex items-center px-3 gap-2">
             <a href="{{ route('messages') }}" class="flex items-center">
                 <x-arrowleft/>
             </a>
-            <p class="font-bold text-xl">Messages ({{ $message->count() }})</p>
+            <p class="font-bold text-xl">Messages ({{ $message->name }})</p>
         </div>
-    
-        {{-- <div>
-            <p><strong>Email:</strong> {{ $message->email }}</p>
-            <p><strong>Body:</strong> {{ $message->content }}</p>
-            <p><strong>Address:</strong> {{ $message->accomodation->title }}</p>
-        </div> --}}
 
-        <div class="mt-8 border border-[#EBEBEB] rounded-lg p-6">
-
-            <div class="flex justify-between items-center">
-                <div class="flex gap-5 items-center">
-                    <figure>
-                        {{-- <img src="{{ $message->accomodation->host_thumb }}" alt=""> --}}
-                        {{-- <div class="p-7 bg-[#D9D9D9] rounded-full"></div> --}}
-                    </figure>
-                    <p>{{ $message->email }}</p>
+        <div class="mt-8 border border-[#EBEBEB] rounded-lg py-4">
+            <div class="container flex justify-between mx-4">
+                <div class="mb-1">
+                    <h1 class="font-bold">From:</h1>
+                    <p class="email">{{ $message->email }}</p>
                 </div>
-                <div>
-                    {{ $message->created_at }}
+
+                <div class="mr-8">
+                    <h1 class="font-bold">Data:</h1>
+                    <p>{{ $message->created_at }}</p>
                 </div>
             </div>
 
-            <hr class="my-8">
+            <hr class="my-4">
 
-            <div>
+            <div class="mx-4">
+                <h1 class="font-bold">Content:</h1>
                 {{ $message->content }}
             </div>
 
@@ -45,3 +38,22 @@
     </div>
 
 </x-app-layout>
+
+<style>
+    @media screen and (max-width: 768px){
+        .container{
+            flex-direction: column;
+        }
+    }
+
+    @media screen and (max-width: 460px){
+        .data{
+            text-align: right;
+        }
+
+        .font-bold{
+            font-size: 15px;
+        }
+    }
+
+</style>
