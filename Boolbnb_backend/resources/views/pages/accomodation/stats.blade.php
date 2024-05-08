@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="h-screen mb-4">
+    <div class="h-full mb-4">
         @if ($accomodations !== null && count($accomodations) > 0)
             <div class="subtitle flex justify-between m-5">
                 <h2 class="font-bold text-xl ml-4">Statistics (Total accommodations: {{ $accomodations->total() }})</h2>
@@ -13,7 +13,8 @@
 
             <div class="flex flex-wrap gap-5 px-4">
                 @foreach ($accomodations as $item)
-                    <div class="cards rounded overflow-hidden shadow-lg w-2/6">
+                    <div class="cards rounded overflow-hidden shadow-lg w-2/6 pointer"
+                        onclick="window.location='{{ route('accomodations.show-stats', ['accomodation' => $item->id]) }}';">
                         <img class="w-full" src="{{ asset($item->thumb) }}" style="height: 200px"
                             alt="{{ $item->title }}">
 
@@ -86,7 +87,7 @@
 </x-app-layout>
 
 <style>
-   @media screen and (min-width: 1024px) {
+    @media screen and (min-width: 1024px) {
         .cards {
             width: calc(20% - 1rem);
             margin: 0 auto;
@@ -103,8 +104,9 @@
         .cards {
             width: calc(50% - 1rem);
         }
-        .hide-me{
-           display: none;
+
+        .hide-me {
+            display: none;
         }
 
     }

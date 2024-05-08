@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Bool BnB Dashboard</title>
 
-    <link rel="shortcut icon" href="{{ asset('logo-colored.svg') }}" >
+    <link rel="shortcut icon" href="{{ asset('logo-colored.svg') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -19,6 +19,9 @@
     <!-- Scripts -->
     <script src="https://js.braintreegateway.com/web/dropin/1.42.0/js/dropin.min.js"></script>
     <script src="http://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
+
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -55,7 +58,8 @@
                             <span>Stats</span>
                         </a>
                     </div>
-                    <div class="sidebar-item {{ request()->routeIs('dashboard.accomodations.advertisement') ? 'active-bg' : '' }}">
+                    <div
+                        class="sidebar-item {{ request()->routeIs('dashboard.accomodations.advertisement') ? 'active-bg' : '' }}">
                         <a href="{{ route('dashboard.accomodations.advertisement') }}"
                             class="flex items-center text-left">
                             <img src="/icons/rocket.svg" class="mr-1" alt="ads">
@@ -84,6 +88,7 @@
 
     </div>
 </body>
+
 </html>
 
 
@@ -103,24 +108,28 @@
 </script>
 
 <style>
-    @media screen and (max-width: 700px){
+    @media screen and (max-width: 700px) {
         .sidebar {
             width: 210px;
         }
-        span{
+
+        span {
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
         }
     }
-    @media screen and (max-width: 600px){
+
+    @media screen and (max-width: 600px) {
         .sidebar {
             width: 80px;
         }
-        span{
+
+        span {
             display: none;
         }
-        .sidebar-item{
+
+        .sidebar-item {
             padding: 10px;
             display: flex;
             justify-content: center;
@@ -194,9 +203,4 @@
     font-size: 1.5rem;
     font-weight: bold;
 } */
-
-
-
-
 </style>
-
