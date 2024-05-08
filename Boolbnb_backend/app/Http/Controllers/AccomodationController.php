@@ -230,7 +230,8 @@ class AccomodationController extends Controller
 
         if ($request->hasFile('thumb')) {
             $img_path = Storage::put('uploads', $validatedData['thumb']);
-            $validatedData['thumb'] = basename($img_path);
+            $full_url = url('/') . '/storage/' . $img_path;
+            $validatedData['thumb'] = $full_url;
         }
 
         if ($request->hasFile('pictures')) {
