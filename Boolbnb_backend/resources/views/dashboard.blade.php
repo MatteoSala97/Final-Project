@@ -71,7 +71,7 @@
                                     {{-- <td class="px-6 py-5">{{ $item->city }}</td> --}}
                                     <td class="td-price_per_night px-6 py-5">{{ $item->price_per_night }} €</td>
                                     <td class=" px-4 py-2">
-                                        <div class="td-btn flex gap-2 justify-around">
+                                        <div class="td-btn flex gap-5">
                                             <form
                                                 action="{{ route('dashboard.accomodations.changeVisibility', $item->id) }}"
                                                 method="POST">
@@ -105,7 +105,7 @@
                         </tbody>
                     </table>
 
-                    <div class="ciaoooooooo mt-5 mx-10">
+                    <div class="mt-5 mx-10">
                         {{ $accomodations->links() }}
                     </div>
 
@@ -271,7 +271,7 @@
 
 
     @media screen and (max-width: 460px){
-        /* .th-id,
+        .th-id,
         .th-title,
         .th-type,
         .th-address,
@@ -287,6 +287,8 @@
         .td-btn{
             padding: 0px;
             gap: 0;
-        } */
+        }
     }
+
+
 </style>

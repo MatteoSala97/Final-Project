@@ -210,7 +210,7 @@
                                             @endif
                                         </td>
                                         <td class="py-2 td-btn">
-                                            <div class="flex gap-2 justify-around">
+                                            <div class="flex gap-2">
 
                                                 <button class="lg-button">
                                                     <x-button-gradient class="ad-button"
