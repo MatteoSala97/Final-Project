@@ -67,7 +67,8 @@
 
                         <tbody>
                             @foreach ($accomodations as $item)
-                                <tr class="border border-x-0 hover:bg-neutral-100{{ $item->hidden ? 'text-gray-600' : '' }}">
+                                <tr
+                                    class="border border-x-0 hover:bg-neutral-100{{ $item->hidden ? 'text-gray-600' : '' }}">
                                     <td scope="row" class="px-6 py-5 td-id" style="height: 80px">
                                         @if ($item->thumb)
                                             <img src="{{ asset($item->thumb) }}" style="height: 80px; width: 110px;"
@@ -79,7 +80,8 @@
                                         @endif
                                     </td>
                                     <td class="td-title px-6 py-5">
-                                        <a class="cursor-pointer underline text-blue-500" href="{{ route('dashboard.accomodations.show', ['accomodation' => $item->id]) }}">
+                                        <a class="cursor-pointer underline text-blue-500"
+                                            href="{{ route('dashboard.accomodations.show', ['accomodation' => $item->id]) }}">
                                             {{ $item->title }}
                                         </a>
                                     </td>
@@ -135,7 +137,7 @@
                     </p>
 
                     <a href="{{ route('dashboard.accomodations.create') }}">
-                        <x-button-gradient >
+                        <x-button-gradient>
                             Add accommodation
                         </x-button-gradient>
                     </a>
@@ -150,122 +152,166 @@
 </x-app-layout>
 
 <style>
-    .th-id, .td-id,
-    .th-title, .td-title,
-    .th-type, .td-type,
-    .th-address, .td-address,
-    .th-price_per_night, .td-price_per_night,
-    .th-btn, .td-btn{
+    .th-id,
+    .td-id,
+    .th-title,
+    .td-title,
+    .th-type,
+    .td-type,
+    .th-address,
+    .td-address,
+    .th-price_per_night,
+    .td-price_per_night,
+    .th-btn,
+    .td-btn {
         max-width: 200px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
 
-    .th-price_per_night, .td-price_per_night{
+    .th-price_per_night,
+    .td-price_per_night {
         max-width: 140px;
     }
 
-    @media screen and (max-width: 1240px){
-        .th-id, .td-id{
+    @media screen and (max-width: 1240px) {
+
+        .th-id,
+        .td-id {
             max-width: 150px;
         }
-        .th-address, .td-address{
+
+        .th-address,
+        .td-address {
             max-width: 150px;
         }
     }
 
-    @media screen and (max-width: 1140px){
-        .td-type, .th-type{
+    @media screen and (max-width: 1140px) {
+
+        .td-type,
+        .th-type {
             display: none;
         }
-        .th-address, .td-address{
+
+        .th-address,
+        .td-address {
             max-width: 140px;
         }
-        .th-price_per_night, .td-price_per_night{
+
+        .th-price_per_night,
+        .td-price_per_night {
             max-width: 100px;
         }
     }
 
-    @media screen and (max-width: 1000px){
-        .th-id, .td-id,
-        .th-title, .td-title,
-        .th-type, .td-type,
-        .th-address, .td-address,
-        .th-price_per_night, .td-price_per_night,
-        .th-btn, .td-btn{
+    @media screen and (max-width: 1000px) {
+
+        .th-id,
+        .td-id,
+        .th-title,
+        .td-title,
+        .th-type,
+        .td-type,
+        .th-address,
+        .td-address,
+        .th-price_per_night,
+        .td-price_per_night,
+        .th-btn,
+        .td-btn {
             padding-top: 10px;
             padding-bottom: 10px;
         }
-        .th-title, .td-title{
+
+        .th-title,
+        .td-title {
             padding: 0px;
         }
 
-        .th-id, .td-id{
+        .th-id,
+        .td-id {
             padding: 5px;
         }
 
-        .th-price_per_night{
+        .th-price_per_night {
             max-width: 110px;
         }
-        .th-id, .td-id{
+
+        .th-id,
+        .td-id {
             max-width: 110px;
         }
-        #create-accom{
+
+        #create-accom {
             flex-direction: column-reverse;
             text-align: center;
         }
-        .td-price_per_night, .th-price_per_night{
+
+        .td-price_per_night,
+        .th-price_per_night {
             display: none;
         }
-        .font-bold{
+
+        .font-bold {
             font-size: 15px;
         }
 
     }
 
-    @media screen and (max-width: 900px){
-        .th-title, .td-title{
+    @media screen and (max-width: 900px) {
+
+        .th-title,
+        .td-title {
             max-width: 80px;
         }
-        .th-address, .td-address{
+
+        .th-address,
+        .td-address {
             max-width: 90px;
         }
     }
 
-    @media screen and (max-width: 810px){
-        .th-address, .td-address{
+    @media screen and (max-width: 810px) {
+
+        .th-address,
+        .td-address {
             max-width: 100px;
         }
     }
 
-    @media screen and (min-width: 769px){
-        .create-lg{
+    @media screen and (min-width: 769px) {
+        .create-lg {
             display: block;
         }
-        .create-sm{
+
+        .create-sm {
             display: none;
         }
     }
 
-    @media screen and (max-width: 768px){
-        .td-id, .th-id{
+    @media screen and (max-width: 768px) {
+
+        .td-id,
+        .th-id {
             display: none;
         }
-        .create-lg{
+
+        .create-lg {
             display: none;
 
         }
-        .create-sm{
+
+        .create-sm {
             display: block;
         }
     }
 
-    @media screen and (max-width: 460px){
-        .th-address, .td-address{
+    @media screen and (max-width: 460px) {
+
+        .th-address,
+        .td-address {
             display: none;
         }
     }
-
-
 </style>
