@@ -14,8 +14,11 @@
             <div class="flex flex-wrap gap-5 px-4">
                 @foreach ($accomodations as $item)
                     <div class="cards rounded overflow-hidden shadow-lg w-2/6">
-                        <img class="w-full" src="{{ asset($item->thumb) }}" style="height: 200px"
-                            alt="{{ $item->title }}">
+                        @if($item->thumb)
+                            <img class="w-full" src="{{ asset($item->thumb) }}" style="height: 200px" alt="{{ $item->title }}">
+                            @else
+                            <p class="no-img">No image</p>
+                        @endif
 
                         <div class="px-6 py-4">
                             <div class="font-bold text-xl mb-2">{{ $item->title }}</div>
@@ -86,6 +89,16 @@
 </x-app-layout>
 
 <style>
+    .no-img{
+        background-color: rgb(240, 240, 240);
+        text-align: center;
+        height: 200px;
+        color: rgb(119, 119, 119);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
    @media screen and (min-width: 1024px) {
         .cards {
             width: calc(20% - 1rem);

@@ -1,39 +1,96 @@
 <x-app-layout>
+    <div class="card pt-5 h-screen">
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Show</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- Fonts -->
-    {{-- <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
+        <div class="cards rounded overflow-hidden shadow-lg">
 
-    <!-- Scripts -->
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
-
-</head>
-<body>
-
-    <div class="d-flex justify-content-center my-3">
-        <div class="card " style="width: 18rem;">
-            {{-- possible conflict between  url and local path --}}
-            @if ($accomodation->thumb)
-                <img src="{{ asset('storage/uploads/' . $accomodation->thumb) }}" class="card-img-top" alt="...">
-            @endif
-
-            <div class="card-body">
-                <h5 class="card-title">{{ $accomodation->title }}</h5>
-                <p class="card-text">{{ $accomodation->address }}, {{ $accomodation->city }}</p>
+            <div class="w-full">
+                @if(!empty($accomodation->thumb))
+                    <img src="{{ asset($accomodation->thumb) }}" alt="{{ $accomodation->title }}">
+                @else
+                    <p class="no-img">No image</p>
+                @endif
             </div>
+
+            <div class="infos px-3 pt-4 pb-2 flex justify-between">
+                <div class="font-bold text-xl mb-2">{{ $accomodation->title }}</div>
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                    {{ $accomodation->price_per_night }} € per night
+                </span>
+            </div>
+
+            <hr>
+
+            <div class="info px-6 pt-4">
+
+                <div class="rooms gap-2 flex justify-between">
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mb-2">
+                        rooms: {{ $accomodation->rooms }}
+                    </span>
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mb-2">
+                        beds: {{ $accomodation->beds }}
+                    </span>
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mb-2">
+                        bathrooms: {{ $accomodation->bathrooms }}
+                    </span>
+                </div>
+
+            </div>
+
+
         </div>
     </div>
 
 
-</body>
-</html>
 
 </x-app-layout>
+
+<style>
+    .no-img{
+        background-color: rgb(240, 240, 240);
+        text-align: center;
+        height: 200px;
+        color: rgb(119, 119, 119);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .card {
+        margin:0 auto;
+    }
+    img{
+        height: 200px;
+        width: 100%;
+    }
+
+
+    @media screen and (max-width: 470px){
+        body{
+            /* background-color: red; */
+        }
+        .cards{
+            width: 275px;
+        }
+        .font-bold{
+            font-size: 15px;
+        }
+    }
+
+    @media screen and (max-width: 470px){
+        .cards{
+            width: 280px;
+        }
+    }
+
+    @media screen and (max-width: 390px){
+        .cards{
+            width: 200px;
+        }
+        .infos{
+            flex-direction: column;
+        }
+        .rooms{
+            flex-direction: column-reverse;
+        }
+    }
+
+</style>
