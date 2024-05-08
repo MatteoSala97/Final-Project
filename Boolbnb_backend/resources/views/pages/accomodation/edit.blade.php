@@ -108,7 +108,7 @@
 
                 <label id="file-name-container" for="thumb"
                     class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('thumb') is-invalid @enderror">
-                    Select a file
+                    Select a file .png, .jpeg and .jpg
                 </label>
                 <input class="form-control  @error('thumb') is-invalid @enderror" type="file" id="thumb"
                     name="thumb">
@@ -124,9 +124,9 @@
             <div class="mb-3">
                 <x-input-label for="pictures[]" :value="__('Pictures (Maximum 5)')" class="text-black" />
 
-                <label id="file-name-container" for="pictures[]"
+                <label id="file-count-container" for="pictures[]"
                     class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 text-gray-500 @error('pictures[]') is-invalid @enderror">
-                    Select file
+                    Select files .png, .jpeg and .jpg
                 </label>
 
                 <input class="form-control @error('pictures[]') is-invalid @enderror" type="file" id="pictures[]"
@@ -299,6 +299,40 @@
     // img
     var inputFile = document.getElementById('thumb');
 
+    inputFile.addEventListener('change', function() {
+        var fileName = inputFile.files[0].name;
+        var fileNameContainer = document.getElementById('file-name-container');
+        fileNameContainer.textContent = 'Selected file: ' + fileName;
+    });
+
+    document.getElementById('pictures[]').addEventListener('change', function() {
+        var files = this.files;
+        var fileCount = files.length;
+        var label = document.getElementById('file-count-container');
+
+
+        if (fileCount > 5) {
+            alert('You can only select up to 5 files.');
+            this.value = '';
+            return;
+        }
+
+        if (fileCount === 0) {
+            label.innerText = 'No file selected. You can add up to 5 more files.';
+        } else if (fileCount === 1) {
+            label.innerText = 'File selected: ' + fileCount + '. You can add up to 4 more files.';
+        } else if (fileCount === 2) {
+            label.innerText = 'Files selected: ' + fileCount + '. You can add up to 3 more files.';
+        } else if (fileCount === 3) {
+            label.innerText = 'Files selected: ' + fileCount + '. You can add up to 2 more files.';
+        } else if (fileCount === 4) {
+            label.innerText = 'Files selected: ' + fileCount + '. You can add one more file.';
+        } else {
+            label.innerText = 'Files selected: ' + fileCount + ". You've reached the maximum amount of files.";
+        }
+    });
+
+    var inputFile = document.getElementById('thumb');
     inputFile.addEventListener('change', function() {
         var fileName = inputFile.files[0].name;
         var fileNameContainer = document.getElementById('file-name-container');
