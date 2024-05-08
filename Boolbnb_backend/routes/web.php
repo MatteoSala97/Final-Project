@@ -44,6 +44,8 @@ Route::middleware('auth')->get('/stats', function () {
     return view('pages.accomodation.stats', compact('accomodations'));
 })->name('stats');
 
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/messages', [MessageController::class, 'index'])->name('messages');
     Route::get('/messages/{message}', [MessageController::class, 'show'])->name('messages.show');
@@ -55,6 +57,8 @@ Route::middleware('auth')->get('/dashboard/accomodations/archive', [Accomodation
 
 //restore route
 Route::post('/accomodations/{id}/restore', [AccomodationController::class, 'restore'])->name('accomodations.restore')->withTrashed();
+
+Route::get('accomodations/show-stats/{accomodation}', [AccomodationController::class, 'showStats'])->name('accomodations.show-stats');
 
 Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(function () {
 
@@ -68,6 +72,7 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
 
     // http://127.0.0.1:8000/dashboard/dashboard/accomodations/advertisement
     Route::get('/dashboard/accomodations/advertisement', [AccomodationController::class, 'advertisement'])->name('accomodations.advertisement');
+
     Route::post('/payment/process', [PaymentsController::class, 'process'])->name('payment.process');
 });
 
