@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="mr-8">
-                    <h1 class="font-bold">Data:</h1>
+                    <h1 class="font-bold">Date:</h1>
                     <p>{{ $message->created_at }}</p>
                 </div>
             </div>
