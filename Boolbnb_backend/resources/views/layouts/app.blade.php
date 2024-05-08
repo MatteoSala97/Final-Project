@@ -30,8 +30,19 @@
     <div class="min-h-screen">
         @include('layouts.navigation')
 
-        {{-- Accommodations / Stats / Advertisement / Messages / Logout --}}
+        <!-- Page Heading -->
+        {{-- @if (isset($header))
+            <header class="bg-white shadow">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    {{ $header }}
+                </div>
+            </header>
+        @endif --}}
+
+        <!-- Page Content -->
         <main class="dashboard flex">
+
+            {{-- Accommodations / Stats / Advertisement / Messages / Logout --}}
             <div class="sidebar flex flex-col pt-4 px-5 border border-y-0 border-l-0">
                 <div class="flex flex-col gap-4">
 
@@ -61,9 +72,18 @@
                             <span>Messages</span>
                         </a>
                     </div>
-                </div>
 
-                {{ $slot }}
+                </div>
+                {{-- log --}}
+                {{-- <div class="sidebar-item mt-auto mb-4">
+                    <a href="#" class="flex items-center text-left">
+                        <img src="/icons/user.svg" class="mr-1" alt="">
+                        <span>Logout</span>
+                    </a>
+                </div> --}}
+            </div>
+
+            {{ $slot }}
         </main>
 
     </div>
@@ -71,10 +91,26 @@
 
 </html>
 
+
+<script>
+    // document.addEventListener("DOMContentLoaded", function() {
+    //     var currentUrl = window.location.href;
+    //     var sidebarLinks = document.querySelectorAll('.sidebar-item a');
+    //     sidebarLinks.forEach(function(link) {
+
+    //         var linkUrl = link.getAttribute('href');
+
+    //         if (currentUrl === linkUrl) {
+    //             link.classList.add('active');
+    //         }
+    //     });
+    // });
+</script>
+
 <style>
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 700px) {
         .sidebar {
-            width: 230px;
+            width: 210px;
         }
 
         span {
@@ -99,17 +135,6 @@
             justify-content: center;
         }
     }
-
-    @media screen and (max-width: 350px) {
-        .sidebar {
-            width: 65px;
-        }
-
-        .sidebar-item {
-            padding: 5px;
-        }
-    }
-
 
 
 
@@ -179,3 +204,4 @@
     font-weight: bold;
 } */
 </style>
+d

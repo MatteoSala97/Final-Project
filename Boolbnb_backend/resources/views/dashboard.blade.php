@@ -80,7 +80,7 @@
                                         @endif
                                     </td>
                                     <td class="td-title px-6 py-5">
-                                        <a class="cursor-pointer underline text-blue-500"
+                                        <a class="cursor-pointer"
                                             href="{{ route('dashboard.accomodations.show', ['accomodation' => $item->id]) }}">
                                             {{ $item->title }}
                                         </a>
