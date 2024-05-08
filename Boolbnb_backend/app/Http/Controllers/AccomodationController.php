@@ -276,6 +276,8 @@ class AccomodationController extends Controller
     {
         // dd($accomodation);
 
+        $accomodation->messages()->delete();
+
         $accomodation->services()->detach();
 
         $accomodation->delete();
