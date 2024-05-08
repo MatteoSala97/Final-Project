@@ -218,6 +218,8 @@
     const selected_address_input = document.getElementById('selected_address');
     const dropdown_menu = document.getElementById('create-dropdown')
 
+    priceDisplay.innerText = '€ ' + priceRange.value
+
     console.log(address_input)
 
     priceRange.addEventListener('input', function() {

@@ -264,7 +264,7 @@
     const selected_address_input = document.getElementById('selected_address');
     const dropdown_menu = document.getElementById('create-dropdown')
 
-    priceDisplay.innerText = priceRange.value
+    priceDisplay.innerText = '€ ' + priceRange.value
 
     priceRange.addEventListener('input', function() {
         priceDisplay.innerText = '€ ' + priceRange.value;

@@ -33,7 +33,7 @@
                 <div class="flex flex-col gap-4">
 
                     <div>
-                        <a href="{{ route('dashboard') }}" class="flex items-center text-left sidebar-item {{ request()->routeIs('dashboard') ? 'active-bg' : '' }}">
+                        <a href="{{ route('dashboard') }}" class="flex items-center text-left sidebar-item {{ request()->routeIs('dashboard', 'dashboard.accomodations.create', 'dashboard.accomodations.edit') ? 'active-bg' : '' }}">
                             <img src="/icons/home-alt.svg" class="mr-1" alt="home">
                             <span>Accommodations</span>
                         </a>
@@ -51,7 +51,7 @@
                         </a>
                     </div>
                     <div>
-                        <a href="{{ route('messages') }}" class="flex items-center text-left sidebar-item {{ request()->routeIs('messages') ? 'active-bg' : '' }}">
+                        <a href="{{ route('messages') }}" class="flex items-center text-left sidebar-item {{ request()->routeIs('messages', 'messages.show') ? 'active-bg' : '' }}">
                             <img src="/icons/message-square.svg" class="mr-1" alt="message">
                             <span>Messages</span>
                         </a>
