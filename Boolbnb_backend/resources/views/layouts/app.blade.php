@@ -52,7 +52,7 @@
                             <span>Accommodations</span>
                         </a>
                     </div>
-                    <div class="sidebar-item {{ request()->routeIs('stats') ? 'active-bg' : '' }}">
+                    <div class="sidebar-item {{ request()->routeIs('stats', 'accomodations.show-stats') ? 'active-bg' : '' }}">
                         <a href="{{ route('stats') }}" class="flex text-left">
                             <img src="/icons/graph-bar.svg" class="mr-1" alt="stats">
                             <span>Stats</span>
