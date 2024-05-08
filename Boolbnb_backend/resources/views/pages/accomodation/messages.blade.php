@@ -5,40 +5,40 @@
         </h2>
     </x-slot>
 
-    <div class="h-full">
-        <h2 class="font-bold text-xl p-5 ml-4">Messages ({{ $messages->total() }})</h2>
-        <!-- Table responsive wrapper -->
-        <div class="tabella overflow-x-auto bg-white mx-4">
+<div class="h-full">
+    <h2 class="font-bold text-xl p-5 ml-4">Messages ({{ $messages->total() }})</h2>
+    <!-- Table responsive wrapper -->
+    <div class="tabella overflow-x-auto bg-white mx-4">
 
             <!-- Table -->
-            <table class="min-w-full text-left text-sm whitespace-nowrap">
+        <table class="min-w-full text-left text-sm whitespace-nowrap">
 
-                <!-- Table head -->
-                <thead class="uppercase tracking-wider border border-x-0">
-                    <tr>
-                        <th scope="col" class="px-6 py-5 th-id">
-                            Thumbnail Image or id
-                        </th>
-                        <th scope="col" class="px-6 py-5 th-title">
-                            Accommodation
-                        </th>
-                        <th scope="col" class="px-6 py-5 th-name">
-                            Sender Name
-                        </th>
-                        <th scope="col" class="px-6 py-5 th-content">
-                            Message
-                        </th>
-                        <th scope="col" class="px-6 py-5 th-created_at">
-                            Time and date
-                        </th>
-                    </tr>
-                </thead>
+            <!-- Table head -->
+            <thead class="uppercase tracking-wider border border-x-0">
+                <tr>
+                    <th scope="col" class="px-6 py-5 th-id">
+                        Thumbnail Image or id
+                    </th>
+                    <th scope="col" class="px-6 py-5 th-title">
+                        Accommodation
+                    </th>
+                    <th scope="col" class="px-6 py-5 th-name">
+                        Sender Name
+                    </th>
+                    <th scope="col" class="px-6 py-5 th-content">
+                        Message
+                    </th>
+                    <th scope="col" class="px-6 py-5 th-created_at">
+                        Time and date
+                    </th>
+                </tr>
+            </thead>
 
                 <!-- Table body -->
-                <tbody>
-                    @foreach ($messages as $message)
-                        @if ($message->accomodation)
-                            <tr class="border border-x-0 hover:bg-neutral-100 message-row view-message-btn cursor-pointer"
+            <tbody>
+                @foreach ($messages as $message)
+                    @if ($message->accomodation)
+                        <tr class="border border-x-0 hover:bg-neutral-100 message-row view-message-btn cursor-pointer"
                                 data-message-id="{{ $message->id }}"
                                 onclick="window.location='{{ route('messages.show', ['message' => $message->id]) }}';">
 
@@ -72,72 +72,6 @@
                     @endif
                 @endforeach
             </tbody>
-            {{-- <tbody>
-                    @foreach ($messages as $message)
-                        @if ($message->accomodation)
-                            <tr class="border-b hover:bg-neutral-100 message-row view-message-btn cursor-pointer"
-                                data-message-id="{{ $message->id }}"
-                                onclick="window.location='{{ route('messages.show', ['message' => $message->id]) }}';">
-
-                                @foreach ($accomodations as $item)
-                                <td scope="row" class="px-6 py-5 td-id" style="height: 80px">
-                                    @if ($item->thumb)
-                                        <img src="{{ asset($item->thumb) }}" style="height: 80px;"
-                                            class="{{ $item->hidden ? 'grayscale' : '' }}" id="old_thumb">
-                                    @else
-                                        <span>
-                                            {{ $item->id }}
-                                        </span>
-                                    @endif
-                                </td>
-                                @endforeach
-
-                                <td class="px-6 py-5">{{ $message->accomodation->title }}</td>
-                                <td class="px-6 py-5">{{ $message->created_at }}</td>
-                                <td class="px-6 py-5">{{ $message->name }}</td>
-                                <td class="message-body px-6 py-5">{{ $message->content }}</td>
-                            </tr>
-                        @endif
-                    @endforeach
-                </tbody> --}}
-
-                <tbody>
-                    @foreach ($messages as $message)
-                        @if ($message->accomodation)
-                            <tr class="border-b hover:bg-neutral-100 message-row view-message-btn cursor-pointer"
-                                data-message-id="{{ $message->id }}"
-                                onclick="window.location='{{ route('messages.show', ['message' => $message->id]) }}';">
-
-                                <?php $accomodationFound = false; ?>
-                                @foreach ($accomodations as $item)
-                                    @if ($item->id == $message->accomodation->id)
-                                        <?php $accomodationFound = true; ?>
-                                        <td scope="row" class="px-6 py-5 td-id" style="height: 80px">
-                                            @if ($item->thumb)
-                                                <img src="{{ asset($item->thumb) }}" style="height: 80px;"
-                                                    class="{{ $item->hidden ? 'grayscale' : '' }}" id="old_thumb">
-                                            @else
-                                                <span>
-                                                    {{ $item->id }}
-                                                </span>
-                                            @endif
-                                        </td>
-                                    @break
-                                @endif
-                            @endforeach
-
-                            @if (!$accomodationFound)
-                                <td></td>
-                            @endif
-
-                            <td class="px-6 py-5">{{ $message->accomodation->title }}</td>
-                            <td class="px-6 py-5">{{ $message->created_at }}</td>
-                            <td class="px-6 py-5">{{ $message->name }}</td>
-                            <td class="message-body px-6 py-5">{{ $message->content }}</td>
-                        </tr>
-                    @endif
-                @endforeach
-            </tbody>
 
         </table>
         <div class="mt-5 mx-10">
@@ -146,24 +80,6 @@
     </div>
 </div>
 </x-app-layout>
-
-
-
-
-
-
-
-{{-- <script>
-    $(document).ready(function() {
-        $('.view-message-btn').click(function() {
-
-            var messageId = $(this).closest('.message-row').data('message-id');
-            var url = "{{ route('messages.show', ['message' => $message->id]) }}";
-
-            window.location.href = url;
-        });
-    });
-</script> --}}
 
 
 <style>
