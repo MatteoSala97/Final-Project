@@ -71,6 +71,9 @@ class AccomodationController extends Controller
                 ->selectRaw('ST_Distance_Sphere(POINT(accomodations.longitude, accomodations.latitude), POINT(?, ?)) AS distance', [$point_lng, $point_lat])
                 ->having('distance', '<=', $max_distance_meters);
 
+
+            $accomodations_query->orderByDesc('has_ad');
+
             switch ($order_by) {
                 case 'distance':
                     $accomodations_query->orderBy('distance');
@@ -82,7 +85,7 @@ class AccomodationController extends Controller
                     $accomodations_query->orderByDesc('rating');
                     break;
                 default:
-                    $accomodations_query->orderBy('distance');
+                    // $accomodations_query->orderBy('distance');
                     break;
             }
         } else {
@@ -96,7 +99,7 @@ class AccomodationController extends Controller
 
 
 
-        $accomodations_query->orderBy('has_ad', 'DESC');
+
 
         // Eager loading relationships
         $accomodations_query->with(['pictures', 'services', 'ads']);
@@ -115,6 +118,8 @@ class AccomodationController extends Controller
         foreach ($accomodations as $accommodation) {
             $accommodation->has_ad = $accommodation->ads->isNotEmpty();
         }
+
+
         //if max_distance was among the filters, attach a "distance_from_point" additional info
         if ($max_distance !== null && $point_lat  !== null  && $point_lng  !== null) {
             foreach ($accomodations as $accommodation) {

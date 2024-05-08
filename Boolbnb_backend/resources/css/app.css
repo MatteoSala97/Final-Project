@@ -92,3 +92,9 @@
 .active-bg img{
     filter: invert(1);
 }
+
+input[type="range"] {
+    -webkit-appearance: slider-horizontal; /* Per WebKit (Chrome, Safari) */
+    -moz-appearance: slider-horizontal; /* Per Firefox */
+    appearance: slider-horizontal; /* Standard */
+}
