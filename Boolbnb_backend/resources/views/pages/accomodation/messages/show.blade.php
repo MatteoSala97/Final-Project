@@ -22,8 +22,8 @@
                 </div>
 
                 <div class="mr-8">
-                    <h1 class="font-bold">Date:</h1>
-                    <p>{{ $message->created_at }}</p>
+                    <h1 class="font-bold">Data:</h1>
+                    <p>{{ date('Y-m-d H:i', strtotime($message->created_at))}}</p>
                 </div>
             </div>
 

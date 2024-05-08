@@ -108,7 +108,7 @@
 </script>
 
 <style>
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 900px){
         .sidebar {
             width: 210px;
         }
@@ -137,7 +137,14 @@
     }
 
 
-
+    @media screen and (max-width: 350px){
+        .sidebar {
+            width: 65px;
+        }
+        .sidebar-item{
+            padding: 5px;
+        }
+    }
 
 
 
@@ -204,4 +211,4 @@
     font-weight: bold;
 } */
 </style>
-d
+

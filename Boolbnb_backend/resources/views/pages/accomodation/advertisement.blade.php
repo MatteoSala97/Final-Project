@@ -140,7 +140,7 @@
                     </div>
 
                     <!-- Table responsive wrapper -->
-                    <div class="overflow-x-auto">
+                    <div class=" overflow-x-auto">
                         <!-- Table -->
                         <table class="min-w-full text-left text-sm whitespace-nowrap">
                             <!-- Table head -->
@@ -444,9 +444,6 @@
         text-overflow: ellipsis;
         white-space: nowrap;
     }
-    .th-address, .td-address{
-        max-width: 100px;
-    }
 
     /* Rules to fix the sidebar and right side dimensions */
     .ads:hover,
@@ -711,6 +708,9 @@
         }
         .font-bold{
             font-size: 15px;
+        }
+        .tabella{
+            margin: 0px;
         }
 
     }
