@@ -297,4 +297,9 @@ class AccomodationController extends Controller
 
         return redirect()->to('dashboard');
     }
+
+    public function showStats(Accomodation $accomodation)
+    {
+        return view('pages.accomodation.stat-graph', compact('accomodation'));
+    }
 }

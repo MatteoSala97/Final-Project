@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="h-screen mb-4">
+    <div class="h-full mb-4">
         @if ($accomodations !== null && count($accomodations) > 0)
             <div class="subtitle flex justify-between m-5">
                 <h2 class="font-bold text-xl ml-4">Statistics (Total accommodations: {{ $accomodations->total() }})</h2>
@@ -122,8 +122,9 @@
         .cards {
             width: calc(50% - 1rem);
         }
-        .hide-me{
-           display: none;
+
+        .hide-me {
+            display: none;
         }
 
     }

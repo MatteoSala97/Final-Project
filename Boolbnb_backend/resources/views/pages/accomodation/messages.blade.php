@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="h-screen">
+    <div class="h-full">
         <h2 class="font-bold text-xl p-5 ml-4">Messages ({{ $messages->count() }})</h2>
         <!-- Table responsive wrapper -->
         <div class="tabella overflow-x-auto bg-white mx-4">
@@ -100,12 +100,51 @@
                         @endif
                     @endforeach
                 </tbody> --}}
-            </table>
-            <div class="mt-5 mx-10">
-                {{ $messages->links() }}
-            </div>
+
+                <tbody>
+                    @foreach ($messages as $message)
+                        @if ($message->accomodation)
+                            <tr class="border-b hover:bg-neutral-100 message-row view-message-btn cursor-pointer"
+                                data-message-id="{{ $message->id }}"
+                                onclick="window.location='{{ route('messages.show', ['message' => $message->id]) }}';">
+
+                                <?php $accomodationFound = false; ?>
+                                @foreach ($accomodations as $item)
+                                    @if ($item->id == $message->accomodation->id)
+                                        <?php $accomodationFound = true; ?>
+                                        <td scope="row" class="px-6 py-5 td-id" style="height: 80px">
+                                            @if ($item->thumb)
+                                                <img src="{{ asset($item->thumb) }}" style="height: 80px;"
+                                                    class="{{ $item->hidden ? 'grayscale' : '' }}" id="old_thumb">
+                                            @else
+                                                <span>
+                                                    {{ $item->id }}
+                                                </span>
+                                            @endif
+                                        </td>
+                                    @break
+                                @endif
+                            @endforeach
+
+                            @if (!$accomodationFound)
+                                <td></td>
+                            @endif
+
+                            <td class="px-6 py-5">{{ $message->accomodation->title }}</td>
+                            <td class="px-6 py-5">{{ $message->created_at }}</td>
+                            <td class="px-6 py-5">{{ $message->name }}</td>
+                            <td class="message-body px-6 py-5">{{ $message->content }}</td>
+                        </tr>
+                    @endif
+                @endforeach
+            </tbody>
+
+        </table>
+        <div class="mt-5 mx-10">
+            {{ $messages->links() }}
         </div>
     </div>
+</div>
 </x-app-layout>
 
 
@@ -221,25 +260,25 @@
         height: 100%;
     }
 
-    .min-h-screen {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
+.min-h-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
-    main {
-        flex: 1;
-    }
+main {
+    flex: 1;
+}
 
-    main>* {
-        width: 100%;
-    }
+main>* {
+    width: 100%;
+}
 
-    .message-body {
-        display: inline-block;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 60ch;
-    }
+.message-body {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60ch;
+}
 </style>
