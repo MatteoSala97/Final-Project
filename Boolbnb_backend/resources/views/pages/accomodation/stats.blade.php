@@ -72,7 +72,7 @@
                 {{ $accomodations->links() }}
             </div>
         @else
-            <div class="info flex flex-col justify-center items-center h-screen text-grey gap-5">
+            <div class="info flex flex-col justify-center items-center h-screen text-grey mx-4 gap-5">
                 <p>
                     There are no accommodations, please start by adding a new one.
                 </p>
@@ -92,6 +92,12 @@
             width: calc(20% - 1rem);
             margin: 0 auto;
         }
+    }
+    @media screen and (max-width: 460px){
+        .font-bold{
+            font-size: 15px;
+        }
+
     }
 
     @media screen and (max-width: 1023px) {

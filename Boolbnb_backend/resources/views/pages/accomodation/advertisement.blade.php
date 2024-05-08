@@ -2,8 +2,8 @@
     <div class="w-full">
 
         {{-- pagamento --}}
-        <div class="absolute w-[85%] h-full overlay justify-center items-center hidden" id="overlay">
-            <div class="payment-confirmation w-[350px]  bg-white rounded-lg p-6 flex flex-col gap-8"
+        <div class="absolute h-full overlay justify-center items-center hidden" id="overlay">
+            <div class="payment-confirmation bg-white rounded-lg p-4 flex flex-col gap-5"
                 id="payment-confirmation">
                 <div class="popup-upper justify-between flex items-center">
                     <h3 class="text-xl font-bold text-black">
@@ -46,7 +46,7 @@
                     <input type="hidden" id="nonce" name="payment_method_nonce" />
                     <button>
                         <x-button-gradient>
-                            <input class="uppercase" type="submit" value="Purchase" id="payment-submit-button">
+                            <input class="uppercase cursor-pointer" type="submit" value="Purchase" id="payment-submit-button">
                         </x-button-gradient>
                     </button>
 
@@ -116,7 +116,7 @@
 
 
 
-        <div class=" border-gray-200 rounded-xl flex mt-4 h-screen">
+        <div class=" border-gray-200 rounded-xl flex mt-1 ">
             {{-- <div class="flex flex-col justify-center items-center">
                     <p class="text-center">There are no advertised accommodations with this package</p>
                     <div class="mt-4">
@@ -129,7 +129,7 @@
             <div class="w-full mx-4">
                 @if ($accomodations !== null && count($accomodations) > 0)
                     <div class="subtitle flex justify-between m-5">
-                        <h2 id="title-ads" class="font-bold text-xl ">Your Accommodations ({{ $accomodations->total() }})</h2>
+                        <h2 class="font-bold text-xl ">Your Accommodations ({{ $accomodations->total() }})</h2>
 
                         {{-- <x-button-gradient class="gradient-button">
                             <a href="{{ route('dashboard.accomodations.create') }}">
@@ -179,7 +179,7 @@
                                         class="border border-x-0 hover:bg-neutral-100 {{ $item->hidden ? 'text-gray-600' : '' }}">
                                         <td scope="row" class="px-6 py-5 td-id" style="height: 80px">
                                             @if ($item->thumb)
-                                                <img src="{{ asset($item->thumb) }}" style="height: 80px"
+                                                <img src="{{ asset($item->thumb) }}" style="height: 80px; width: 110px;"
                                                     class="{{ $item->hidden ? 'grayscale' : '' }}" id="old_thumb">
                                             @else
                                                 <span>
@@ -210,7 +210,7 @@
                                             @endif
                                         </td>
                                         <td class="py-2 td-btn">
-                                            <div class="flex gap-2 justify-around">
+                                            <div class="flex gap-2">
 
                                                 <button class="lg-button">
                                                     <x-button-gradient class="ad-button"
@@ -223,7 +223,7 @@
                                                 <button class="sm-button ad-button gradient-button uppercase"
                                                     data-accommodation-id="{{ $item->id }}"
                                                     data-accommodation-title="{{ $item->title }}">
-                                                    Advertise
+                                                    Adv
                                                 </button>
 
                                             </div>
@@ -283,7 +283,7 @@
                             </nav> --}}
                     </div>
                     @else
-                    <div class="info flex flex-col justify-center items-center h-2/4 text-grey gap-5">
+                    <div class="info flex flex-col justify-center items-center mt-10 text-grey  gap-5">
                         <p>
                             There are no accommodations, please start by adding a new one.
                         </p>
@@ -434,189 +434,19 @@
 
 <style>
 
-    body{
-        /* background-color: red; */
-    }
-
-    .th-id,
-    .th-title,
-    .th-address,
-    .th-expiration_date,
-    .th-btn{
-        /* background-color: green; */
-    }
-    .td-id,
-    .td-title,
-    .td-address,
-    .td-expiration_date,
-    .td-btn{
-        /* background-color: orange; */
-    }
-
-    .th-address, .td-address{
-        max-width: 100px;
+    .th-id, .td-id,
+    .th-title, .td-title,
+    .th-address, .td-address,
+    .th-expiration_date, .td-expiration_date,
+    .th-btn, .td-btn{
+        max-width: 200px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        /* background-color: orange; */
     }
-    @media screen and (max-width: 1200px){
-        .td-address{
-            /* background-color: purple; */
-            max-width: 150px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-
-        .th-id{
-            /* background-color: blue; */
-            max-width: 120px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+    .th-address, .td-address{
+        max-width: 100px;
     }
-    @media screen and (max-width: 1100px){
-        .td-address{
-            max-width: 100px;
-        }
-    }
-    @media screen and (max-width: 1000px){
-        .td-id, .th-id{
-            display: none;
-        }
-
-        .th-title, .td-title{
-            /* background-color: lightblue; */
-            max-width: 70px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-
-        }
-
-
-        .th-expiration_date, .td-expiration_date{
-            /* background-color: orange; */
-            max-width: 120px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .th-btn, .td-btn{
-            /* background-color: pink; */
-            max-width: 120px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-    }
-
-
-    @media screen and (max-width: 900px){
-        .th-address, .td-address{
-            display: none;
-        }
-        .th-expiration_date, .td-expiration_date{
-            max-width: 90px;
-        }
-
-        .th-btn, .td-btn{
-            /* background-color: gold; */
-            max-width: 80px;
-        }
-
-    }
-
-    @media screen and (max-width: 870px){
-        .btn-advertisement{
-            flex-direction: column;
-        }
-        .ads{
-            padding: 8px;
-        }
-    }
-
-    @media screen and (min-width: 769px){
-        .lg-button{
-            display: block;
-        }
-        .sm-button{
-            display: none;
-        }
-    }
-
-    @media screen and (max-width: 768px){
-
-        .th-id,
-        .th-title,
-        .th-address,
-        .th-expiration_date,
-        .th-btn{
-            padding: 5px;
-        }
-
-        .td-id,
-        .td-title,
-        .td-address,
-        .td-expiration_date,
-        .td-btn{
-            padding: 8px;
-        }
-
-        figure{
-            display: none;
-        }
-
-        #title-ads{
-            font-size: 15px;
-        }
-
-        .lg-button{
-            display: none;
-        }
-        .sm-button{
-            display: block;
-        }
-
-    }
-
-
-    @media screen and (max-width: 460px){
-        .th-id,
-        .th-title,
-        .th-address,
-        .th-expiration_date,
-        .th-btn{
-            /* background-color: #00CBD8; */
-            padding: 2px;
-        }
-
-        .td-id,
-        .td-title,
-        .td-address,
-        .td-expiration_date,
-        .td-btn{
-            padding: 3px;
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /* Rules to fix the sidebar and right side dimensions */
     .ads:hover,
@@ -635,7 +465,6 @@
         display: flex;
         flex-direction: column;
     }
-
 
     main {
         flex: 1;
@@ -686,7 +515,14 @@
         color: white;
     }
 
-    .overlay {
+    .overlay{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        display: fixed;
         background-color: rgba(95, 95, 95, 0.7);
     }
 
@@ -697,4 +533,185 @@
     }
 
 
+
+
+
+
+
+
+
+
+    @media screen and (max-width: 1240px){
+        .th-id, .td-id{
+            max-width: 160px;
+        }
+        .th-address, .td-address{
+            max-width: 150px;
+        }
+    }
+
+    @media screen and (max-width: 1140px){
+        body{
+            /* background-color: orange; */
+        }
+
+        .th-title, .td-title{
+            max-width: 110px;
+        }
+
+        .th-address, .td-address{
+            max-width: 130px;
+        }
+        .th-expiration_date, .td-expiration_date{
+            max-width: 115px;
+        }
+    }
+
+    @media screen and (max-width: 1000px){
+        .th-id, .td-id,
+        .th-title, .td-title,
+        .th-address, .td-address,
+        .th-expiration_date, .td-expiration_date,
+        .th-btn, .td-btn{
+            /* padding-left: 5px;
+            padding-right: 5px; */
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .td-id, .th-id{
+            display: none;
+        }
+
+        .th-title, .td-title{
+            max-width: 70px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding: 0px;
+        }
+
+        figure{
+            display: none;
+        }
+
+        .th-expiration_date, .td-expiration_date{
+            /* background-color: orange; */
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .th-btn, .td-btn{
+            /* background-color: pink; */
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+    }
+
+    @media screen and (max-width: 900px){
+        .th-address, .td-address{
+            display: none;
+        }
+        .th-expiration_date, .td-expiration_date{
+            max-width: 90px;
+        }
+
+        .th-btn, .td-btn{
+            /* background-color: gold; */
+            max-width: 80px;
+        }
+
+    }
+
+    @media screen and (max-width: 870px){
+        .btn-advertisement{
+            flex-direction: column;
+        }
+        .ads{
+            padding: 8px;
+        }
+    }
+
+    @media screen and (min-width: 769px){
+        .lg-button{
+            display: block;
+        }
+        .sm-button{
+            display: none;
+        }
+    }
+
+    @media screen and (max-width: 768px){
+
+        .td-id, .th-id{
+            display: none;
+        }
+
+        .th-id,
+        .th-title,
+        .th-address,
+        .th-expiration_date,
+        .th-btn{
+            padding: 5px;
+        }
+
+        .td-id,
+        .td-title,
+        .td-address,
+        .td-expiration_date,
+        .td-btn{
+            padding: 8px;
+        }
+
+        figure{
+            display: none;
+        }
+
+        .lg-button{
+            display: none;
+        }
+        .sm-button{
+            display: block;
+        }
+
+    }
+
+    @media screen and (max-width: 460px){
+        .th-id,
+        .th-title,
+        .th-address,
+        .th-expiration_date,
+        .th-btn{
+            padding: 2px;
+            max-width: 10px;
+        }
+
+        .td-id,
+        .td-title,
+        .td-address,
+        .td-expiration_date,
+        .td-btn{
+            padding: 3px;
+        }
+
+        .btn-advertisement{
+           gap: 5px;
+        }
+        .ads{
+            padding: 5px;
+        }
+
+        .title{
+            font-size: 15px;
+        }
+        .font-bold{
+            font-size: 15px;
+        }
+
+    }
 </style>
