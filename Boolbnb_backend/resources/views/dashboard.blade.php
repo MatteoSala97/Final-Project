@@ -14,7 +14,7 @@
                         <p class="accom-title font-bold text-xl">Your Accommodations ({{ $accomodations->count() }})</p>
                     </a>
 
-                    <a href="{{ route('dashboard.accomodations.create') }}">
+                    <a href="{{ route('dashboard.accomodations.create') }}" class="pb-5">
                         <x-button-gradient>
                             {{ __('Create a new accommodation') }}
                         </x-button-gradient>
@@ -202,6 +202,8 @@
             white-space: nowrap;
         }
 
+
+
     }
 
     @media screen and (max-width: 980px){
@@ -269,7 +271,7 @@
 
 
     @media screen and (max-width: 460px){
-        .th-id,
+        /* .th-id,
         .th-title,
         .th-type,
         .th-address,
@@ -285,6 +287,6 @@
         .td-btn{
             padding: 0px;
             gap: 0;
-        }
+        } */
     }
 </style>

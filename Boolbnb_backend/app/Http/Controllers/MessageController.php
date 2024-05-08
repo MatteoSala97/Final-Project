@@ -35,6 +35,9 @@ class MessageController extends Controller
     {
         $user = auth()->user();
 
+        // Retrieve accommodations owned by the user
+        $accomodations = Accomodation::where('user_id', $user->id)->get();
+
         // Retrieve messages related to accommodations owned by the user
         $messages = Message::with('accomodation')
             ->join('accomodations', 'messages.accomodation_id', '=', 'accomodations.id')
@@ -43,8 +46,8 @@ class MessageController extends Controller
             ->orderBy('messages.created_at', 'desc')
             ->paginate(5);
 
-        // Pass the retrieved messages to the view
-        return view('pages.accomodation.messages', compact('messages'));
+        // Pass both messages and accommodations to the view
+        return view('pages.accomodation.messages', compact('messages', 'accomodations'));
     }
 
 
