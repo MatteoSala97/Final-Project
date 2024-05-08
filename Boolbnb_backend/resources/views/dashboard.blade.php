@@ -66,7 +66,12 @@
                                             </span>
                                         @endif
                                     </td>
-                                    <td class="td-title px-6 py-5">{{ $item->title }}</td>
+                                    <td class="td-title px-6 py-5">
+                                        <a class="cursor-pointer"
+                                            href="{{ route('dashboard.accomodations.show', ['accomodation' => $item->id]) }}">
+                                            {{ $item->title }}
+                                        </a>
+                                    </td>
                                     <td class="td-type px-6 py-5">{{ $item->type }}</td>
                                     <td class="td-address px-6 py-5">{{ $item->address }}</td>
                                     {{-- <td class="px-6 py-5">{{ $item->city }}</td> --}}

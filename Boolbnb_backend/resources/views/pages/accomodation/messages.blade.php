@@ -5,10 +5,10 @@
         </h2>
     </x-slot>
 
-<div class="h-full">
+<div class="h-full mx-4">
     <h2 class="font-bold text-xl p-5 ml-4">Messages ({{ $messages->total() }})</h2>
     <!-- Table responsive wrapper -->
-    <div class="tabella overflow-x-auto bg-white mx-4">
+    <div class="tabella overflow-x-auto bg-white ">
 
             <!-- Table -->
         <table class="min-w-full text-left text-sm whitespace-nowrap">
