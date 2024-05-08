@@ -137,7 +137,14 @@
     }
 
 
-
+    @media screen and (max-width: 350px){
+        .sidebar {
+            width: 65px;
+        }
+        .sidebar-item{
+            padding: 5px;
+        }
+    }
 
 
 
@@ -204,4 +211,4 @@
     font-weight: bold;
 } */
 </style>
-d
+
