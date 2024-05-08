@@ -89,7 +89,7 @@
                 <div class="rooms mb-3 w-full">
                     <x-input-label for="rooms" :value="__('Bedrooms *')" />
                     <input type="number" name="rooms" id="rooms" value="{{ old('rooms') ?? 1 }}"
-                        class="block mt-1 rounded-md w-full border-gray-300 text-gray-500 w-full
+                        class="block mt-1 rounded-md w-full border-gray-300 text-gray-500
                         @error('rooms') is-invalid @enderror"
                         min="1" @required(true) />
                     @error('rooms')
@@ -103,7 +103,7 @@
                 <div class="beds mb-3 w-full">
                     <x-input-label for="beds" :value="__('Beds *')" />
                     <input type="number" name="beds" id="beds"
-                        class="block mt-1 rounded-md w-full border-gray-300 text-gray-500 w-full
+                        class="block mt-1 rounded-md w-full border-gray-300 text-gray-500
                         @error('beds') is-invalid @enderror"
                         value="{{ old('beds') ?? 1 }}" min="1" />
                     @error('beds')
@@ -117,7 +117,7 @@
                 <div class="bathrooms mb-3 w-full">
                     <x-input-label for="bathrooms" :value="__('Bathrooms *')" />
                     <input type="number" name="bathrooms" id="bathrooms" value="{{ old('bathrooms') ?? 1 }}"
-                        class="block mt-1 rounded-md w-full border-gray-300 text-gray-500 w-full
+                        class="block mt-1 rounded-md w-full border-gray-300 text-gray-500
                         @error('bathrooms') is-invalid @enderror"
                         min="1" />
                     @error('bathrooms')
