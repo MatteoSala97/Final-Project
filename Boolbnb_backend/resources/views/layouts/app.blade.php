@@ -46,7 +46,7 @@
             <div class="sidebar flex flex-col pt-4 px-5 border border-y-0 border-l-0">
                 <div class="flex flex-col gap-4">
 
-                    <div class="sidebar-item {{ request()->routeIs('dashboard') ? 'active-bg' : '' }}">
+                    <div class="sidebar-item {{ request()->routeIs('dashboard', 'dashboard.accomodations.create', 'dashboard.accomodations.edit', 'dashboard.accomodations.destroy') ? 'active-bg' : '' }}">
                         <a href="{{ route('dashboard') }}" class="flex items-center text-left">
                             <img src="/icons/home-alt.svg" class="mr-1" alt="home">
                             <span>Accommodations</span>
@@ -66,7 +66,7 @@
                             <span>Advertisement</span>
                         </a>
                     </div>
-                    <div class="sidebar-item {{ request()->routeIs('messages') ? 'active-bg' : '' }}">
+                    <div class="sidebar-item {{ request()->routeIs('messages', 'messages.show') ? 'active-bg' : '' }}">
                         <a href="{{ route('messages') }}" class="flex items-center text-left">
                             <img src="/icons/message-square.svg" class="mr-1" alt="message">
                             <span>Messages</span>
