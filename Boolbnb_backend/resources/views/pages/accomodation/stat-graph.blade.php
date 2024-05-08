@@ -71,23 +71,23 @@
     // Create the data object for Chart.js
     const data = {
         labels: labels,
-        datasets: [
+        datasets: [{
+                label: 'Views',
+                data: viewCounts,
+                borderColor: '#ccf5f7',
+                backgroundColor: '#ccf5f7',
+                yAxisID: 'y',
+            },
 
             {
                 label: 'Messages',
                 data: messageCounts,
-                borderColor: 'red',
-                backgroundColor: 'red',
+                borderColor: '#e9c6ff',
+                backgroundColor: '#e9c6ff',
                 yAxisID: 'y1',
             },
 
-            {
-                label: 'Views',
-                data: viewCounts,
-                borderColor: 'blue',
-                backgroundColor: 'blue',
-                yAxisID: 'y',
-            }
+
 
         ]
     };

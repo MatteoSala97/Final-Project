@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="h-full">
-        <h2 class="font-bold text-xl p-5 ml-4">Messages ({{ $messages->count() }})</h2>
+        <h2 class="font-bold text-xl p-5 ml-4">Messages ({{ $messages->total() }})</h2>
         <!-- Table responsive wrapper -->
         <div class="tabella overflow-x-auto bg-white mx-4">
 
@@ -37,25 +37,25 @@
                 <!-- Table body -->
                 <tbody>
                     @foreach ($messages as $message)
-                    @if ($message->accomodation)
-                        <tr class="border border-x-0 hover:bg-neutral-100 message-row view-message-btn cursor-pointer"
-                            data-message-id="{{ $message->id }}"
-                            onclick="window.location='{{ route('messages.show', ['message' => $message->id]) }}';">
+                        @if ($message->accomodation)
+                            <tr class="border border-x-0 hover:bg-neutral-100 message-row view-message-btn cursor-pointer"
+                                data-message-id="{{ $message->id }}"
+                                onclick="window.location='{{ route('messages.show', ['message' => $message->id]) }}';">
 
-                            <?php $accomodationFound = false; ?>
-                            @foreach ($accomodations as $item)
-                                @if ($item->id == $message->accomodation->id)
-                                    <?php $accomodationFound = true; ?>
-                                    <td scope="row" class="px-6 py-5 td-id">
-                                        @if ($item->thumb)
-                                            <img src="{{ asset($item->thumb) }}" style="height: 80px; width: 110px;"
-                                                class="{{ $item->hidden ? 'grayscale' : '' }}" id="old_thumb">
-                                        @else
-                                            <span>
-                                                {{ $item->id }}
-                                            </span>
-                                        @endif
-                                    </td>
+                                <?php $accomodationFound = false; ?>
+                                @foreach ($accomodations as $item)
+                                    @if ($item->id == $message->accomodation->id)
+                                        <?php $accomodationFound = true; ?>
+                                        <td scope="row" class="px-6 py-5 td-id">
+                                            @if ($item->thumb)
+                                                <img src="{{ asset($item->thumb) }}" style="height: 80px; width: 110px;"
+                                                    class="{{ $item->hidden ? 'grayscale' : '' }}" id="old_thumb">
+                                            @else
+                                                <span>
+                                                    {{ $item->id }}
+                                                </span>
+                                            @endif
+                                        </td>
                                     @break
                                 @endif
                             @endforeach
@@ -70,9 +70,9 @@
                             <td class="px-6 py-5 td-created_at">{{ $message->created_at->format('Y-m-d') }}</td>
                         </tr>
                     @endif
-                    @endforeach
-                </tbody>
-                {{-- <tbody>
+                @endforeach
+            </tbody>
+            {{-- <tbody>
                     @foreach ($messages as $message)
                         @if ($message->accomodation)
                             <tr class="border-b hover:bg-neutral-100 message-row view-message-btn cursor-pointer"
@@ -179,68 +179,92 @@
     }
 
 
-    @media screen and (max-width: 1240px){
-        .th-content, .td-content,
-        .th-title, .td-title{
-            max-width: 150px;
-        }
+@media screen and (max-width: 1240px) {
+
+    .th-content,
+    .td-content,
+    .th-title,
+    .td-title {
+        max-width: 150px;
+    }
+}
+
+@media screen and (max-width: 1140px) {
+
+    .th-title,
+    .td-title,
+    .th-name,
+    .td-name,
+    .th-content,
+    .td-content,
+    .th-created_at,
+    .td-created_at {
+        max-width: 120px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+
+    .th-created_at,
+    .td-created_at {
+        display: none;
     }
 
-    @media screen and (max-width: 1140px){
-        .th-title, .td-title,
-        .th-name, .td-name,
-        .th-content, .td-content,
-        .th-created_at, .td-created_at{
-            max-width: 120px;
-        }
+}
+
+@media screen and (max-width: 900px) {
+
+    .th-id,
+    .td-id {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .th-id,
+    .td-id,
+    .th-title,
+    .td-title,
+    .th-name,
+    .td-name,
+    .th-content,
+    .td-content,
+    .th-created_at,
+    .td-created_at {
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 
-    @media screen and (max-width: 1000px){
-        .th-created_at, .td-created_at{
-            display: none;
-        }
+}
 
+@media screen and (max-width: 500px) {
+
+    .th-content,
+    .td-content {
+        display: none;
     }
 
-    @media screen and (max-width: 900px){
-        .th-id, .td-id{
-            display: none;
-        }
+    .font-bold {
+        font-size: 15px;
     }
 
-    @media screen and (max-width: 768px){
-        .th-id, .td-id,
-        .th-title, .td-title,
-        .th-name, .td-name,
-        .th-content, .td-content,
-        .th-created_at, .td-created_at{
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
+}
 
+@media screen and (max-width: 400px) {
+
+    .th-name,
+    .td-name,
+    .th-title,
+    .td-title {
+        padding-right: 5px;
+        padding-left: 5px;
     }
 
-    @media screen and (max-width: 500px){
-        .th-content, .td-content{
-            display: none;
-        }
-        .font-bold{
-            font-size: 15px;
-        }
-
+    .tabella {
+        margin: 0px;
     }
-
-    @media screen and (max-width: 400px){
-        .th-name, .td-name,
-        .th-title, .td-title{
-            padding-right: 5px;
-            padding-left: 5px;
-        }
-
-        .tabella{
-            margin: 0px;
-        }
-    }
+}
 
 
 
