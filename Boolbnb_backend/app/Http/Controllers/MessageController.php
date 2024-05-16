@@ -19,6 +19,8 @@ class MessageController extends Controller
             'name' => 'required|string',
             'email' => 'required|email',
             'content' => 'required|string',
+            'start_date' => 'date',
+            'start_date' => 'date'
         ];
 
         $validated_data = $request->validate($rules);
