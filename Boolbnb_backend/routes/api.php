@@ -48,6 +48,7 @@ Route::post('/store-visual', [ViewController::class, 'store']);
 
 Route::post('/login', [AuthController::class, 'login'])->middleware('guest');
 Route::post('/register', [AuthController::class, 'register'])->middleware('guest');
+Route::post('/logout', [AuthController::class, 'logout']);
 
 
 

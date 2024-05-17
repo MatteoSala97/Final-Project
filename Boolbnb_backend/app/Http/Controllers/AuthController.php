@@ -80,4 +80,14 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'User successfully registered', 'user' => $user], 201);
     }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        if (Auth::check()) {
+            return response()->json(['message' => 'Logout failed'], 500);
+        }
+
+        return response()->json(['message' => 'Logout successful'], 200);
+    }
 }
