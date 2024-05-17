@@ -49,6 +49,7 @@ Route::middleware('auth')->get('/stats', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/messages', [MessageController::class, 'index'])->name('messages');
     Route::get('/messages/{message}', [MessageController::class, 'show'])->name('messages.show');
+    Route::post('/reply', [MessageController::class, 'reply'])->name('reply');
 });
 
 

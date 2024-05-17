@@ -39,6 +39,11 @@ class Accomodation extends Model
         return $this->belongsToMany(Ad::class)->withPivot('created_at', 'expiration_date');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 
     public function distanceToPoint($lng, $lat)
     {

@@ -43,12 +43,15 @@ Route::get('/accommodations', [AccomodationController::class, 'index']);
 Route::get('/accommodations/{id}', [AccomodationController::class, 'show']);
 Route::get('/get-address-suggestions', [UserAddressController::class, 'suggestAddressList']);
 Route::get('/filtered-accommodations', [AccomodationController::class, 'filteredAccommodations']);
-Route::post('/send-message', [MessageController::class, 'store']);
+Route::post('/send-message', [MessageController::class, 'store'])->name('send-message');
+
 Route::post('/store-visual', [ViewController::class, 'store']);
 
 Route::post('/login', [AuthController::class, 'login'])->middleware('guest');
 Route::post('/register', [AuthController::class, 'register'])->middleware('guest');
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
+
+Route::get('/get-messages', [MessageController::class, 'userMessagesApi']);
 
 
 

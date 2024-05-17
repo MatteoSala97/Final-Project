@@ -25,7 +25,8 @@ class AuthController extends Controller
 
         // Attempt to authenticate user
         if (auth()->attempt($credentials)) {
-            // Authentication successful
+            $token = auth()->user()->createToken('authToken')->plainTextToken;
+            return response()->json(['token' => $token, 'user' => auth()->user()], 200);
             return response()->json(['message' => 'Login successful', 'user' => auth()->user()], 200);
         } else {
             // Authentication failed
@@ -74,11 +75,13 @@ class AuthController extends Controller
             'user_propic' => $user_propic_filename ?? null
         ]);
 
+        $token = $user->createToken('authToken')->plainTextToken;
+
         event(new Registered($user));
 
         Auth::login($user);
 
-        return response()->json(['message' => 'User successfully registered', 'user' => $user], 201);
+        return response()->json(['message' => 'User successfully registered', 'user' => $user, 'token' => $token], 201);
     }
 
     public function logout(Request $request)

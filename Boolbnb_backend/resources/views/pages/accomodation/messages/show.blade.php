@@ -37,7 +37,39 @@
 
             </div>
 
+
+            <div class="reply flex items-center gap-2 ms-auto w-fit cursor-pointer me-6 mb-6"id="reply-icon">
+                <span class="text-xl font-semibold">
+                    Reply to this message
+                </span>
+                <i class="fa-solid fa-reply text-3xl"></i>
+            </div>
         </div>
+
+    </div>
+
+    <div class="overlay h-screen w-full absolute z-10 bg-gray-400 bg-opacity-90 flex items-center justify-center hidden"
+        id="reply-overlay">
+        <form method="POST" action="{{ route('reply') }}" class="w-1/3 bg-white p-6 rounded-lg">
+            @csrf
+            <div class="mt-4 text-gray-800 flex flex-col">
+                <i class="fa-solid fa-xmark ms-auto text-xl font-bold cursor-pointer" id="close_icon"></i>
+                <label for="content" class="mt-4 text-gray-800">
+                    Your Reply to <span class="text-[#8f63f7]">{{ $message->name }}</span>
+                </label>
+                <input type="hidden" name="accomodation_id" value={{ $message->accomodation_id }}>
+                <input type="hidden" name="recipient_email" value={{ $message->email }}>
+
+                <textarea name="content" id="content" cols="30" rows="10" class="w-full mt-4"></textarea>
+
+                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+
+                <x-primary-button class="my-4 mx-auto">
+                    {{ __('Send') }}
+                </x-primary-button>
+            </div>
+        </form>
+
     </div>
 
 </x-app-layout>
@@ -59,3 +91,14 @@
         }
     }
 </style>
+<script>
+    const reply_icon = document.getElementById('reply-icon')
+    const reply_overlay = document.getElementById('reply-overlay')
+    const close_icon = document.getElementById('close_icon')
+    reply_icon.addEventListener('click', () => {
+        reply_overlay.classList.remove('hidden')
+    })
+    close_icon.addEventListener('click', () => {
+        reply_overlay.classList.add('hidden')
+    })
+</script>
