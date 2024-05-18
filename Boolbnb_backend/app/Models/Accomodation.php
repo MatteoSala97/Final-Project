@@ -44,6 +44,11 @@ class Accomodation extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class, 'accomodation_id');
+    }
+
 
     public function distanceToPoint($lng, $lat)
     {

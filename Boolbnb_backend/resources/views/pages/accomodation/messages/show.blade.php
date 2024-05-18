@@ -59,6 +59,8 @@
                 </label>
                 <input type="hidden" name="accomodation_id" value={{ $message->accomodation_id }}>
                 <input type="hidden" name="recipient_email" value={{ $message->email }}>
+                <input type="hidden" name="original_message_id" value="{{ $message->id }}">
+
 
                 <textarea name="content" id="content" cols="30" rows="10" class="w-full mt-4"></textarea>
 
@@ -71,6 +73,19 @@
         </form>
 
     </div>
+
+    @if ($success)
+        <div id="confirmation-modal" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+            <div class="bg-white p-6 rounded-lg flex items-center  justify-center flex-col">
+                <p class="text-gray-800">Your reply has been sent successfully!</p>
+                <x-primary-button class="my-4 mx-auto" id="confirmation-button">
+                    {{ __('Continue') }}
+                </x-primary-button>
+            </div>
+        </div>
+    @endif
+
+
 
 </x-app-layout>
 
@@ -95,10 +110,15 @@
     const reply_icon = document.getElementById('reply-icon')
     const reply_overlay = document.getElementById('reply-overlay')
     const close_icon = document.getElementById('close_icon')
+    const confirmation_modal = document.getElementById('confirmation-modal')
+    const confirmation_button = document.getElementById('confirmation-button')
     reply_icon.addEventListener('click', () => {
         reply_overlay.classList.remove('hidden')
     })
     close_icon.addEventListener('click', () => {
         reply_overlay.classList.add('hidden')
+    })
+    confirmation_button.addEventListener('click', () => {
+        confirmation_modal.classList.add('hidden')
     })
 </script>

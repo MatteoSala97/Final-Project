@@ -41,22 +41,32 @@ class MessageController extends Controller
         // Retrieve accommodations owned by the user
         $accomodations = Accomodation::where('user_id', $user->id)->get();
 
-        // Retrieve messages related to accommodations owned by the user
+        // Retrieve messages received by the user
         $messages = Message::with('accomodation')
             ->join('accomodations', 'messages.accomodation_id', '=', 'accomodations.id')
             ->select('messages.id as message_id', 'messages.created_at as message_created_at', 'accomodations.id as accomodation_id', 'accomodations.host_thumb as accomodation_host_thumb', 'accomodations.title as accomodation_title', 'messages.*')
-            ->where('accomodations.user_id', $user->id)
+            ->where('messages.recipient_email', $user->email)
             ->orderBy('messages.created_at', 'desc')
             ->paginate(5);
 
-        // Pass both messages and accommodations to the view
-        return view('pages.accomodation.messages', compact('messages', 'accomodations'));
+        // Retrieve messages sent by the user
+        $sent_messages = Message::with('accomodation')
+            ->join('accomodations', 'messages.accomodation_id', '=', 'accomodations.id')
+            ->select('messages.id as message_id', 'messages.created_at as message_created_at', 'accomodations.id as accomodation_id', 'accomodations.host_thumb as accomodation_host_thumb', 'accomodations.title as accomodation_title', 'messages.*')
+            ->where('messages.email', $user->email)
+            ->orderBy('messages.created_at', 'desc')
+            ->paginate(5);
+
+        // Pass accommodations, received messages, and sent messages to the view
+        return view('pages.accomodation.messages', compact('accomodations', 'messages', 'sent_messages'));
     }
+
 
 
     public function show(Message $message)
     {
-        return view('pages.accomodation.messages.show', compact('message'));
+        $success = false;
+        return view('pages.accomodation.messages.show', compact('message', 'success'));
     }
 
     public function userMessagesApi(Request $request)
@@ -67,11 +77,16 @@ class MessageController extends Controller
 
         $user = User::findOrFail($request->user_id);
 
-        $sent_messages = Message::where('email', $user->email)->get();
-        $received_messages = Message::where('recipient_email', $user->email)->get();
+        $sent_messages = Message::where('email', $user->email)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        $received_messages = Message::where('recipient_email', $user->email)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return response()->json(['sent_messages' => $sent_messages, 'received_messages' => $received_messages], 200);
     }
+
 
     public function reply(Request $request)
     {
@@ -96,7 +111,8 @@ class MessageController extends Controller
         $recipient_email = $validated_data['recipient_email'];
         $new_message = Message::create($validated_data);
         Mail::to($recipient_email)->send(new NewContact($new_message));
-        $message = $new_message;
-        return view('pages.accomodation.messages.show', compact('message'));
+        $message = Message::findOrFail($request->input('original_message_id'));
+        $success = $new_message ? true : false;
+        return view('pages.accomodation.messages.show', compact('message',  'success'));
     }
 }

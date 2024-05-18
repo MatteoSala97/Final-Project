@@ -72,77 +72,14 @@
                     @endif
                 @endforeach
             </tbody>
-            {{-- <tbody>
-                    @foreach ($messages as $message)
-                        @if ($message->accomodation)
-                            <tr class="border-b hover:bg-neutral-100 message-row view-message-btn cursor-pointer"
-                                data-message-id="{{ $message->id }}"
-                                onclick="window.location='{{ route('messages.show', ['message' => $message->id]) }}';">
 
-                                @foreach ($accomodations as $item)
-                                <td scope="row" class="px-6 py-5 td-id" style="height: 80px">
-                                    @if ($item->thumb)
-                                        <img src="{{ asset($item->thumb) }}" style="height: 80px;"
-                                            class="{{ $item->hidden ? 'grayscale' : '' }}" id="old_thumb">
-                                    @else
-                                        <span>
-                                            {{ $item->id }}
-                                        </span>
-                                    @endif
-                                </td>
-                                @endforeach
 
-                                <td class="px-6 py-5">{{ $message->accomodation->title }}</td>
-                                <td class="px-6 py-5">{{ $message->created_at }}</td>
-                                <td class="px-6 py-5">{{ $message->name }}</td>
-                                <td class="message-body px-6 py-5">{{ $message->content }}</td>
-                            </tr>
-                        @endif
-                    @endforeach
-                </tbody> --}}
-
-                <tbody>
-                    @foreach ($messages as $message)
-                        @if ($message->accomodation)
-                            <tr class="border-b hover:bg-neutral-100 message-row view-message-btn cursor-pointer"
-                                data-message-id="{{ $message->id }}"
-                                onclick="window.location='{{ route('messages.show', ['message' => $message->id]) }}';">
-
-                                <?php $accomodationFound = false; ?>
-                                @foreach ($accomodations as $item)
-                                    @if ($item->id == $message->accomodation->id)
-                                        <?php $accomodationFound = true; ?>
-                                        <td scope="row" class="px-6 py-5 td-id" style="height: 80px">
-                                            @if ($item->thumb)
-                                                <img src="{{ asset($item->thumb) }}" style="height: 80px;"
-                                                    class="{{ $item->hidden ? 'grayscale' : '' }}" id="old_thumb">
-                                            @else
-                                                <span>
-                                                    {{ $item->id }}
-                                                </span>
-                                            @endif
-                                        </td>
-                                    @break
-                                @endif
-                            @endforeach
-
-                            @if (!$accomodationFound)
-                                <td></td>
-                            @endif
-
-                            <td class="px-6 py-5">{{ $message->accomodation->title }}</td>
-                            <td class="px-6 py-5">{{ $message->created_at }}</td>
-                            <td class="px-6 py-5">{{ $message->name }}</td>
-                            <td class="message-body px-6 py-5">{{ $message->content }}</td>
-                        </tr>
-                    @endif
-                @endforeach
-            </tbody>
 
         </table>
         <div class="mt-5 mx-10">
             {{ $messages->links() }}
         </div>
+
     </div>
 </div>
 </x-app-layout>
@@ -150,33 +87,22 @@
 
 
 
-
-
-
-{{-- <script>
-    $(document).ready(function() {
-        $('.view-message-btn').click(function() {
-
-            var messageId = $(this).closest('.message-row').data('message-id');
-            var url = "{{ route('messages.show', ['message' => $message->id]) }}";
-
-            window.location.href = url;
-        });
-    });
-</script> --}}
-
-
 <style>
-    .th-id, .td-id,
-    .th-title, .td-title,
-    .th-name, .td-name,
-    .th-content, .td-content,
-    .th-created_at, .td-created_at{
-        max-width: 200px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+.th-id,
+.td-id,
+.th-title,
+.td-title,
+.th-name,
+.td-name,
+.th-content,
+.td-content,
+.th-created_at,
+.td-created_at {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
 
 @media screen and (max-width: 1240px) {
@@ -278,11 +204,11 @@
 
 
 
-    /* Rules to fix the sidebar and right side dimensions */
-    html,
-    body {
-        height: 100%;
-    }
+/* Rules to fix the sidebar and right side dimensions */
+html,
+body {
+    height: 100%;
+}
 
 .min-h-screen {
     min-height: 100vh;

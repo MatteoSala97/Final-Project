@@ -4,6 +4,7 @@ use App\Http\Controllers\AccomodationController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReservationController;
 use App\Models\User;
 use App\Models\Accomodation;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,7 @@ Route::middleware('auth')->get('/stats', function () {
 
 
 Route::middleware('auth')->group(function () {
+    Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations');
     Route::get('/messages', [MessageController::class, 'index'])->name('messages');
     Route::get('/messages/{message}', [MessageController::class, 'show'])->name('messages.show');
     Route::post('/reply', [MessageController::class, 'reply'])->name('reply');

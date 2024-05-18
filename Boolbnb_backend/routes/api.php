@@ -8,7 +8,9 @@ use App\Http\Controllers\Api\UserAddressController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ViewController;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,12 +46,14 @@ Route::get('/accommodations/{id}', [AccomodationController::class, 'show']);
 Route::get('/get-address-suggestions', [UserAddressController::class, 'suggestAddressList']);
 Route::get('/filtered-accommodations', [AccomodationController::class, 'filteredAccommodations']);
 Route::post('/send-message', [MessageController::class, 'store'])->name('send-message');
+Route::post('/reservations', [ReservationController::class, 'store'])->name('make-reservation');
+
 
 Route::post('/store-visual', [ViewController::class, 'store']);
 
 Route::post('/login', [AuthController::class, 'login'])->middleware('guest');
 Route::post('/register', [AuthController::class, 'register'])->middleware('guest');
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
+Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::get('/get-messages', [MessageController::class, 'userMessagesApi']);
 

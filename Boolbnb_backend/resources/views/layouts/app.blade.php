@@ -46,13 +46,15 @@
             <div class="sidebar flex flex-col pt-4 px-5 border border-y-0 border-l-0">
                 <div class="flex flex-col gap-4">
 
-                    <div class="sidebar-item {{ request()->routeIs('dashboard', 'dashboard.accomodations.create', 'dashboard.accomodations.edit', 'dashboard.accomodations.destroy') ? 'active-bg' : '' }}">
+                    <div
+                        class="sidebar-item {{ request()->routeIs('dashboard', 'dashboard.accomodations.create', 'dashboard.accomodations.edit', 'dashboard.accomodations.destroy') ? 'active-bg' : '' }}">
                         <a href="{{ route('dashboard') }}" class="flex items-center text-left">
                             <img src="/icons/home-alt.svg" class="mr-1" alt="home">
                             <span>Accommodations</span>
                         </a>
                     </div>
-                    <div class="sidebar-item {{ request()->routeIs('stats', 'accomodations.show-stats') ? 'active-bg' : '' }}">
+                    <div
+                        class="sidebar-item {{ request()->routeIs('stats', 'accomodations.show-stats') ? 'active-bg' : '' }}">
                         <a href="{{ route('stats') }}" class="flex text-left">
                             <img src="/icons/graph-bar.svg" class="mr-1" alt="stats">
                             <span>Stats</span>
@@ -70,6 +72,12 @@
                         <a href="{{ route('messages') }}" class="flex items-center text-left">
                             <img src="/icons/message-square.svg" class="mr-1" alt="message">
                             <span>Messages</span>
+                        </a>
+                    </div>
+                    <div class="sidebar-item {{ request()->routeIs('reservations') ? 'active-bg' : '' }}">
+                        <a href="{{ route('reservations') }}" class="flex items-center text-left">
+                            <i class="fa-regular fa-calendar me-2 text-xl"></i>
+                            <span>Reservations</span>
                         </a>
                     </div>
 
@@ -108,7 +116,7 @@
 </script>
 
 <style>
-    @media screen and (max-width: 900px){
+    @media screen and (max-width: 900px) {
         .sidebar {
             width: 210px;
         }
@@ -137,11 +145,12 @@
     }
 
 
-    @media screen and (max-width: 350px){
+    @media screen and (max-width: 350px) {
         .sidebar {
             width: 65px;
         }
-        .sidebar-item{
+
+        .sidebar-item {
             padding: 5px;
         }
     }
@@ -211,4 +220,3 @@
     font-weight: bold;
 } */
 </style>
-
